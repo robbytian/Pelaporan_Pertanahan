@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FieldstaffController;
+use App\Http\Controllers\KantahController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +20,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('kanwil.index');
 });
+
+route::get('/dashboard',[DashboardController::class,'index']);
+Route::resource('/kantah',KantahController::class);
+Route::resource('/fieldstaff',FieldstaffController::class)->middleware('auth');
+Route::resource('/laporan',ReportController::class)->middleware('auth');
+Route::resource('/tahapan',StagesController::class)->middleware('auth');
+Route::resource('/rencanaBulanan',PlanController::class)->middleware('auth');
