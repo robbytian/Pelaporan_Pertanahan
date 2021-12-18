@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 
@@ -15,7 +16,14 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::User()->level == 3){
+            return view('fieldstaff.laporan');
+        }else if(Auth::User()->level == 2){
+            return view('kantah.laporan');
+        }
+        else if(Auth::User()->level == 1){
+            return view('kanwil.laporan');
+        }
     }
 
     /**
