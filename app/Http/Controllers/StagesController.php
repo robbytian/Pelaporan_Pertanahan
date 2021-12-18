@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stages;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreStagesRequest;
 use App\Http\Requests\UpdateStagesRequest;
 
 class StagesController extends Controller
 {
+    public function __construct() {
+        $this->middleware('fieldstaff')->only('create');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,14 @@ class StagesController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::User()->level == 3){
+            return view('fieldstaff.tahapan.index');
+        }else if(Auth::User()->level == 2){
+            return view('kantah.tahapan.index');
+        }
+        else if(Auth::User()->level == 1){
+            return view('kanwil.tahapan.index');
+        }
     }
 
     /**
@@ -25,7 +36,7 @@ class StagesController extends Controller
      */
     public function create()
     {
-        //
+        return view('fieldstaff.tahapan.create');
     }
 
     /**

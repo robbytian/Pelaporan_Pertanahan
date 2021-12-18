@@ -8,6 +8,10 @@ use App\Http\Requests\UpdateFieldstaffRequest;
 
 class FieldstaffController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('fieldstaff')->only('create');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +29,7 @@ class FieldstaffController extends Controller
      */
     public function create()
     {
-        //
+        return view('fieldstaff.create_laporan');
     }
 
     /**

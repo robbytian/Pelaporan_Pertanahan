@@ -27,6 +27,8 @@ Route::get('/login',[AuthController::class,'index'])->middleware('guest')->name(
 Route::post('/login',[AuthController::class,'authenticate'])->middleware('guest');
 Route::get('/logout',[AuthController::class,'logout'])->middleware('auth');
 route::get('/',[AuthController::class,'index']);
+Route::get('/dataLaporan/cetak',[ReportController::class,'cetak'])->middleware('auth');
+Route::get('/dataRencana/cetak',[PlanController::class,'cetak'])->middleware('auth');
 Route::resource('/dataKantah',KantahController::class)->middleware('auth');
 Route::resource('/dataFieldstaff',FieldstaffController::class)->middleware('auth');
 Route::resource('/dataLaporan',ReportController::class)->middleware('auth');

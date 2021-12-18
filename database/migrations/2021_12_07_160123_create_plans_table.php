@@ -15,6 +15,11 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
+            $table->date('periode');
+            $table->string('lokasi');
+            $table->string('tindak_lanjut');
+            $table->foreignId('fieldstaff_id')->nullable();
+            $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('set null');
             $table->timestamps();
         });
     }

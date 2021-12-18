@@ -15,6 +15,13 @@ class CreateStagesTable extends Migration
     {
         Schema::create('stages', function (Blueprint $table) {
             $table->id();
+            $table->integer('pemetaan');
+            $table->integer('penyuluhan');
+            $table->integer('penyusunan');
+            $table->integer('pendampingan');
+            $table->integer('evaluasi');
+            $table->foreignId('fieldstaff_id')->nullable();
+            $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('set null');
             $table->timestamps();
         });
     }

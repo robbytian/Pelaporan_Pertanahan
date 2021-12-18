@@ -21,15 +21,15 @@ class kanwil
             return redirect()->intended('login');
         }
 
-        if (Auth::user()->role == 3) {
+        if (Auth::user()->level == 3) {
             return redirect()->intended('dashboard');
         }
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->level == 1) {
             return $next($request);
         }
 
-        if (Auth::user()->role == 2) {
+        if (Auth::user()->level == 2) {
             return redirect()->intended('dashboard');
         }
     }

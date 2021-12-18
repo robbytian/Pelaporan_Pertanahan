@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
 
 class PlanController extends Controller
 {
+    public function __construct() {
+        $this->middleware('fieldstaff')->only('create');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,14 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::User()->level == 3){
+            return view('fieldstaff.rencana_bulanan.index');
+        }else if(Auth::User()->level == 2){
+            return view('kantah.rencana_bulanan.index');
+        }
+        else if(Auth::User()->level == 1){
+            return view('kanwil.rencana_bulanan.index');
+        }
     }
 
     /**
@@ -25,7 +36,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        return view('fieldstaff.rencana_bulanan.create');
     }
 
     /**
@@ -82,5 +93,9 @@ class PlanController extends Controller
     public function destroy(Plan $plan)
     {
         //
+    }
+
+    public function cetak(){
+        
     }
 }
