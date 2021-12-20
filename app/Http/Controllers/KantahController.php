@@ -1,12 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Kantah;
+use App\Models\Kanwil;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreKantahRequest;
 use App\Http\Requests\UpdateKantahRequest;
 
 class KantahController extends Controller
 {
+    public function __construct() {
+        $this->middleware('kanwil')->only('create','store');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class KantahController extends Controller
      */
     public function index()
     {
-        return view('kanwil.kantah');
+        $allKantah = Kantah::with('Fieldstaff')->get();
+        return view('kanwil.kantah.index',compact('allKantah'));
     }
 
     /**
@@ -24,7 +31,7 @@ class KantahController extends Controller
      */
     public function create()
     {
-        //
+        return view('kanwil.kantah.create');
     }
 
     /**
@@ -35,7 +42,27 @@ class KantahController extends Controller
      */
     public function store(StoreKantahRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $data['username'] = $validated['username'];
+        $data['password'] = bcrypt($validated['password']);
+        $data['level'] = 2;
+        $createUser = User::create($data);
+        if($createUser){
+            
+            $profile['name'] = $validated['name'];
+            $profile['email'] = $validated['email'];
+            $profile['head_name'] = $validated['head_name'];
+            $profile['nip_head_name'] = $validated['nip_head_name'];
+            $profile['kanwil_id'] = Kanwil::where('user_id',Auth::User()->id)->first()->id;
+            $profile['user_id'] = $createUser->id;
+            $createProfile = Kantah::create($profile);
+
+            if($createUser){
+                return view('kanwil.kantah.index');
+            }
+          
+        }
+        
     }
 
     /**

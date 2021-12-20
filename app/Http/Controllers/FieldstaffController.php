@@ -29,7 +29,7 @@ class FieldstaffController extends Controller
      */
     public function create()
     {
-        return view('fieldstaff.create_laporan');
+       
     }
 
     /**

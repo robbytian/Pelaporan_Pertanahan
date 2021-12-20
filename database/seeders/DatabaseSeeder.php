@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Kantah;
+use App\Models\Kanwil;
+use App\Models\Fieldstaff;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +33,30 @@ class DatabaseSeeder extends Seeder
             'username' => 'fieldstaff',
             'password' => bcrypt('fieldstaff'), // password
             'level' => 3,
+        ]);
+
+        Kanwil::create([
+            'name'=>'kanwil',
+            'user_id'=>1
+        ]);
+
+        Kantah::create([
+            'name'=>'kantah',
+            'user_id'=>2,
+            'email'=>'kantah@gmail.com',
+            'head_name'=>'jajang',
+            'nip_head_name'=>'190613011',
+            'kanwil_id'=>1,
+        ]);
+
+        Fieldstaff::create([
+            'name'=>'fieldstaff',
+            'date_born'=>'2001-11-11',
+            'alamat'=>'Di Rumah',
+            'phone_number'=>'089636466772',
+            'target'=>50,
+            'user_id'=>3,
+            'kantah_id'=>1,
         ]);
 
     }

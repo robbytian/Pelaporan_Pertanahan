@@ -23,7 +23,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::DASHBOARD);
+                if(Auth::User()->level==2 || Auth::User()->level==3){
+                    return redirect()->intended('dashboard');
+                }
             }
         }
 

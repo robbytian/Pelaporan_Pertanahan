@@ -6,7 +6,8 @@
   <div class="x_panel">
     <div class="x_title mb-3">
       <h3>Data Laporan</h3>
-      <a href="{{url('/dataLaporan/create')}}" class="btn btn-primary">Tambah Data Laporan</a>
+      <a href="{{url('/dataLaporan/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Laporan</a>
+      
       <table id="tableLaporan" class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -27,7 +28,7 @@
             <td>Edinburgh</td>
             <td>61</td>
             <td>2011/04/25</td>
-            <td> <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> Lihat</button>
+            <td> <button class="btn btn-default" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
               <button class="btn btn-danger" type="button"><i class="fa fa-trash"></i> Delete</button>
             </td>
           </tr>
@@ -35,6 +36,29 @@
 
         </tbody>
       </table>
+    </div>
+    <a href="{{url('/dataLaporan/create')}}" class="btn btn-success" style="float:right"><i class="fa fa-print"></i> Cetak Laporan</a>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
   </div>
 </div>
@@ -46,7 +70,7 @@
     console.log('aa');
 
     $('#tableLaporan').dataTable({
-      "paginate": false,
+      "paginate": false,  
       buttons: [{
         text: 'My button',
         action: function(e, dt, node, config) {

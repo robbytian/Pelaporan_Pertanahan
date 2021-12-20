@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kanwil extends Model
 {
     use HasFactory;
+
+    public function Kantah(){
+        return $this->hasMany(Kantah::class,'kanwil_id');
+    }
 }
