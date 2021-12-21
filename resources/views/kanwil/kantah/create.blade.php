@@ -49,7 +49,7 @@
         </div>
         <br>
         <div class="form-group">
-        <button type="submit" class="btn btn-primary" style="float:left">Tambah Data Laporan</buttoclass=>
+        <button type="submit" class="btn btn-primary" style="float:left">Tambah Kantah</buttoclass=>
         </div>
         </div>
       </form>

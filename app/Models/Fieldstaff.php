@@ -9,7 +9,17 @@ class Fieldstaff extends Model
 {
     use HasFactory;
 
-    public function Kantah(){
-        return $this->belongsTo(Kantah::class,'kantah_id');
+    protected $fillable = [
+        'name', 'date_born', 'alamat', 'phone_number', 'target', 'user_id', 'kantah_id'
+    ];
+
+    public function Kantah()
+    {
+        return $this->belongsTo(Kantah::class, 'kantah_id');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

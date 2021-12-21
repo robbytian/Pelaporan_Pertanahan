@@ -44,8 +44,8 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
 
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <div class="navbar nav_title">
+                        <center><a href="index.html" class="site_title"><i class="fa fa-paw"></i></a></center>
                     </div>
                     <div class="clearfix"></div>
 
@@ -87,14 +87,14 @@
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li><a href="javascript:;">Edit Akun</a></li>
-                                
-                                    @csrf
-                                    <li>
+
+                                @csrf
+                                <li>
                                     <!-- <form action="/logout" method="post"> -->
-                                        <a href="{{url('/logout')}}" onclick="$(this).closest('form').submit()""><i class=" fa fa-sign-out pull-right"></i> Log Out</a>
-                                        <!-- </form> -->
-                                    </li>
-                             
+                                    <a href="{{url('/logout')}}" onclick="$(this).closest('form').submit()""><i class=" fa fa-sign-out pull-right"></i> Log Out</a>
+                                    <!-- </form> -->
+                                </li>
+
 
                             </ul>
                         </li>
@@ -157,8 +157,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{{asset('vendors/moment/min/moment.min.js')}}"></script>
     <script src="{{asset('vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-<!-- Datatables -->
-<script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <!-- Datatables -->
+    <script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
     <script src="{{asset('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
@@ -173,8 +173,8 @@
     <script src="{{asset('vendors/jszip/dist/jszip.min.js')}}"></script>
     <script src="{{asset('vendors/pdfmake/build/pdfmake.min.js')}}"></script>
     <script src="{{asset('vendors/pdfmake/build/vfs_fonts.js')}}"></script>
-     <!-- easy-pie-chart -->
-     <script src="{{asset('vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
+    <!-- easy-pie-chart -->
+    <script src="{{asset('vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{asset('build/js/custom.min.js')}}"></script>
 

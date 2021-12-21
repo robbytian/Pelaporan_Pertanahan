@@ -9,7 +9,13 @@ class Kanwil extends Model
 {
     use HasFactory;
 
-    public function Kantah(){
-        return $this->hasMany(Kantah::class,'kanwil_id');
+    public function Kantah()
+    {
+        return $this->hasMany(Kantah::class, 'kanwil_id');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

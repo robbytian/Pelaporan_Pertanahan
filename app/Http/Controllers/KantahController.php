@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -10,8 +11,9 @@ use App\Http\Requests\UpdateKantahRequest;
 
 class KantahController extends Controller
 {
-    public function __construct() {
-        $this->middleware('kanwil')->only('create','store');
+    public function __construct()
+    {
+        $this->middleware('kanwil')->only('create', 'store');
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +23,7 @@ class KantahController extends Controller
     public function index()
     {
         $allKantah = Kantah::with('Fieldstaff')->get();
-        return view('kanwil.kantah.index',compact('allKantah'));
+        return view('kanwil.kantah.index', compact('allKantah'));
     }
 
     /**
@@ -47,22 +49,20 @@ class KantahController extends Controller
         $data['password'] = bcrypt($validated['password']);
         $data['level'] = 2;
         $createUser = User::create($data);
-        if($createUser){
-            
+        if ($createUser) {
+
             $profile['name'] = $validated['name'];
             $profile['email'] = $validated['email'];
             $profile['head_name'] = $validated['head_name'];
             $profile['nip_head_name'] = $validated['nip_head_name'];
-            $profile['kanwil_id'] = Kanwil::where('user_id',Auth::User()->id)->first()->id;
+            $profile['kanwil_id'] = Kanwil::where('user_id', Auth::User()->id)->first()->id;
             $profile['user_id'] = $createUser->id;
             $createProfile = Kantah::create($profile);
 
-            if($createUser){
-                return view('kanwil.kantah.index');
+            if ($createProfile) {
+                return redirect('/dataKantah');
             }
-          
         }
-        
     }
 
     /**
@@ -108,5 +108,15 @@ class KantahController extends Controller
     public function destroy(Kantah $kantah)
     {
         //
+    }
+
+    public function detKantah($id)
+    {
+        $kantah = Kantah::where('id', $id)->first();
+        $user = User::where('id', $kantah->user_id)->first();
+        return response()->json([
+            'kantah' => $kantah,
+            'user' => $user,
+        ]);
     }
 }

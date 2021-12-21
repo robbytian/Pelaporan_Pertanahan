@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFieldstaffRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreFieldstaffRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,13 @@ class StoreFieldstaffRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'date_born' => 'required',
+            'alamat' => 'required',
+            'phone_number' => 'required',
+            'target' => 'required|max:3',
+            'username' => 'required|unique:users',
+            'password' => 'required'
         ];
     }
 }

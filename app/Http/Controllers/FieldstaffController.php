@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Kantah;
 use App\Models\Fieldstaff;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreFieldstaffRequest;
 use App\Http\Requests\UpdateFieldstaffRequest;
 
 class FieldstaffController extends Controller
 {
 
-    public function __construct() {
-        $this->middleware('fieldstaff')->only('create');
+    public function __construct()
+    {
+        $this->middleware('kantah')->only('create');
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +23,11 @@ class FieldstaffController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::User()->level == '2') {
+            $kantah = Kantah::where('user_id', Auth::User()->id)->first();
+            $fieldstaffs = Fieldstaff::where('kantah_id', $kantah->id)->get();
+            return view('kantah.fieldstaff.index', compact('fieldstaffs'));
+        }
     }
 
     /**
@@ -29,7 +37,7 @@ class FieldstaffController extends Controller
      */
     public function create()
     {
-       
+        return view('kantah.fieldstaff.create');
     }
 
     /**
@@ -40,7 +48,26 @@ class FieldstaffController extends Controller
      */
     public function store(StoreFieldstaffRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $data['username'] = $validated['username'];
+        $data['password'] = bcrypt($validated['password']);
+        $data['level'] = 3;
+        $createUser = User::create($data);
+        if ($createUser) {
+
+            $profile['name'] = $validated['name'];
+            $profile['date_born'] = $validated['date_born'];
+            $profile['alamat'] = $validated['alamat'];
+            $profile['phone_number'] = $validated['phone_number'];
+            $profile['target'] = $validated['target'];
+            $profile['kantah_id'] = Kantah::where('user_id', Auth::User()->id)->first()->id;
+            $profile['user_id'] = $createUser->id;
+            $createProfile = Fieldstaff::create($profile);
+
+            if ($createProfile) {
+                return redirect('/dataFieldstaff');
+            }
+        }
     }
 
     /**

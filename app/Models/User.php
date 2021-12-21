@@ -41,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Kantah()
+    {
+        return $this->hasOne(Kantah::class, 'user_id');
+    }
+
+    public function Kanwil()
+    {
+        return $this->hasOne(Kanwil::class, 'user_id');
+    }
+
+    public function Fieldstaff()
+    {
+        return $this->hasOne(Fieldstaff::class, 'user_id');
+    }
 }

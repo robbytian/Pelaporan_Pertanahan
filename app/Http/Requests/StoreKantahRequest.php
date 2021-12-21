@@ -14,7 +14,7 @@ class StoreKantahRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check(); 
+        return Auth::check();
     }
 
     /**
@@ -25,23 +25,24 @@ class StoreKantahRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'email'=>'required',
-            'head_name'=>'required',
-            'nip_head_name'=>'required',
-            'username'=>'required|unique:users',
-            'password'=>'required'
+            'name' => 'required',
+            'email' => 'required',
+            'head_name' => 'required',
+            'nip_head_name' => 'required',
+            'username' => 'required|unique:users',
+            'password' => 'required'
         ];
     }
 
-    public function messages(){
-        return[
-            'name.required'=>'Field Nama Tidak Boleh Kosong',
-            'email.required'=>'Field Email Tidak Boleh Kosong',
-            'head_name.required'=>'Field Head_Name Tidak Boleh Kosong',
-            'nip_head_name.required'=>'Field NIP Tidak Boleh Kosong',
-            'username.required'=>'Field Username Tidak Boleh Kosong',
-            'password.required'=>'Field Password Tidak Boleh Kosong'
+    public function messages()
+    {
+        return [
+            'name.required' => 'Field Nama Tidak Boleh Kosong',
+            'email.required' => 'Field Email Tidak Boleh Kosong',
+            'head_name.required' => 'Field Head_Name Tidak Boleh Kosong',
+            'nip_head_name.required' => 'Field NIP Tidak Boleh Kosong',
+            'username.required' => 'Field Username Tidak Boleh Kosong',
+            'password.required' => 'Field Password Tidak Boleh Kosong'
         ];
     }
 }
