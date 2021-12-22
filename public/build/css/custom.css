@@ -175,7 +175,7 @@ body {
     font-size: 27px;
     margin: 13px 0 0 3px;
 }
-.site_title img {
+.site_title i {
     border: 1px solid #eaeaea;
     padding: 5px 6px;
     border-radius: 50%;
@@ -2734,7 +2734,7 @@ ul.social li {
     font-size: 18px;
 }
 .percent:after {
-    content: "%";
+    /* content: "%"; */
     margin-left: 0.1em;
     font-size: 0.8em;
 }

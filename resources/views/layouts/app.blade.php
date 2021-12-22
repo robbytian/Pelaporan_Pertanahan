@@ -45,9 +45,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title ">
-                        <img src="{{asset('images/Logo-3.webp')}}" alt="..." class="img-circle profile_img">
-
-
+                        <img src="{{asset('images/Logo-3.webp')}}" alt="..." class="img-circle profile_img" style="width: 50px; display: block; margin-right:20px">
 
                     </div>
                     <div class=" clearfix">
@@ -64,8 +62,6 @@
                         <div class="menu_section">
                             @yield('menu')
                         </div>
-
-
                     </div>
                     <!-- /sidebar menu -->
 
@@ -90,7 +86,7 @@
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">Edit Akun</a></li>
+                                <li><a href="/editAkun">Edit Akun</a></li>
 
                                 @csrf
                                 <li>

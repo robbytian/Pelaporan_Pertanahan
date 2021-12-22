@@ -2684,8 +2684,14 @@ ul.social li {
     z-index: 2;
     font-size: 18px;
 }
+
 .percent:after {
-    content: "%";
+    /* content: "%"; */
+    margin-left: 0.1em;
+    font-size: 0.8em;
+}
+.percent:after {
+    /* content: "%"; */
     margin-left: 0.1em;
     font-size: 0.8em;
 }
@@ -4094,4 +4100,17 @@ ul.notifications {
 }
 .dataTables_wrapper > .row {
     overflow: auto !important;
+}
+
+.logo {
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    width: 150px;
+    height: 150px;
+    margin-left: 5px;
+    border: 5px solid #f0eeee;
+    object-fit: cover;
+    background-size: cover;
 }

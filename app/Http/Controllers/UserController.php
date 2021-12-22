@@ -25,4 +25,15 @@ class UserController extends Controller
             return view('fieldstaff.index')->with($data);
         }
     }
+
+    public function editAkun()
+    {
+        if (Auth::User()->level == 1) {
+            return view('kanwil.editAkun');
+        } else if (Auth::User()->level == 2) {
+            return view('kantah.editAkun');
+        } else if (Auth::User()->level == 3) {
+            return view('fieldstaff.editAkun');
+        }
+    }
 }

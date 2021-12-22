@@ -18,7 +18,7 @@
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count mt-2 text-center">
         <span class="count_top"><i class="fa fa-user"></i> Input Laporan Terakhir</span>
-        <div class="count">
+        <div class="count green">
             <h4 class="" style="margin-top:17px">09 November 2021</h4>
         </div>
     </div>
@@ -27,7 +27,6 @@
     <div class="x_panel tile">
         <div class="x_title">
             <h2>Ranking Kinerja Kantah</h2>
-
             <div class="clearfix"></div>
         </div>
 
@@ -72,7 +71,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-red" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -89,7 +88,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                        <div class="progress-bar bg-red" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -106,7 +105,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-gray" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                        <div class="progress-bar bg-blue-sky" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -127,12 +126,13 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content ">
-                <canvas id="chart_gauge_01" class=""></canvas>
-                <div class="goal-wrapper">
-                    <span id="gauge-text" class="gauge-value pull-left">0</span>
-                    <span class="gauge-value pull-left">%</span>
-                    <span id="goal-text" class="goal-value pull-right">100%</span>
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="pemetaan_kanwil" data-percent="86">
+                        <span class="percent"></span>
+                    </span>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -144,11 +144,10 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 100%; height: 100px;"></canvas>
-                <div class="goal-wrapper">
-                    <span id="gauge-text" class="gauge-value pull-left">0</span>
-                    <span class="gauge-value pull-left">%</span>
-                    <span id="goal-text" class="goal-value pull-right">100%</span>
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="penyuluhan_kanwil" data-percent="9%">
+                        <span class="percent"></span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -161,11 +160,10 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 160px; height: 100px;"></canvas>
-                <div class="goal-wrapper">
-                    <span id="gauge-text" class="gauge-value pull-left">0</span>
-                    <span class="gauge-value pull-left">%</span>
-                    <span id="goal-text" class="goal-value pull-right">100%</span>
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="penyusunan_kanwil" data-percent="46">
+                        <span class="percent"></span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -178,11 +176,10 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 100%; height: 100px;"></canvas>
-                <div class="goal-wrapper">
-                    <span id="gauge-text" class="gauge-value pull-left">0</span>
-                    <span class="gauge-value pull-left">%</span>
-                    <span id="goal-text" class="goal-value pull-right">100%</span>
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="pendampingan_kanwil" data-percent="26">
+                        <span class="percent"></span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -195,14 +192,45 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 160px; height: 100px;"></canvas>
-                <div class="goal-wrapper">
-                    <span id="gauge-text" class="gauge-value pull-left">0</span>
-                    <span class="gauge-value pull-left">%</span>
-                    <span id="goal-text" class="goal-value pull-right">100%</span>
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="evaluasi_kanwil" data-percent="16">
+                        <span class="percent"></span>
+                    </span>
                 </div>
             </div>
         </div>
-
     </div>
+    @endsection
+
+    @section('script')
+    <script>
+        chartDashboard('pemetaan_kanwil', '#455C73');
+        chartDashboard('penyuluhan_kanwil', '#3498DB');
+        chartDashboard('penyusunan_kanwil', '#9B59B6');
+        chartDashboard('pendampingan_kanwil', '#26B99A');
+        chartDashboard('evaluasi_kanwil', '#BDC3C7');
+
+        function chartDashboard(id, warna) {
+
+            if (typeof($.fn.easyPieChart) === 'undefined') {
+                return;
+            }
+            console.log('chartDashboard');
+
+            $('#' + id).easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: warna,
+                trackColor: '#eceff3',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function(from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+
+        };
+    </script>
     @endsection
