@@ -28,6 +28,10 @@ class FieldstaffController extends Controller
             $fieldstaffs = Fieldstaff::where('kantah_id', $kantah->id)->get();
             return view('kantah.fieldstaff.index', compact('fieldstaffs'));
         }
+        if (Auth::User()->level == '1') {
+            $fieldstaffs = Fieldstaff::all();
+            return view('kanwil.fieldstaff.index', compact('fieldstaffs'));
+        }
     }
 
     /**
@@ -113,5 +117,15 @@ class FieldstaffController extends Controller
     public function destroy(Fieldstaff $fieldstaff)
     {
         //
+    }
+
+    public function detFieldstaff($id)
+    {
+        $fieldstaff = Fieldstaff::where('id', $id)->first();
+        $user = User::where('id', $fieldstaff->user_id)->first();
+        return response()->json([
+            'fieldstaff' => $fieldstaff,
+            'user' => $user,
+        ]);
     }
 }

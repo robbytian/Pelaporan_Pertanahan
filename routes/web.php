@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StagesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FieldstaffController;
+use App\Models\Fieldstaff;
 use GuzzleHttp\Middleware;
 
 /*
@@ -33,6 +34,7 @@ route::get('/', [AuthController::class, 'index']);
 Route::get('/dataLaporan/cetak', [ReportController::class, 'cetak'])->middleware('auth');
 Route::get('/dataRencana/cetak', [PlanController::class, 'cetak'])->middleware('auth');
 Route::get('/dataKantah/{id}/detail', [KantahController::class, 'detKantah'])->middleware('auth');
+Route::get('/dataFieldstaff/{id}/detail', [FieldstaffController::class, 'detFieldstaff'])->middleware('auth');
 Route::resource('/dataKantah', KantahController::class)->middleware('kanwil');
 Route::resource('/dataFieldstaff', FieldstaffController::class)->middleware('auth');
 Route::resource('/dataLaporan', ReportController::class)->middleware('auth');

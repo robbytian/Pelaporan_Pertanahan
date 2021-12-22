@@ -9,7 +9,8 @@ use App\Http\Requests\UpdateStagesRequest;
 
 class StagesController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('fieldstaff')->only('create');
     }
     /**
@@ -19,12 +20,11 @@ class StagesController extends Controller
      */
     public function index()
     {
-        if(Auth::User()->level == 3){
+        if (Auth::User()->level == 3) {
             return view('fieldstaff.tahapan.index');
-        }else if(Auth::User()->level == 2){
+        } else if (Auth::User()->level == 2) {
             return view('kantah.tahapan.index');
-        }
-        else if(Auth::User()->level == 1){
+        } else if (Auth::User()->level == 1) {
             return view('kanwil.tahapan.index');
         }
     }

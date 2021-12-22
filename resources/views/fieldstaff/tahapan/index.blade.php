@@ -1,32 +1,41 @@
 @extends('fieldstaff.layouts.main')
-@section('title') Dashboard @endsection
+@section('title') Data Tahapan @endsection
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
-    <div class="x_title mb-3">
-      <h3>Data Tahapan</h3>
-      <a href="{{url('/dataTahapan/create')}}" class="btn btn-primary">Tambah Tahapan</a>
-      <table id="tableLaporan" class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Nama Fieldstaff</th>
-            <th>Total</th>
-            <th>Pemetaan Sosial</th>
-            <th>Penyuluhan</th>
-            <th>Penyusunan Model</th>
-            <th>Pendampingan</th>
-            <th>Evaluasi dan Pelaporan</th>
-          </tr>
-        </thead>
-
-
-        <tbody>
-     
-
-        </tbody>
-      </table>
+    <div class="x_title">
+      <h2>Data Tahapan</h2>
+      <div class="clearfix"></div>
     </div>
+    <a href="{{url('/dataTahapan/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Tahapan</a>
+
+    <table id="tableLaporan" class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Nama Fieldstaff</th>
+          <th>Total</th>
+          <th>Pemetaan Sosial</th>
+          <th>Penyuluhan</th>
+          <th>Penyusunan Model</th>
+          <th>Pendampingan</th>
+          <th>Evaluasi dan Pelaporan</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+
+      </tbody>
+    </table>
+
   </div>
 </div>
 @endsection

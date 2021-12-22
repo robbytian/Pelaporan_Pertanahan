@@ -12,21 +12,21 @@
         <div class="row tile_count">
 
             <div class="col-md-3 col-sm-3 col-xs-12 tile_stats_count text-center mt-2">
-                <span class="count_top"><i class="fa fa-user"></i> Total Input Laporan</span>
-                <div class="count">2500</div>
+                <span class="count_top"><i class="fa fa-file"></i> Total Input Laporan</span>
+                <div class="count">{{$totalLaporan->count()}}</div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 tile_stats_count text-center mt-2">
-                <span class="count_top"><i class="fa fa-clock-o"></i> Laporan Dengan Keluhan</span>
-                <div class="count">123.50</div>
+                <span class="count_top"><i class="fa fa-warning"></i> Laporan Dengan Keluhan</span>
+                <div class="count">{{$laporanKeluhan->count()}}</div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 tile_stats_count text-center mt-2">
-                <span class="count_top"><i class="fa fa-user"></i> Laporan Diberikan Saran</span>
-                <div class="count">2,500</div>
+                <span class="count_top"><i class="fa fa-check-square"></i> Laporan Diberikan Saran</span>
+                <div class="count">{{$laporanSaran->count()}}</div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 tile_stats_count text-center mt-2">
-                <span class="count_top"><i class="fa fa-user"></i> Input Laporan Terakhir</span>
+                <span class="count_top"><i class="fa fa-clock-o"></i> Input Laporan Terakhir</span>
                 <div class="count">
-                    <h4 class="mt-2">09 November 2021</h4>
+                    <h4 class="mt-2">{{empty($tanggal_akhir) ? '-' : date('d F Y',strtotime($tanggal_akhir->created_at))}}</h4>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                <div style="text-align: center; margin-bottom: 17px">
+                    <div style="text-align: center; margin-bottom: 17px">
                         <span class="chart" data-percent="86">
                             <span class="percent"></span>
                         </span>
@@ -75,7 +75,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                <div style="text-align: center; margin-bottom: 17px">
+                    <div style="text-align: center; margin-bottom: 17px">
                         <span class="chart" data-percent="86">
                             <span class="percent"></span>
                         </span>
@@ -91,7 +91,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                <div style="text-align: center; margin-bottom: 17px">
+                    <div style="text-align: center; margin-bottom: 17px">
                         <span class="chart" data-percent="86">
                             <span class="percent"></span>
                         </span>
@@ -107,7 +107,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                <div style="text-align: center; margin-bottom: 17px">
+                    <div style="text-align: center; margin-bottom: 17px">
                         <span class="chart" data-percent="86">
                             <span class="percent"></span>
                         </span>

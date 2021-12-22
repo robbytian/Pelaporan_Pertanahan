@@ -9,7 +9,8 @@ use App\Http\Requests\UpdateReportRequest;
 
 class ReportController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('fieldstaff')->only('create');
     }
     /**
@@ -19,12 +20,11 @@ class ReportController extends Controller
      */
     public function index()
     {
-        if(Auth::User()->level == 3){
+        if (Auth::User()->level == 3) {
             return view('fieldstaff.laporan.index');
-        }else if(Auth::User()->level == 2){
+        } else if (Auth::User()->level == 2) {
             return view('kantah.laporan.index');
-        }
-        else if(Auth::User()->level == 1){
+        } else if (Auth::User()->level == 1) {
             return view('kanwil.laporan.index');
         }
     }
@@ -95,7 +95,8 @@ class ReportController extends Controller
         //
     }
 
-    public function cetak(){
-
+    public function cetak()
+    {
+        return view('fieldstaff.laporan.cetak');
     }
 }

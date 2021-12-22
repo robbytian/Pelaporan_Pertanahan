@@ -44,10 +44,14 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
 
-                    <div class="navbar nav_title">
-                        <center><a href="index.html" class="site_title"><i class="fa fa-paw"></i></a></center>
+                    <div class="navbar nav_title ">
+                        <img src="{{asset('images/Logo-3.webp')}}" alt="..." class="img-circle profile_img">
+
+
+
                     </div>
-                    <div class="clearfix"></div>
+                    <div class=" clearfix">
+                    </div>
 
                     <!-- menu profile quick info -->
 

@@ -1,31 +1,39 @@
 @extends('fieldstaff.layouts.main')
-@section('title') Dashboard @endsection
+@section('title') Data Rencana Bulanan @endsection
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
-    <div class="x_title mb-3">
-      <h3>Data Rencana Bulanan</h3>
-      <a href="{{url('/dataTahapan/create')}}" class="btn btn-primary">Tambah Rencana Bulanan</a>
-      <table id="tableLaporan" class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Nama Fieldstaff</th>
-            <th>Periode</th>
-            <th>Lokasi</th>
-            <th>Penyuluhan</th>
-            <th>Rencana Tindak Lanjut</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-
-        <tbody>
-     
-
-        </tbody>
-      </table>
+    <div class="x_title">
+      <h2>Data Rencana Bulanan</h2>
+      <div class="clearfix"></div>
     </div>
+    <a href="{{url('/dataRencana/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Rencana Bulanan</a>
+    <a href="{{url('/dataRencana/cetak')}}" class="btn btn-success"><i class="fa fa-print"></i> Cetak Rencana Bulanan</a>
+    <br><br>
+    <table id="tableRencana" class="table table-striped table-bordered ">
+      <thead>
+        <tr>
+          <th>Nama Fieldstaff</th>
+          <th>Periode</th>
+          <th>Lokasi</th>
+          <th>Rencana Tindak Lanjut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+
+
+      </tbody>
+    </table>
+
   </div>
 </div>
 @endsection
@@ -35,14 +43,8 @@
   $(document).ready(function() {
     console.log('aa');
 
-    $('#tableLaporan').dataTable({
-      "paginate": false,
-      buttons: [{
-        text: 'My button',
-        action: function(e, dt, node, config) {
-          alert('Button activated');
-        }
-      }]
+    $('#tableRencana').dataTable({
+      "autoWidth": false,
     });
 
   });

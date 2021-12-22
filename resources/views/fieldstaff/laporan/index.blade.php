@@ -1,43 +1,157 @@
 @extends('fieldstaff.layouts.main')
-@section('title') Dashboard @endsection
+@section('title') Data Laporan @endsection
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
-    <div class="x_title mb-3">
-      <h3>Data Laporan</h3>
-      <a href="{{url('/dataLaporan/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Laporan</a>
-      
-      <table id="tableLaporan" class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Nama Fieldstaff</th>
-            <th>Tanggal Laporan</th>
-            <th>Tanggal Input</th>
-            <th>Kegiatan</th>
-            <th>Keluhan</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-
-        <tbody>
-          <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td> <button class="btn btn-default" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
-              <button class="btn btn-danger" type="button"><i class="fa fa-trash"></i> Delete</button>
-            </td>
-          </tr>
-
-
-        </tbody>
-      </table>
+    <div class="x_title">
+      <h2>Data Laporan</h2>
+      <div class="clearfix"></div>
     </div>
-    <a href="{{url('/dataLaporan/create')}}" class="btn btn-success" style="float:right"><i class="fa fa-print"></i> Cetak Laporan</a>
+    <a href="{{url('/dataLaporan/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Laporan</a>
+    <a href="{{url('/dataLaporan/cetak')}}" class="btn btn-success"><i class="fa fa-print"></i> Cetak Laporan</a>
+    <br><br>
+    <table id="tableLaporan" class="table table-striped table-bordered dt-responsive " width="100%">
+      <thead>
+        <tr>
+          <th>Nama Fieldstaff</th>
+          <th>Tanggal Laporan</th>
+          <th>Tanggal Input</th>
+          <th>Kegiatan</th>
+          <th>Keluhan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+    <div class="clearfix"></div>
+
   </div>
 </div>
 
@@ -70,13 +184,7 @@
     console.log('aa');
 
     $('#tableLaporan').dataTable({
-      "paginate": false,  
-      buttons: [{
-        text: 'My button',
-        action: function(e, dt, node, config) {
-          alert('Button activated');
-        }
-      }]
+      "autoWidth": false,
     });
 
   });
