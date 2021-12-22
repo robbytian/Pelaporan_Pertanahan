@@ -4,36 +4,37 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title mb-3">
-            <h3>Data Kantah</h3>
-            <a href="{{url('/dataKantah/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Kantah</a>
-
-            <table id="tableKantah" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th width="50%">Nama</th>
-                        <th>Total Fieldstaff</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-
-                <tbody>
-                    @foreach($allKantah as $kantah)
-                    <tr>
-                        <td>{{$kantah->name}}</td>
-
-                        <td class="text-center">{{$kantah->Fieldstaff->count()}}</td>
-                        <td> <button class="btn btn-default btn-sm" id="btnLihat" type="button" data-toggle="modal" data-target="#dataKantah" data-id="{{$kantah->id}}">
-                                <i class="fa fa-search"></i> Lihat</button>
-                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
-                        </td>
-                    </tr>
-                    @endforeach
-
-
-                </tbody>
-            </table>
+            <h2>Data Kantah</h2>
+            <div class="clearfix"></div>
         </div>
+        <a href="{{url('/dataKantah/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Kantah</a>
+        <table id="tableKantah" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th width="50%">Nama</th>
+                    <th>Total Fieldstaff</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @foreach($allKantah as $kantah)
+                <tr>
+                    <td>{{$kantah->name}}</td>
+
+                    <td class="text-center">{{$kantah->Fieldstaff->count()}}</td>
+                    <td> <button class="btn btn-default btn-sm" id="btnLihat" type="button" data-toggle="modal" data-target="#dataKantah" data-id="{{$kantah->id}}">
+                            <i class="fa fa-search"></i> Lihat</button>
+                        <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+                    </td>
+                </tr>
+                @endforeach
+
+
+            </tbody>
+        </table>
+
 
     </div>
 </div>
@@ -112,7 +113,7 @@
             event.preventDefault();
             var id = $(this).data('id');
             $.get('dataKantah/' + id + '/detail', function(data) {
-                $('#myModalLabel').html("Data "+data.kantah.name);
+                $('#myModalLabel').html("Data " + data.kantah.name);
                 $('#nama_kantah').val(data.kantah.name);
                 $('#email_kantah').val(data.kantah.email);
                 $('#head_kantah').val(data.kantah.head_name);

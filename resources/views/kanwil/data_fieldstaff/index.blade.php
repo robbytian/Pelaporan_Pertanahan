@@ -1,5 +1,5 @@
 @extends('kanwil.layouts.main')
 @section('title') Data Kantah @endsection
 @section('content')
-@include('layouts.fieldstaff.index')
+@include('layouts.data_fieldstaff.index')
 @endsection

@@ -21,11 +21,11 @@ class StagesController extends Controller
     public function index()
     {
         if (Auth::User()->level == 3) {
-            return view('fieldstaff.tahapan.index');
+            return view('fieldstaff.data_tahapan.index');
         } else if (Auth::User()->level == 2) {
-            return view('kantah.tahapan.index');
+            return view('kantah.data_tahapan.index');
         } else if (Auth::User()->level == 1) {
-            return view('kanwil.tahapan.index');
+            return view('kanwil.data_tahapan.index');
         }
     }
 
@@ -36,7 +36,7 @@ class StagesController extends Controller
      */
     public function create()
     {
-        return view('fieldstaff.tahapan.create');
+        return view('fieldstaff.data_tahapan.create');
     }
 
     /**

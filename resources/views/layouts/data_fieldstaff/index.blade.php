@@ -1,41 +1,43 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
-        <div class="x_title mb-3">
-            <h3>Data Fieldstaff</h3>
-            <a href="{{url('/dataFieldstaff/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Fieldstaff</a>
-
-            <table id="tableFieldstaff" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th width="18%">Nama</th>
-                        <th width="15%">Tanggal Lahir</th>
-                        <th width="32%">Alamat</th>
-                        <th width="15%">Target Fisik (KK)</th>
-                        <th width="20%">Action</th>
-                    </tr>
-                </thead>
-
-
-                <tbody>
-                    @foreach($fieldstaffs as $fieldstaff)
-                    <tr>
-                        <td>{{$fieldstaff->name}}</td>
-                        <td>{{date('d F Y',strtotime($fieldstaff->date_born))}}</td>
-                        <td>{{$fieldstaff->alamat}}</td>
-                        <td class="text-center">{{$fieldstaff->target}}</td>
-                        <td> <button class="btn btn-default btn-sm" id="btnLihat" type="button" data-toggle="modal" data-target="#dataFieldstaff" data-id="{{$fieldstaff->id}}">
-                                <i class="fa fa-search"></i> Lihat</button>
-                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
-                        </td>
-                    </tr>
-                    @endforeach
-
-
-                </tbody>
-            </table>
+        <div class="x_title">
+            <h2>Data Fieldstaff</h2>
+            <div class="clearfix"></div>
         </div>
+        <a href="{{url('/dataFieldstaff/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Fieldstaff</a>
 
+        <table id="tableFieldstaff" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th width="18%">Nama</th>
+                    <th width="15%">Tanggal Lahir</th>
+                    <th width="32%">Alamat</th>
+                    <th width="15%">Target Fisik (KK)</th>
+                    <th width="20%">Action</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @foreach($fieldstaffs as $fieldstaff)
+                <tr>
+                    <td>{{$fieldstaff->name}}</td>
+                    <td>{{date('d F Y',strtotime($fieldstaff->date_born))}}</td>
+                    <td>{{$fieldstaff->alamat}}</td>
+                    <td class="text-center">{{$fieldstaff->target}}</td>
+                    <td> <button class="btn btn-default btn-sm" id="btnLihat" type="button" data-toggle="modal" data-target="#dataFieldstaff" data-id="{{$fieldstaff->id}}">
+                            <i class="fa fa-search"></i> Lihat</button>
+                        <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+                    </td>
+                </tr>
+                @endforeach
+
+
+            </tbody>
+        </table>
     </div>
+
+
 </div>
 
 

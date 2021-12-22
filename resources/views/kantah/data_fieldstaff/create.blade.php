@@ -1,4 +1,4 @@
-@extends('kanwil.layouts.main')
+@extends('kantah.layouts.main')
 @section('title') Tambah Data Fieldstaff @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     </div>
     <div class="x_panel">
         <div class="x_title">
-            <h2>Input Data Fieldstaff</h2>
+            <h2>Tambah Data Fieldstaff</h2>
             <div class="clearfix"></div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-margin">

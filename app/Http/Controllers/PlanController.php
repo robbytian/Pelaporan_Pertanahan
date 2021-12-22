@@ -21,11 +21,11 @@ class PlanController extends Controller
     public function index()
     {
         if (Auth::User()->level == 3) {
-            return view('fieldstaff.rencana_bulanan.index');
+            return view('fieldstaff.data_rencana_bulanan.index');
         } else if (Auth::User()->level == 2) {
-            return view('kantah.rencana_bulanan.index');
+            return view('kantah.data_rencana_bulanan.index');
         } else if (Auth::User()->level == 1) {
-            return view('kanwil.rencana_bulanan.index');
+            return view('kanwil.data_rencana_bulanan.index');
         }
     }
 
@@ -36,7 +36,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        return view('fieldstaff.rencana_bulanan.create');
+        return view('fieldstaff.data_rencana_bulanan.create');
     }
 
     /**
@@ -97,6 +97,6 @@ class PlanController extends Controller
 
     public function cetak()
     {
-        return view('fieldstaff.rencana_bulanan.cetak');
+        return view('fieldstaff.data_rencana_bulanan.cetak');
     }
 }

@@ -23,7 +23,7 @@ class KantahController extends Controller
     public function index()
     {
         $allKantah = Kantah::with('Fieldstaff')->get();
-        return view('kanwil.kantah.index', compact('allKantah'));
+        return view('kanwil.data_kantah.index', compact('allKantah'));
     }
 
     /**
@@ -33,7 +33,7 @@ class KantahController extends Controller
      */
     public function create()
     {
-        return view('kanwil.kantah.create');
+        return view('kanwil.data_kantah.create');
     }
 
     /**

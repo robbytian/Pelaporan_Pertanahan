@@ -26,11 +26,11 @@ class FieldstaffController extends Controller
         if (Auth::User()->level == '2') {
             $kantah = Kantah::where('user_id', Auth::User()->id)->first();
             $fieldstaffs = Fieldstaff::where('kantah_id', $kantah->id)->get();
-            return view('kantah.fieldstaff.index', compact('fieldstaffs'));
+            return view('kantah.data_fieldstaff.index', compact('fieldstaffs'));
         }
         if (Auth::User()->level == '1') {
             $fieldstaffs = Fieldstaff::all();
-            return view('kanwil.fieldstaff.index', compact('fieldstaffs'));
+            return view('kanwil.data_fieldstaff.index', compact('fieldstaffs'));
         }
     }
 
@@ -41,7 +41,7 @@ class FieldstaffController extends Controller
      */
     public function create()
     {
-        return view('kantah.fieldstaff.create');
+        return view('kantah.data_fieldstaff.create');
     }
 
     /**
