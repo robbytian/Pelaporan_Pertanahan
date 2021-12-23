@@ -34,7 +34,7 @@
     <link href="{{asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="{{asset('build/css/custom.min.css')}}" rel="stylesheet">
+    <link href="{{asset('build/css/custom2.min.css')}}" rel="stylesheet">
     @yield('style')
 </head>
 
@@ -44,12 +44,15 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
 
-                    <div class="navbar nav_title ">
-                        <img src="{{asset('images/Logo-3.webp')}}" alt="..." class="img-circle profile_img" style="width: 50px; display: block; margin-right:20px">
-
+                    <div class="navbar nav_title">
+                        <div class="logonav" style=" width: 100%;">
+                            <center><img src="{{asset('images/Logo-3.webp')}}" alt="..." class="img-circle profile_img"></center>
+                        </div>
                     </div>
+
                     <div class=" clearfix">
                     </div>
+                    <br>
 
                     <!-- menu profile quick info -->
 

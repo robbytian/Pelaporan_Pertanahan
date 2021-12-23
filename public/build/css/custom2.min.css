@@ -195,6 +195,13 @@ table.tile_info td p {
     font-size: 27px;
     margin: 13px 0 0 3px;
 }
+
+.navbar.nav_title .logonav img {
+    width: 65px;
+}
+.nav-sm .navbar.nav_title .logonav img {
+    width: 50px;
+}
 .site_title i {
     border: 1px soliad #eaeaea;
     padding: 5px 6px;
@@ -280,7 +287,7 @@ table.tile_info td p {
     /* margin-left: 15%; */
     z-index: 1000;
     position: inherit;
-    margin-top: 20px;
+    margin-top: 10px;
     border: 1px solid rgba(52, 73, 94, 0.44);
     padding: 4px;
 }
@@ -2779,6 +2786,7 @@ ul.widget_profile_box li a:hover {
 ul.widget_profile_box li .profile_img {
     width: 85px;
     height: 85px;
+    margin: 0;
     margin: -28px 0 0;
 }
 .widget_tally_box p,
