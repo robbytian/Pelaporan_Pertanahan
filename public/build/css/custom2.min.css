@@ -504,7 +504,7 @@ body .container.body .right_col {
 }
 body {
     color: #73879c;
-    background: #2a3f54;
+    background: #ffffff;
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
     font-weight: 400;
@@ -523,7 +523,7 @@ body {
     padding: 10px 0;
 }
 .page-title .title_left {
-    width: 45%;
+    width: 100%;
     float: left;
     display: block;
 }

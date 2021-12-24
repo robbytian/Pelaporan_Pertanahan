@@ -114,7 +114,7 @@
                         </div>
                         <div class="x_content ">
                             <div style="text-align: center; margin-bottom: 17px;">
-                                <h1 style=" line-height: 110px;"> <i class="fa fa-user"></i> 0</h1>
+                                <h1 style=" line-height: 110px;"> <i class="fa fa-user"></i> {{$fieldstaff->count()}}</h1>
                             </div>
                         </div>
                     </div>

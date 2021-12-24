@@ -22,16 +22,18 @@
 
 
       <tbody>
+        @foreach($reports as $report)
         <tr>
-          <td>Tiger Nixon</td>
-          <td>System Architect</td>
-          <td>Edinburgh</td>
-          <td>61</td>
-          <td>2011/04/25</td>
-          <td> <button class="btn btn-default" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
-            <button class="btn btn-danger" type="button"><i class="fa fa-trash"></i> Delete</button>
+          <td>{{$report->Fieldstaff->name}}</td>
+          <td>{{date('d F Y',strtotime($report->tanggal_laporan))}}</td>
+          <td>{{date('d F Y',strtotime($report->created_at))}}</td>
+          <td>{{$report->kegiatan}}</td>
+          <td>{{$report->keluhan}}</td>
+          <td> <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa fa-search"></i> Lihat</button>
+            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
           </td>
         </tr>
+        @endforeach
 
 
       </tbody>
@@ -66,7 +68,7 @@
   $(document).ready(function() {
     console.log('aa');
     $('#tableLaporan').dataTable({
-      "paginate": false
+      "autoWidth": false,
     });
 
   });

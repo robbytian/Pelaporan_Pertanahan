@@ -6,7 +6,6 @@
     <div class="x_panel tile">
         <div class="x_title">
             <h3>Dashboard</h3>
-
             <div class="clearfix"></div>
         </div>
         <div class="row tile_count">
@@ -42,7 +41,7 @@
                 </div>
                 <div class="x_content ">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="pemetaan_fieldstaff" data-percent="86">
+                        <span class="chart" id="pemetaan_fieldstaff" data-percent="0">
                             <span class="percent"></span>
                         </span>
                     </div>

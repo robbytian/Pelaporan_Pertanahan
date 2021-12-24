@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\Fieldstaff;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
@@ -21,11 +22,14 @@ class ReportController extends Controller
     public function index()
     {
         if (Auth::User()->level == 3) {
-            return view('fieldstaff.data_laporan.index');
+            $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
+            $reports = Report::where('fieldstaff_id', $fieldstaff->id)->get();
+            return view('fieldstaff.data_laporan.index', compact('reports'));
         } else if (Auth::User()->level == 2) {
             return view('kantah.data_laporan.index');
         } else if (Auth::User()->level == 1) {
-            return view('kanwil.data_laporan.index');
+            $reports = Report::with('Fieldstaff')->get();
+            return view('kanwil.data_laporan.index', compact('reports'));
         }
     }
 

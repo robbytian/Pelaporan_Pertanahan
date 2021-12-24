@@ -23,15 +23,18 @@
 
 
             <tbody>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td><button class="btn btn-default btn-sm" id="btnLihat" type="button" data-toggle="modal" data-target="#dataFieldstaff">
-                        <i class="fa fa-search"></i> Lihat</button>
-                    <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
-                </td>
-
+                @foreach($plans as $plan)
+                <tr>
+                    <td>{{$plan->Fieldstaff->name}}</td>
+                    <td>{{date('F Y',strtotime($plan->periode))}}</td>
+                    <td>{{$plan->lokasi}}</td>
+                    <td>{{$plan->tindak_lanjut}}</td>
+                    <td><button class="btn btn-default btn-sm" id="btnLihat" type="button" data-toggle="modal" data-target="#dataFieldstaff">
+                            <i class="fa fa-search"></i> Lihat</button>
+                        <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i> Delete</button>
+                    </td>
+                </tr>
+                @endforeach
 
             </tbody>
         </table>

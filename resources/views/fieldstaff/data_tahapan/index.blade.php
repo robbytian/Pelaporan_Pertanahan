@@ -6,35 +6,89 @@
   <div class="x_panel">
     <div class="x_title">
       <h2>Data Tahapan</h2>
+      <div class="filter">
+        <a href="{{url('/dataTahapan/create')}}" class="btn btn-primary btn-sm pull-right btn-sm"><i class="fa fa-plus"></i> Tambah Tahapan</a>
+      </div>
       <div class="clearfix"></div>
     </div>
-    <a href="{{url('/dataTahapan/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Tahapan</a>
+    <div class="x-content">
+      <div class="col-md-12 col-xs-12">
+        <br>
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-3 col-xs-5">
+            <p for="">Pemetaan Sosial</p>
+          </div>
+          <div class="col-md-8 col-xs-6">
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-success" data-transitiongoal="{{$tahapan->pemetaan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-xs-1">
+            <p for="">{{$tahapan->pemetaan}}/{{$fieldstaff->target}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class=" col-md-12 col-xs-12">
+          <div class="col-md-3 col-xs-5">
+            <p for="">Penyuluhan</p>
+          </div>
+          <div class="col-md-8 col-xs-6">
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-danger" data-transitiongoal="{{$tahapan->penyuluhan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-xs-1">
+            <p for="">{{$tahapan->penyuluhan}}/{{$fieldstaff->target}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-3 col-xs-5">
+            <p for="">Penyusunan Model</p>
+          </div>
+          <div class="col-md-8 col-xs-6">
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-primary" data-transitiongoal="{{$tahapan->penyusunan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-xs-1">
+            <p for="">{{$tahapan->penyusunan}}/{{$fieldstaff->target}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-3 col-xs-5">
+            <p for="">Pendampingan</p>
+          </div>
+          <div class="col-md-8 col-xs-6">
+            <div class="progress progress-striped progress_wide">
+              <div class="progress-bar progress-bar-warning" data-transitiongoal="{{$tahapan->pendampingan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-xs-1">
+            <p for="">{{$tahapan->pendampingan}}/{{$fieldstaff->target}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-3 col-xs-5">
+            <p for="">Evaluasi dan Pelaporan</p>
+          </div>
+          <div class="col-md-8 col-xs-6">
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-gray" data-transitiongoal="{{$tahapan->evaluasi}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-xs-1">
+            <p for="">{{$tahapan->evaluasi}}/{{$fieldstaff->target}}</p>
+          </div>
 
-    <table id="tableLaporan" class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th>Nama Fieldstaff</th>
-          <th>Total</th>
-          <th>Pemetaan Sosial</th>
-          <th>Penyuluhan</th>
-          <th>Penyusunan Model</th>
-          <th>Pendampingan</th>
-          <th>Evaluasi dan Pelaporan</th>
-        </tr>
-      </thead>
+        </div>
 
+      </div>
 
-      <tbody>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
+    </div>
 
-      </tbody>
-    </table>
 
   </div>
 </div>

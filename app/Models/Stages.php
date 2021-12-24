@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Stages extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'pemetaan', 'penyusunan', 'penyuluhan', 'pendampingan', 'evaluasi'
+    ];
+
+    public function Fieldstaff()
+    {
+        return $this->belongsTo(Fieldstaff::class, 'fieldstaff_id');
+    }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Fieldstaff extends Model
 {
@@ -21,5 +22,26 @@ class Fieldstaff extends Model
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function Report()
+    {
+        return $this->hasMany(Report::class, 'fieldstaff_id');
+    }
+
+    public function Tahapan()
+    {
+        return $this->hasOne(Stages::class, 'fieldstaff_id');
+    }
+
+    public function Rencana()
+    {
+        return $this->hasMany(Plan::class, 'fieldstaff_id');
+    }
+
+    public static function getUser()
+    {
+        $user = Fieldstaff::where('user_id', Auth::User()->id)->first();
+        return $user;
     }
 }

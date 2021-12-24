@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\FieldstaffController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Kantah extends Model
 {
@@ -26,5 +27,11 @@ class Kantah extends Model
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public static function getUser()
+    {
+        $user = Kantah::where('user_id', Auth::User()->id)->first();
+        return $user;
     }
 }

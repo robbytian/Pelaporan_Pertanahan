@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use App\Models\Stages;
+use App\Models\Fieldstaff;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
+use App\Models\Report;
 
 class PlanController extends Controller
 {
@@ -21,11 +24,14 @@ class PlanController extends Controller
     public function index()
     {
         if (Auth::User()->level == 3) {
-            return view('fieldstaff.data_rencana_bulanan.index');
+            $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
+            $rencanas = Plan::where('fieldstaff_id', $fieldstaff->id)->get();
+            return view('fieldstaff.data_rencana_bulanan.index', compact('rencanas'));
         } else if (Auth::User()->level == 2) {
             return view('kantah.data_rencana_bulanan.index');
         } else if (Auth::User()->level == 1) {
-            return view('kanwil.data_rencana_bulanan.index');
+            $plans = Plan::with('Fieldstaff')->get();
+            return view('kanwil.data_rencana_bulanan.index', compact('plans'));
         }
     }
 

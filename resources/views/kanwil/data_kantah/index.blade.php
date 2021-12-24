@@ -8,6 +8,7 @@
             <div class="clearfix"></div>
         </div>
         <a href="{{url('/dataKantah/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Kantah</a>
+        <br><br>
         <table id="tableKantah" class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -103,7 +104,7 @@
         console.log('aa');
 
         $('#tableKantah').dataTable({
-            "paginate": false,
+
             "autoWidth": false,
 
         });

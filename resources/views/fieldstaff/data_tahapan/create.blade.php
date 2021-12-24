@@ -13,50 +13,73 @@
             <h2>Input Tahapan</h2>
             <div class="clearfix"></div>
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-margin">
-            <form class="form-horizontal form-label-left" method="post" action="/dataLaporan">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 left-margin">
+            <form class="form-horizontal form-label-left" method="post" action="/dataTahapan/{{$tahapan->id}}">
                 @csrf
-                <br>
-                <div class="form-group">
-                    <label>Nama Fieldstaff</label>
-                    <input type="text" class="form-control" placeholder="Nama Fieldstaff" readonly value="{{Auth::User()->username}}">
-                </div>
-                <br>
-                <div class="form-group">
-                    <label>Target Fisik (KK)</label>
-                    <input type="number" class="form-control" readonly>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label>Tahapan Akses Reforma Agraria</label>
-                    <select class="select2_single form-control" tabindex="-1">
-                        <option selected disabled>Pilih Tahapan Akses Reforma Agraria</option>
-                        <option value="AK">Pemetaan Sosial</option>
-                        <option value="HI">Penyuluhan</option>
-                        <option value="CA">Penyusunan Model</option>
-                        <option value="NV">Pendampingan</option>
-                        <option value="OR">Evaluasi dan Pelaporan</option>
+                @method('PUT')
+                <div class="row">
+                    <div class="col-md-6 col-xs-12" style="margin-top:10px">
+                        <div class="form-group">
+                            <label>Nama Fieldstaff</label>
+                            <input type="text" class="form-control" placeholder="Nama Fieldstaff" value="{{\App\Models\Fieldstaff::getUser()->name}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12" style="margin-top:10px">
+                        <div class="form-group">
+                            <label>Target Fisik (KK)</label>
+                            <input type="number" class="form-control" readonly value="{{\App\Models\Fieldstaff::getUser()->target}}">
+                        </div>
+                    </div>
 
-                    </select>
+                    <div class="col-md-6 col-xs-12" style="margin-top:10px">
+                        <div class="form-group">
+                            <label>Tahapan Akses Reforma Agraria</label>
+                            <select id="tahapan" class="select2_single form-control" tabindex="-1" name="tahapan">
+                                <option selected disabled>Pilih Tahapan Akses Reforma Agraria</option>
+                                <option value="pemetaan">Pemetaan Sosial</option>
+                                <option value="penyuluhan">Penyuluhan</option>
+                                <option value="penyusunan">Penyusunan Model</option>
+                                <option value="pendampingan">Pendampingan</option>
+                                <option value="evaluasi">Evaluasi dan Pelaporan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12" style="margin-top:10px">
+                        <div class="form-group">
+                            <label>Realisasi yang Sudah Di Input</label>
+                            <input id="realisasi" type="number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12" style="margin-top:10px">
+                        <div class="form-group">
+                            <label>Realisasi Fisik</label>
+                            <input id="realisasiFisik" disabled name="jumlahRealisasi" type="number" class="form-control" placeholder="Realisasi Fisik">
+                        </div>
+                    </div>
+
                 </div>
-                <br>
-                <div class="form-group">
-                    <label>Realisasi Fisik</label>
-                    <input type="number" class="form-control" placeholder="Realisasi Fisik">
+                <div class="form-group" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary" style="float:left">Simpan</button>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label>Realisasi yang Sudah Di Input</label>
-                    <input type="number" class="form-control" readonly>
-                </div>
-                <br>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" style="float:left">Simpan</buttoclass=>
-                </div>
+            </form>
         </div>
-        </form>
     </div>
 </div>
 
 
+@endsection
+
+@section('script')
+<script>
+    const tahapan = document.querySelector('#tahapan');
+    const realisasi = document.querySelector('#realisasi');
+    const realisasiFisik = document.querySelector('#realisasiFisik');
+
+    tahapan.addEventListener('change', function() {
+        realisasiFisik.disabled = false;
+        fetch('/dataTahapan/cekRealisasi/{{\App\Models\Fieldstaff::getUser()->id}}?jenis=' + tahapan.value)
+            .then(response => response.json())
+            .then(data => realisasi.value = data.realisasi)
+    });
+</script>
 @endsection

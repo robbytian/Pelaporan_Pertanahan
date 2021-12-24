@@ -21,16 +21,18 @@
                     <th>Evaluasi dan Pelaporan</th>
                 </tr>
             </thead>
-
-
             <tbody>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
+                @foreach($tahapans as $tahapan)
+                <tr>
+                    <td>{{$tahapan->Fieldstaff->name}}</td>
+                    <td></td>
+                    <td>{{$tahapan->pemetaan}}</td>
+                    <td>{{$tahapan->penyuluhan}}</td>
+                    <td>{{$tahapan->penyusunan}}</td>
+                    <td>{{$tahapan->pendampingan}}</td>
+                    <td>{{$tahapan->evaluasi}}</td>
+                </tr>
+                @endforeach
 
             </tbody>
         </table>
@@ -45,13 +47,7 @@
         console.log('aa');
 
         $('#tableLaporan').dataTable({
-            "paginate": false,
-            buttons: [{
-                text: 'My button',
-                action: function(e, dt, node, config) {
-                    alert('Button activated');
-                }
-            }]
+
         });
 
     });

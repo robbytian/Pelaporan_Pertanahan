@@ -5,7 +5,7 @@
             <div class="clearfix"></div>
         </div>
         <a href="{{url('/dataFieldstaff/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Fieldstaff</a>
-
+        <br><br>
         <table id="tableFieldstaff" class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -111,7 +111,6 @@
         console.log('aa');
 
         $('#tableFieldstaff').dataTable({
-            "paginate": false,
             "autoWidth": false,
 
         });

@@ -6,20 +6,20 @@
 <div class="row tile_count">
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count mt-2 text-center">
         <span class="count_top"><i class="fa fa-user"></i> Total Kantah</span>
-        <div class="count">2500</div>
+        <div class="count">{{$totalKantah}}</div>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count mt-2 text-center">
         <span class="count_top"><i class="fa fa-clock-o"></i> Total Fieldstaff</span>
-        <div class="count">123.50</div>
+        <div class="count">{{$totalFieldstaff}}</div>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count mt-2 text-center">
         <span class="count_top"><i class="fa fa-user"></i> Total Input Laporan</span>
-        <div class="count">2,500</div>
+        <div class="count">{{$totalLaporan}}</div>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count mt-2 text-center">
         <span class="count_top"><i class="fa fa-user"></i> Input Laporan Terakhir</span>
         <div class="count green">
-            <h4 class="" style="margin-top:17px">09 November 2021</h4>
+            <h4 class="" style="margin-top:17px">{{empty($tanggal_akhir) ? '-' : date('d F Y',strtotime($tanggal_akhir->created_at))}}</h4>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1000" style="width: 66%;">
+                        <div class="progress-bar bg-green" data-transitiongoal="60">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                        <div class="progress-bar bg-blue" data-transitiongoal="60">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                        <div class="progress-bar bg-orange" data-transitiongoal="60">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-red" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                        <div class="progress-bar bg-red" data-transitiongoal="60">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-blue-sky" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                        <div class="progress-bar bg-blue-sky" data-transitiongoal="60">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
@@ -116,9 +116,8 @@
 
             </div>
         </div>
-
-
     </div>
+
     <div class="col-md-4 col-sm-4 col-xs-12">
         <div class="x_panel tile">
             <div class="x_title">
@@ -131,8 +130,6 @@
                         <span class="percent"></span>
                     </span>
                 </div>
-
-
             </div>
         </div>
     </div>

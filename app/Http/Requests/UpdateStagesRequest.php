@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateStagesRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateStagesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,8 @@ class UpdateStagesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'jumlahRealisasi' => 'required',
+            'tahapan' => 'required',
         ];
     }
 }
