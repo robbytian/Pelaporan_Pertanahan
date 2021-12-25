@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePlanRequest extends FormRequest
@@ -13,7 +14,7 @@ class StorePlanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,9 @@ class StorePlanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'periode' => 'required',
+            'lokasi' => 'required',
+            'tindak_lanjut' => 'required',
         ];
     }
 }

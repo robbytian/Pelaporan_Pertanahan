@@ -25,17 +25,16 @@ class UserController extends Controller
             $data['allData'] = Kantah::with('Fieldstaff', 'Fieldstaff.Report', 'Fieldstaff.Tahapan', 'Fieldstaff.Rencana')->where('user_id', Auth::User()->id)->first();
             return view('kantah.index')->with($data);
         } else if (Auth::User()->level == 3) {
-            $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
-            $tahapan = Stages::where('fieldstaff_id', $fieldstaff->id)->fisrt();
+            $fieldstaff = Fieldstaff::with('Tahapan')->where('user_id', Auth::User()->id)->first();
             $data['totalLaporan'] = Report::where('fieldstaff_id', $fieldstaff->id)->get();
             $data['laporanKeluhan'] = Report::where('fieldstaff_id', $fieldstaff->id)->whereNotNull('keluhan')->where('keluhan', '!=', '')->get();
             $data['laporanSaran'] = Report::where('fieldstaff_id', $fieldstaff->id)->whereNotNull('saran')->where('saran', '!=', '')->get();
             $data['tanggal_akhir'] = Report::where('fieldstaff_id', $fieldstaff->id)->orderBy('created_at', 'desc')->first();
-            $data['persenPemetaan'] = $tahapan->pemetaan / $fieldstaff->target * 100;
-            $data['persenPenyuluhan'] = $tahapan->penyuluhan / $fieldstaff->target * 100;
-            $data['persenPenyusunan'] = $tahapan->penyusunan / $fieldstaff->target * 100;
-            $data['persenPendampingan'] = $tahapan->pendampingan / $fieldstaff->target * 100;
-            $data['persenEvaluasi'] = $tahapan->evaluasi / $fieldstaff->target * 100;
+            $data['persenPemetaan'] = $fieldstaff->Tahapan->pemetaan / $fieldstaff->target * 100;
+            $data['persenPenyuluhan'] = $fieldstaff->Tahapan->penyuluhan / $fieldstaff->target * 100;
+            $data['persenPenyusunan'] = $fieldstaff->Tahapan->penyusunan / $fieldstaff->target * 100;
+            $data['persenPendampingan'] = $fieldstaff->Tahapan->pendampingan / $fieldstaff->target * 100;
+            $data['persenEvaluasi']  = $fieldstaff->Tahapan->evaluasi / $fieldstaff->target * 100;
             return view('fieldstaff.index')->with($data);
         }
     }

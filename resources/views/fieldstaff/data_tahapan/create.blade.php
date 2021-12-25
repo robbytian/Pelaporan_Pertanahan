@@ -27,7 +27,7 @@
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Target Fisik (KK)</label>
-                            <input type="number" class="form-control" readonly value="{{\App\Models\Fieldstaff::getUser()->target}}">
+                            <input type="number" name="targetFisik" class="form-control" readonly value="{{\App\Models\Fieldstaff::getUser()->target}}">
                         </div>
                     </div>
 
@@ -47,13 +47,13 @@
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Realisasi yang Sudah Di Input</label>
-                            <input id="realisasi" type="number" class="form-control" readonly>
+                            <input id="realisasi" type="number" class="form-control" name="realisasiDiInput" readonly>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Realisasi Fisik</label>
-                            <input id="realisasiFisik" disabled name="jumlahRealisasi" type="number" class="form-control" placeholder="Realisasi Fisik">
+                            <input id="realisasiFisik" disabled name="jumlahRealisasi" type="number" class="form-control " placeholder="Realisasi Fisik">
                         </div>
                     </div>
 

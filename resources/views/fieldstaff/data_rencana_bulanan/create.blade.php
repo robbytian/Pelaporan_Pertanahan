@@ -1,6 +1,10 @@
 @extends('fieldstaff.layouts.main')
 @section('title') Tambah Rencana Bulanan @endsection
 
+
+@section('style')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+@endsection
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
@@ -14,7 +18,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-margin">
-            <form class="form-horizontal form-label-left" method="post" action="/dataLaporan">
+            <form class="form-horizontal form-label-left" method="post" action="/dataRencana">
                 @csrf
                 <br>
                 <div class="form-group">
@@ -24,17 +28,18 @@
                 <br>
                 <div class="form-group">
                     <label>Periode</label>
-                    <input type="month" class="form-control">
+                    <input type="text" id="periode2" class="form-control" required placeholder="MM-YYYY">
+                    <input type="hidden" id="periode" name="periode" class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
                     <label>Lokasi</label>
-                    <input type="text" class="form-control" placeholder="Lokasi">
+                    <input type="text" name="lokasi" class="form-control" placeholder="Lokasi" required>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="message">Rencana Tindak Lanjut</label>
-                    <textarea id="message" name="keterangan" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" rows="3" placeholder="Keterangan.."></textarea>
+                    <textarea id="rencana" name="tindak_lanjut" required="required" class="form-control" rows="3" placeholder="Keterangan.."></textarea>
                 </div>
                 <br>
                 <div class="form-group">
@@ -45,5 +50,20 @@
     </div>
 </div>
 
+
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+    $("#periode2").datepicker({
+        format: "mm-yyyy",
+        startView: "months",
+        minViewMode: "months",
+    }).on('changeDate', function() {
+        $("#periode").val("01-" + $("#periode2").val())
+    });
+</script>
 
 @endsection

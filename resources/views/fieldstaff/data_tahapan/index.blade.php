@@ -7,7 +7,7 @@
     <div class="x_title">
       <h2>Data Tahapan</h2>
       <div class="filter">
-        <a href="{{url('/dataTahapan/create')}}" class="btn btn-primary btn-sm pull-right btn-sm"><i class="fa fa-plus"></i> Tambah Tahapan</a>
+        <a href="{{url('/dataTahapan/inputTahapan')}}" class="btn btn-primary btn-sm pull-right btn-sm"><i class="fa fa-plus"></i> Tambah Tahapan</a>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -19,7 +19,7 @@
             <p for="">Pemetaan Sosial</p>
           </div>
           <div class="col-md-8 col-xs-6">
-            <div class="progress progress-striped">
+            <div class="progress ">
               <div class="progress-bar progress-bar-success" data-transitiongoal="{{$tahapan->pemetaan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
@@ -33,7 +33,7 @@
             <p for="">Penyuluhan</p>
           </div>
           <div class="col-md-8 col-xs-6">
-            <div class="progress progress-striped">
+            <div class="progress">
               <div class="progress-bar progress-bar-danger" data-transitiongoal="{{$tahapan->penyuluhan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
@@ -47,7 +47,7 @@
             <p for="">Penyusunan Model</p>
           </div>
           <div class="col-md-8 col-xs-6">
-            <div class="progress progress-striped">
+            <div class="progress ">
               <div class="progress-bar progress-bar-primary" data-transitiongoal="{{$tahapan->penyusunan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
@@ -61,7 +61,7 @@
             <p for="">Pendampingan</p>
           </div>
           <div class="col-md-8 col-xs-6">
-            <div class="progress progress-striped progress_wide">
+            <div class="progress progress_wide">
               <div class="progress-bar progress-bar-warning" data-transitiongoal="{{$tahapan->pendampingan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
@@ -75,7 +75,7 @@
             <p for="">Evaluasi dan Pelaporan</p>
           </div>
           <div class="col-md-8 col-xs-6">
-            <div class="progress progress-striped">
+            <div class="progress">
               <div class="progress-bar progress-bar-gray" data-transitiongoal="{{$tahapan->evaluasi}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>

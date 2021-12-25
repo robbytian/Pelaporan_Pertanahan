@@ -42,8 +42,6 @@ class StagesController extends Controller
      */
     public function create()
     {
-        $tahapan = Stages::where('fieldstaff_id', \App\Models\Fieldstaff::getUser()->id)->first();
-        return view('fieldstaff.data_tahapan.create', compact('tahapan'));
     }
 
     /**
@@ -90,17 +88,23 @@ class StagesController extends Controller
     {
         $validated = $request->validated();
         $jumlah = $validated['jumlahRealisasi'];
-        if ($validated['tahapan'] == 'pemetaan') {
-            $dataTahapan->update(['pemetaan' => DB::raw("pemetaan+$jumlah")]);
-        } else if ($validated['tahapan'] == 'penyuluhan') {
-            $dataTahapan->update(['penyuluhan' => DB::raw("penyuluhan+$jumlah")]);
-        } else if ($validated['tahapan'] == 'penyusunan') {
-            $dataTahapan->update(['penyusunan' => DB::raw("penyusunan+$jumlah")]);
-        } else if ($validated['tahapan'] == 'pendampingan') {
-            $dataTahapan->update(['pendampingan' => DB::raw("pendampingan+$jumlah")]);
-        } else if ($validated['tahapan'] == 'evaluasi') {
-            $dataTahapan->update(['evaluasi' => DB::raw("evaluasi+$jumlah")]);
+        $checkJumlah = $jumlah + $validated['realisasiDiInput'];
+        if ($checkJumlah > $validated['targetFisik']) {
+            return back()->with('error', 'Realisasi Fisik melebihi Target Fisik')->withInput();
+        } else {
+            if ($validated['tahapan'] == 'pemetaan') {
+                $dataTahapan->update(['pemetaan' => DB::raw("pemetaan+$jumlah")]);
+            } else if ($validated['tahapan'] == 'penyuluhan') {
+                $dataTahapan->update(['penyuluhan' => DB::raw("penyuluhan+$jumlah")]);
+            } else if ($validated['tahapan'] == 'penyusunan') {
+                $dataTahapan->update(['penyusunan' => DB::raw("penyusunan+$jumlah")]);
+            } else if ($validated['tahapan'] == 'pendampingan') {
+                $dataTahapan->update(['pendampingan' => DB::raw("pendampingan+$jumlah")]);
+            } else if ($validated['tahapan'] == 'evaluasi') {
+                $dataTahapan->update(['evaluasi' => DB::raw("evaluasi+$jumlah")]);
+            }
         }
+
         return redirect('/dataTahapan');
     }
 
@@ -134,5 +138,11 @@ class StagesController extends Controller
             $data = $fieldstaff->Tahapan->evaluasi;
             return response()->json(['realisasi' => $data]);
         }
+    }
+
+    public function inputTahapan()
+    {
+        $tahapan = Stages::where('fieldstaff_id', \App\Models\Fieldstaff::getUser()->id)->first();
+        return view('fieldstaff.data_tahapan.create', compact('tahapan'));
     }
 }

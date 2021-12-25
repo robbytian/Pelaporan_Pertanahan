@@ -27,6 +27,8 @@ class UpdateStagesRequest extends FormRequest
         return [
             'jumlahRealisasi' => 'required',
             'tahapan' => 'required',
+            'targetFisik' => 'required',
+            'realisasiDiInput' => 'required'
         ];
     }
 }

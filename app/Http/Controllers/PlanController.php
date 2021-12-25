@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Plan;
+use App\Models\Report;
 use App\Models\Stages;
 use App\Models\Fieldstaff;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
-use App\Models\Report;
 
 class PlanController extends Controller
 {
@@ -53,7 +54,16 @@ class PlanController extends Controller
      */
     public function store(StorePlanRequest $request)
     {
-        //
+
+        $validated = $request->validated();
+        $validated['periode'] = Carbon::createFromFormat('d-m-Y', $validated['periode'])->format('Y-m-d');
+        $validated['fieldstaff_id'] = \App\Models\Fieldstaff::getUser()->id;
+        $inputPlan = Plan::create($validated);
+        if ($inputPlan) {
+            return redirect('/dataRencana');
+        } else {
+            dd('error');
+        }
     }
 
     /**
@@ -85,9 +95,15 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePlanRequest $request, Plan $plan)
+    public function update(UpdatePlanRequest $request, Plan $dataRencana)
     {
-        //
+        $validated = $request->validated();
+
+        $update = $dataRencana->update($validated);
+        if ($update) {
+            return back()->with('success', 'Data berhasil diupdate');
+        }
+        dd('aa');
     }
 
     /**
@@ -96,13 +112,23 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plan $plan)
+    public function destroy(Plan $dataRencana)
     {
-        //
+        $dataRencana->delete();
+        return back()->with('success', 'Data berhasil dihapus');
     }
 
     public function cetak()
     {
         return view('fieldstaff.data_rencana_bulanan.cetak');
+    }
+
+
+    public function detRencana(Plan $id)
+    {
+        $id->periode = date('F Y', strtotime($id->periode));
+        return response()->json([
+            'rencana' => $id,
+        ]);
     }
 }

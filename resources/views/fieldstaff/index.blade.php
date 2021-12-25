@@ -41,7 +41,7 @@
                 </div>
                 <div class="x_content ">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="pemetaan_fieldstaff" data-percent="0">
+                        <span class="chart" id="pemetaan_fieldstaff" data-percent="{{$persenPemetaan}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="x_content">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="penyuluhan_fieldstaff" data-percent="86">
+                        <span class="chart" id="penyuluhan_fieldstaff" data-percent="{{$persenPenyuluhan}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="x_content">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="penyusunan_fieldstaff" data-percent="86">
+                        <span class="chart" id="penyusunan_fieldstaff" data-percent="{{$persenPenyusunan}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="x_content">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="pendampingan_fieldstaff" data-percent="86">
+                        <span class="chart" id="pendampingan_fieldstaff" data-percent="{{$persenPendampingan}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -107,7 +107,7 @@
                 </div>
                 <div class="x_content">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="evaluasi_fieldstaff" data-percent="86">
+                        <span class="chart" id="evaluasi_fieldstaff" data-percent="{{$persenEvaluasi}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -144,7 +144,7 @@
             trackWidth: 16,
             lineCap: 'butt',
             onStep: function(from, to, percent) {
-                $(this.el).find('.percent').text(Math.round(percent));
+                $(this.el).find('.percent').text(Math.round(percent) + "%");
             }
         });
 

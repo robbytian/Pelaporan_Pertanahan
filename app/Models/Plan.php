@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'periode', 'lokasi', 'tindak_lanjut', 'fieldstaff_id'
+    ];
 
     public function Fieldstaff()
     {
