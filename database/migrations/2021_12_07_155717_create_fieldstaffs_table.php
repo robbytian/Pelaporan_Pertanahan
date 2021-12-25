@@ -15,10 +15,10 @@ class CreateFieldstaffsTable extends Migration
     {
         Schema::create('fieldstaffs', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
+            $table->string('name', 50);
             $table->date('date_born');
             $table->string('alamat');
-            $table->string('phone_number');
+            $table->string('phone_number', 15);
             $table->boolean('pemetaan')->nullable();
             $table->boolean('penyuluhan')->nullable();
             $table->boolean('penyusunan')->nullable();

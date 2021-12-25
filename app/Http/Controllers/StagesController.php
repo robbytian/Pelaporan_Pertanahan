@@ -88,9 +88,9 @@ class StagesController extends Controller
     {
         $validated = $request->validated();
         $jumlah = $validated['jumlahRealisasi'];
-        $checkJumlah = $jumlah + $validated['realisasiDiInput'];
+        $checkJumlah = $jumlah + $request->realisasiDiInput;
         if ($checkJumlah > $validated['targetFisik']) {
-            return back()->with('error', 'Realisasi Fisik melebihi Target Fisik')->withInput();
+            return back()->with('error', 'Realisasi Fisik Tidak dapat melebihi Target Fisik')->withInput();
         } else {
             if ($validated['tahapan'] == 'pemetaan') {
                 $dataTahapan->update(['pemetaan' => DB::raw("pemetaan+$jumlah")]);
@@ -105,7 +105,7 @@ class StagesController extends Controller
             }
         }
 
-        return redirect('/dataTahapan');
+        return redirect('/dataTahapan')->with('success', 'Data Tahapan berhasil diinput');
     }
 
     /**

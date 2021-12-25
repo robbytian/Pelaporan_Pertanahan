@@ -115,7 +115,8 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    <!-- Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
+                    Copyright © 2021. Kantor Wilayah Provinsi Kalimantan Barat.
                 </div>
                 <div class="clearfix"></div>
             </footer>

@@ -39,6 +39,8 @@ Route::get('/dataKantah/{id}/detail', [KantahController::class, 'detKantah'])->m
 Route::get('/dataRencana/{id}/detail', [PlanController::class, 'detRencana'])->middleware('fieldstaff');
 Route::get('/dataFieldstaff/{id}/detail', [FieldstaffController::class, 'detFieldstaff'])->middleware('auth');
 route::get('/editAkun', [UserController::class, 'editAkun'])->middleware('auth');
+Route::put('/editProfile/{id}', [UserController::class, 'updateProfile'])->middleware('auth');
+route::put('/editAkun/{id}', [UserController::class, 'updateAkun'])->middleware('auth');
 route::get('/dataTahapan/cekRealisasi/{id}', [StagesController::class, 'cekRealisasi'])->middleware('fieldstaff');
 route::get('/dataTahapan/inputTahapan', [StagesController::class, 'inputTahapan'])->middleware('fieldstaff');
 Route::resource('/dataKantah', KantahController::class)->middleware('kanwil');

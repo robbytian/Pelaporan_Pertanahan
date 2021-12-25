@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Kantah;
 use App\Models\Report;
-use App\Models\Fieldstaff;
 use App\Models\Stages;
+use App\Models\Fieldstaff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateAkunRequest;
 
 class UserController extends Controller
 {
@@ -47,6 +50,38 @@ class UserController extends Controller
             return view('kantah.editAkun');
         } else if (Auth::User()->level == 3) {
             return view('fieldstaff.editAkun');
+        }
+    }
+
+    public function updateProfile(Request $request, User $id)
+    {
+        if ($id->level == 3) {
+            $validated = $request->validate([
+                'name' => 'required',
+                'date_born' => 'required',
+                'alamat' => 'required',
+                'phone_number' => 'required'
+            ]);
+            $fieldstaff = Fieldstaff::where('user_id', $id->id)->first();
+            $updateData = $fieldstaff->update($validated);
+            if ($updateData) {
+                return back()->with('success', 'Data berhasil diupdate');
+            }
+        }
+    }
+
+    public function updateAkun(UpdateAkunRequest $request, User $id)
+    {
+        $validated = $request->validated();
+        if (!Hash::check($validated['password_lama'], $id->password)) {
+            return back()->with('error', 'Password Lama tidak sesuai');
+        }
+
+        $data['username'] = $validated['username'];
+        $data['password'] = bcrypt($validated['password']);
+        $update = $id->update($data);
+        if ($update) {
+            return back()->with('success', 'Data berhasil diupdate');
         }
     }
 }

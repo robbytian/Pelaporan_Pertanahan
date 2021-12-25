@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
+    @include('layouts.notif')
     <div class="page-title">
         <div class="title_left ">
             <h4><small><a href="/dataTahapan">Data Tahapan</a> / Tambah Tahapan</small></h4>
@@ -34,31 +35,31 @@
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Tahapan Akses Reforma Agraria</label>
-                            <select id="tahapan" class="select2_single form-control" tabindex="-1" name="tahapan">
+                            <select id="tahapan" class="select2_single form-control" tabindex="-1" name="tahapan" required>
                                 <option selected disabled>Pilih Tahapan Akses Reforma Agraria</option>
-                                <option value="pemetaan">Pemetaan Sosial</option>
-                                <option value="penyuluhan">Penyuluhan</option>
-                                <option value="penyusunan">Penyusunan Model</option>
-                                <option value="pendampingan">Pendampingan</option>
-                                <option value="evaluasi">Evaluasi dan Pelaporan</option>
+                                <option value="pemetaan" {{old('tahapan') == "pemetaan" ? 'selected' : ''}}>Pemetaan Sosial</option>
+                                <option value="penyuluhan" {{old('tahapan') == "penyuluhan" ? 'selected' : ''}}>Penyuluhan</option>
+                                <option value="penyusunan" {{old('tahapan') == "penyusunan" ? 'selected' : ''}}>Penyusunan Model</option>
+                                <option value="pendampingan" {{old('tahapan') == "pendampingan" ? 'selected' : ''}}>Pendampingan</option>
+                                <option value="evaluasi" {{old('tahapan') == "evaluasi" ? 'selected' : ''}}>Evaluasi dan Pelaporan</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Realisasi yang Sudah Di Input</label>
-                            <input id="realisasi" type="number" class="form-control" name="realisasiDiInput" readonly>
+                            <input id="realisasi" type="number" class="form-control" name="realisasiDiInput" readonly value="{{old('realisasiDiInput')}}">
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Realisasi Fisik</label>
-                            <input id="realisasiFisik" disabled name="jumlahRealisasi" type="number" class="form-control " placeholder="Realisasi Fisik">
+                            <input id="realisasiFisik" name="jumlahRealisasi" type="number" class="form-control " placeholder="Realisasi Fisik" value="{{old('jumlahRealisasi')}}" required>
                         </div>
                     </div>
 
                 </div>
-                <div class="form-group" style="margin-top:10px">
+                <div class=" form-group" style="margin-top:10px">
                     <button type="submit" class="btn btn-primary" style="float:left">Simpan</button>
                 </div>
             </form>
@@ -76,7 +77,6 @@
     const realisasiFisik = document.querySelector('#realisasiFisik');
 
     tahapan.addEventListener('change', function() {
-        realisasiFisik.disabled = false;
         fetch('/dataTahapan/cekRealisasi/{{\App\Models\Fieldstaff::getUser()->id}}?jenis=' + tahapan.value)
             .then(response => response.json())
             .then(data => realisasi.value = data.realisasi)

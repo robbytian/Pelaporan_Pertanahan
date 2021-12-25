@@ -3,16 +3,7 @@
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
-  <!-- <div class="alert alert-success alert-dismissible fade in" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-  </div>
-  <div class="alert alert-danger alert-dismissible fade in" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-  </div> -->
+  @include('layouts.notif')
   <div class="x_panel">
     <div class="x_title">
       <h2>Data Rencana Bulanan</h2>

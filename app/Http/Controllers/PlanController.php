@@ -60,9 +60,7 @@ class PlanController extends Controller
         $validated['fieldstaff_id'] = \App\Models\Fieldstaff::getUser()->id;
         $inputPlan = Plan::create($validated);
         if ($inputPlan) {
-            return redirect('/dataRencana');
-        } else {
-            dd('error');
+            return redirect('/dataRencana')->with('success', 'Data berhasil ditambahkan');
         }
     }
 

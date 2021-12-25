@@ -28,7 +28,15 @@ class UpdateStagesRequest extends FormRequest
             'jumlahRealisasi' => 'required',
             'tahapan' => 'required',
             'targetFisik' => 'required',
-            'realisasiDiInput' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'jumlahRealisasi.required' => 'Field Realisasi Fisik Tidak Boleh Kosong',
+            'tahapan.required' => 'Pilih Salah satu Tahapan!',
+            'targetFisik.required' => 'Field NIP Tidak Boleh Kosong',
         ];
     }
 }
