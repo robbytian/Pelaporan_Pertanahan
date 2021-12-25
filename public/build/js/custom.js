@@ -1938,6 +1938,7 @@ function init_daterangepicker() {
     };
 
     var optionSet1 = {
+        minViewMode: "months",
         startDate: moment().subtract(29, "days"),
         endDate: moment(),
         minDate: "01/01/2012",

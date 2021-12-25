@@ -7,6 +7,7 @@ use App\Models\Plan;
 use App\Models\Report;
 use App\Models\Stages;
 use App\Models\Fieldstaff;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
@@ -128,5 +129,23 @@ class PlanController extends Controller
         return response()->json([
             'rencana' => $id,
         ]);
+    }
+
+    public function cekPeriode(Fieldstaff $id, Request $request)
+    {
+        $periodeAwal = Carbon::createFromFormat('d-m-Y', $request->awal)->format('Y-m-d');
+        $periodeAkhir = Carbon::createFromFormat('d-m-Y', $request->akhir)->format('Y-m-d');
+        $alldata = $id->load(['Rencana' => function ($query) use ($periodeAwal, $periodeAkhir) {
+            $query->where('periode', '>=', $periodeAwal)->where('periode', '<=', $periodeAkhir);
+        }]);
+        foreach ($alldata->Rencana as $data) {
+            $rencana[] = [
+                "periode" => date('F Y', strtotime($data->periode)),
+                'lokasi' => $data->lokasi,
+                'tindak_lanjut' => $data->tindak_lanjut
+            ];
+        }
+
+        return response()->json(['data' => @$rencana]);
     }
 }

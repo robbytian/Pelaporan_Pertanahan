@@ -1,12 +1,12 @@
 @extends('fieldstaff.layouts.main')
 @section('title') Tambah Rencana Bulanan @endsection
 
-
 @section('style')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
 @endsection
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
+    @include('layouts.notif')
     <div class="page-title">
         <div class="title_left ">
             <h4><small><a href="/dataRencana">Data Rencana</a> / Tambah Rencana</small></h4>
@@ -43,7 +43,7 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" style="float:left">Simpan</buttoclass=>
+                    <button type="submit" class="btn btn-primary" style="float:left">Simpan</button>
                 </div>
         </div>
         </form>
