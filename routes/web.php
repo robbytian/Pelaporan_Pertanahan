@@ -38,6 +38,7 @@ Route::get('/dataRencana/cetak', [PlanController::class, 'cetak'])->middleware('
 Route::get('/dataKantah/{id}/detail', [KantahController::class, 'detKantah'])->middleware('auth');
 Route::get('/dataRencana/{id}/detail', [PlanController::class, 'detRencana'])->middleware('fieldstaff');
 Route::get('/dataRencana/{id}/cekDataPeriode', [PlanController::class, 'cekPeriode'])->middleware('fieldstaff');
+Route::get('/dataRencana/{id}/cetakPDF', [PlanController::class, 'cetakRencana'])->middleware('fieldstaff');
 Route::get('/dataFieldstaff/{id}/detail', [FieldstaffController::class, 'detFieldstaff'])->middleware('auth');
 route::get('/editAkun', [UserController::class, 'editAkun'])->middleware('auth');
 Route::put('/editProfile/{id}', [UserController::class, 'updateProfile'])->middleware('auth');

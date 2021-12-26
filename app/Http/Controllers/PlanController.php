@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
+use PDF;
 
 class PlanController extends Controller
 {
@@ -147,5 +148,17 @@ class PlanController extends Controller
         }
 
         return response()->json(['data' => @$rencana]);
+    }
+
+    public function cetakRencana(Fieldstaff $id, Request $request)
+    {
+        $periodeAwal = Carbon::createFromFormat('d-m-Y', $request->awal)->format('Y-m-d');
+        $periodeAkhir = Carbon::createFromFormat('d-m-Y', $request->akhir)->format('Y-m-d');
+        $alldata = $id->load(['Rencana' => function ($query) use ($periodeAwal, $periodeAkhir) {
+            $query->where('periode', '>=', $periodeAwal)->where('periode', '<=', $periodeAkhir);
+        }]);
+        $pdf = PDF::loadView('layouts.pdf_rencana', ['alldata' => $alldata, 'awal' => $periodeAwal, 'akhir' => $periodeAkhir]);
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download("Rencana Bulanan-" . $id->name . "_" . date("YmdHis") . ".pdf");
     }
 }

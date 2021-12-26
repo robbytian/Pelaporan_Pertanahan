@@ -55,22 +55,20 @@
                 <table id="tableCetak" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-
                             <th width="18%">Periode</th>
                             <th width="18%">Lokasi</th>
                             <th width="28%">Rencana Tindak Lanjut</th>
                         </tr>
                     </thead>
                     <tbody id="isiData">
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
                     </tbody>
                 </table>
                 <hr>
-                <button type="submit" id="btnCetak" class="btn btn-success pull-right" disabled> <i class="fa fa-print"></i> Cetak</button>
+                <form id="linkCetak">
+                    <input type="hidden" id="cetakAwal" name="awal">
+                    <input type="hidden" id="cetakAkhir" name="akhir">
+                    <button type="submit" id="btnCetak" class="btn btn-success pull-right" disabled> <i class="fa fa-print"></i> Cetak</button>
+                </form>
             </div>
         </div>
     </div>
@@ -84,6 +82,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 
 <script>
+    $(window).unload(function() {
+        $('#btnCetak').prop('disabled', true);
+    });
+
     $('#tableCetak').dataTable({
         "paging": false,
         "info": false,
@@ -112,8 +114,10 @@
         $("#isiData").empty();
         $('#btnCetak').prop('disabled', true);
         $('#titlePeriode').text("Periode " + periodeAwal + " s.d " + periodeAkhir);
+        $('#linkCetak').attr('action', '/dataRencana/{{\App\Models\Fieldstaff::getUser()->id}}/cetakPDF');
+        $('#cetakAwal').val(awal);
+        $('#cetakAkhir').val(akhir);
         event.preventDefault();
-        console.log('/dataRencana/{{\App\Models\Fieldstaff::getUser()->id}}/cekDataPeriode?awal=' + awal + '&akhir=' + akhir);
         $.get('/dataRencana/{{\App\Models\Fieldstaff::getUser()->id}}/cekDataPeriode?awal=' + awal + '&akhir=' + akhir, function(data) {
             console.log(data);
             if (data.data == null) {

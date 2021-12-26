@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kanwil extends Model
 {
@@ -18,4 +19,10 @@ class Kanwil extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // public static function getUser()
+    // {
+    //     $user = Kanwil::where('user_id', Auth::User()->id)->first();
+    //     return $user;
+    // }
 }

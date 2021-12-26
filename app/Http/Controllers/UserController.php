@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateAkunRequest;
+use App\Models\Plan;
 
 class UserController extends Controller
 {
@@ -64,6 +65,20 @@ class UserController extends Controller
             ]);
             $fieldstaff = Fieldstaff::where('user_id', $id->id)->first();
             $updateData = $fieldstaff->update($validated);
+            if ($updateData) {
+                return back()->with('success', 'Data berhasil diupdate');
+            }
+        }
+
+        if ($id->level == 2) {
+            $validated = $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'head_name' => 'required',
+                'nip_head_name' => 'required'
+            ]);
+            $kantah = Kantah::where('user_id', $id->id)->first();
+            $updateData = $kantah->update($validated);
             if ($updateData) {
                 return back()->with('success', 'Data berhasil diupdate');
             }
