@@ -3,29 +3,69 @@
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
+    @include('layouts.notif')
+</div>
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+
     <div class="x_panel">
         <div class="x_title">
-            <h2>Edit Akun</h2>
+            <h2>Edit Profile</h2>
             <div class="clearfix"></div>
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-margin">
-            <form class="form-horizontal form-label-left" method="post" action="/dataKantah">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 left-margin">
+            <form class="form-horizontal form-label-left" method="post" action="/editProfile/{{Auth::User()->id}}">
                 @csrf
+                @method('PUT')
                 <br>
                 <div class="form-group">
-                    <label>Nama </label>
-                    <input type="text" name="name" class="form-control" placeholder="Nama Kantah">
+                    <label>Nama <span class="required">*</span> </label>
+                    <input type="text" name="name" class="form-control" placeholder="Nama Kanwil" value="{{\App\Models\User::getUser()->name}}">
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="float:left">Update</buttoclass=>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Edit User Login</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 left-margin">
+            <form class="form-horizontal form-label-left" method="post" action="/editAkun/{{Auth::User()->id}}">
+                @csrf
+                @method('PUT')
+                <br>
+
+                <div class="form-group">
+                    <label>Username <span class="required">*</span></label>
+                    <input type="text" name="username" class="form-control" placeholder="Username" required value="{{Auth::User()->username}}">
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <label>Password Baru</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    <label>Konfirmasi Password Baru</label>
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
+
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    <i class="bi bi-eye-slash" id="togglePassword"></i>
+                    <label>Password Lama <span class="required">*</span></label>
+                    <input type="password" name="password_lama" class="form-control" placeholder="Password" required>
+
                 </div>
                 <br>
                 <div class="form-group">
@@ -34,6 +74,7 @@
         </div>
         </form>
     </div>
-    </form>
 </div>
+
+
 @endsection

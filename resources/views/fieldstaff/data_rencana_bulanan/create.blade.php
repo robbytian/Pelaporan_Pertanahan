@@ -27,18 +27,18 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Periode</label>
+                    <label>Periode <span class="required">*</span></label>
                     <input type="text" id="periode2" class="form-control" required placeholder="MM-YYYY">
                     <input type="hidden" id="periode" name="periode" class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Lokasi</label>
+                    <label>Lokasi <span class="required">*</span></label>
                     <input type="text" name="lokasi" class="form-control" placeholder="Lokasi" required>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="message">Rencana Tindak Lanjut</label>
+                    <label for="message">Rencana Tindak Lanjut <span class="required">*</span></label>
                     <textarea id="rencana" name="tindak_lanjut" required="required" class="form-control" rows="3" placeholder="Keterangan.."></textarea>
                 </div>
                 <br>

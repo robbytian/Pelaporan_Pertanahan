@@ -19,23 +19,23 @@
                 @method('PUT')
                 <br>
                 <div class="form-group">
-                    <label>Nama</label>
+                    <label>Nama <span class="required">*</span></label>
                     <input type="text" name="name" class="form-control" placeholder="Nama Kantah" value="{{\App\Models\Kantah::getUser()->name}}">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Email <span class="required">*</span></label>
                     <input type="email" name="email" class="form-control" value="{{\App\Models\Kantah::getUser()->email}}" required>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Kasi Penataan dan Pemberdayaan</label>
+                    <label>Kasi Penataan dan Pemberdayaan <span class="required">*</span></label>
                     <input type="text" name="head_name" class="form-control" placeholder="Kasi Penataan dan Pemberdayaan" value="{{\App\Models\Kantah::getUser()->head_name}}">
                 </div>
                 <br>
 
                 <div class="form-group">
-                    <label>NIP</label>
+                    <label>NIP <span class="required">*</span></label>
                     <input type="text" name="nip_head_name" class="form-control" placeholder="No.Telepon" required value="{{\App\Models\Kantah::getUser()->nip_head_name}}">
                 </div>
                 <br>
@@ -61,25 +61,26 @@
                 <br>
 
                 <div class="form-group">
-                    <label>Username</label>
+                    <label>Username <span class="required">*</span></label>
                     <input type="text" name="username" class="form-control" placeholder="Username" required value="{{Auth::User()->username}}">
                 </div>
-                <br>
-                <div class="form-group">
-                    <label>Password Lama</label>
-                    <input type="password" name="password_lama" class="form-control" placeholder="Password" required>
 
-                </div>
                 <br>
                 <div class="form-group">
                     <label>Password Baru</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
 
                 </div>
                 <br>
                 <div class="form-group">
                     <label>Konfirmasi Password Baru</label>
-                    <input type="password" name="password_confirmation" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
+
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Password Lama <span class="required">*</span></label>
+                    <input type="password" name="password_lama" class="form-control" placeholder="Password" required>
 
                 </div>
                 <br>

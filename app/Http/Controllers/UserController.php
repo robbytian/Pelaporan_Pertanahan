@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use App\Models\User;
 use App\Models\Kantah;
+use App\Models\Kanwil;
 use App\Models\Report;
 use App\Models\Stages;
 use App\Models\Fieldstaff;
@@ -11,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateAkunRequest;
-use App\Models\Plan;
 
 class UserController extends Controller
 {
@@ -68,9 +69,7 @@ class UserController extends Controller
             if ($updateData) {
                 return back()->with('success', 'Data berhasil diupdate');
             }
-        }
-
-        if ($id->level == 2) {
+        } else if ($id->level == 2) {
             $validated = $request->validate([
                 'name' => 'required',
                 'email' => 'required',
@@ -79,6 +78,15 @@ class UserController extends Controller
             ]);
             $kantah = Kantah::where('user_id', $id->id)->first();
             $updateData = $kantah->update($validated);
+            if ($updateData) {
+                return back()->with('success', 'Data berhasil diupdate');
+            }
+        } else if ($id->level == 1) {
+            $validated = $request->validate([
+                'name' => 'required',
+            ]);
+            $kanwil = Kanwil::where('user_id', $id->id)->first();
+            $updateData = $kanwil->update($validated);
             if ($updateData) {
                 return back()->with('success', 'Data berhasil diupdate');
             }
@@ -93,7 +101,9 @@ class UserController extends Controller
         }
 
         $data['username'] = $validated['username'];
-        $data['password'] = bcrypt($validated['password']);
+        if ($validated['password'] != '') {
+            $data['password'] = bcrypt($validated['password']);
+        }
         $update = $id->update($data);
         if ($update) {
             return back()->with('success', 'Data berhasil diupdate');

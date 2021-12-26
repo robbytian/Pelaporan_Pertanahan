@@ -23,12 +23,12 @@
         </div>
         <br>
         <div class="form-group">
-          <label>Tanggal</label>
+          <label>Tanggal <span class="required">*</span></label>
           <input type="date" name="tanggal_laporan" class="form-control" placeholder="Password" value="<?php echo date('Y-m-d') ?>">
         </div>
         <br>
         <div class="form-group">
-          <label>Kegiatan</label>
+          <label>Kegiatan <span class="required">*</span></label>
           <div class="checkbox">
             <label>
               <input type="checkbox" name="kegiatan" class="flat" checked name="iCheck"> Koordinasi dengan kantah
@@ -57,12 +57,12 @@
         </div>
         <br>
         <div class="form-group">
-          <label for="message">Keterangan</label>
+          <label for="message">Keterangan <span class="required">*</span></label>
           <textarea id="message" name="keterangan" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" rows="3" placeholder="Keterangan.."></textarea>
         </div>
         <br>
         <div class="form-group">
-          <label>Peserta</label>
+          <label>Peserta <span class="required">*</span></label>
           <input type="email" name="peserta" class="form-control" placeholder="Peserta">
         </div>
         <br>

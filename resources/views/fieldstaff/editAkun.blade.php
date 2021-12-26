@@ -19,23 +19,23 @@
                 @method('PUT')
                 <br>
                 <div class="form-group">
-                    <label>Nama Fieldstaff</label>
+                    <label>Nama Fieldstaff <span class="required">*</span></label>
                     <input type="text" name="name" class="form-control" placeholder="Nama Fieldstaff" value="{{\App\Models\Fieldstaff::getUser()->name}}">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Tanggal Lahir</label>
+                    <label>Tanggal Lahir <span class="required">*</span></label>
                     <input type="date" name="date_born" class="form-control" value="{{\App\Models\Fieldstaff::getUser()->date_born}}" required>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="message">Alamat</label>
+                    <label for="message">Alamat <span class="required">*</span></label>
                     <textarea id="message" name="alamat" required="required" class="form-control" name="message" data-parsley-trigger="keyup" rows="2" placeholder="Alamat..">{{\App\Models\Fieldstaff::getUser()->alamat}}</textarea>
                 </div>
                 <br>
 
                 <div class="form-group">
-                    <label>No. Telepon</label>
+                    <label>No. Telepon <span class="required">*</span></label>
                     <input type="number" name="phone_number" class="form-control" placeholder="No.Telepon" required value="{{\App\Models\Fieldstaff::getUser()->phone_number}}">
                 </div>
                 <br>
@@ -61,25 +61,26 @@
                 <br>
 
                 <div class="form-group">
-                    <label>Username</label>
+                    <label>Username <span class="required">*</span></label>
                     <input type="text" name="username" class="form-control" placeholder="Username" required value="{{Auth::User()->username}}">
                 </div>
-                <br>
-                <div class="form-group">
-                    <label>Password Lama</label>
-                    <input type="password" name="password_lama" class="form-control" placeholder="Password" required>
 
-                </div>
                 <br>
                 <div class="form-group">
                     <label>Password Baru</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
 
                 </div>
                 <br>
                 <div class="form-group">
                     <label>Konfirmasi Password Baru</label>
-                    <input type="password" name="password_confirmation" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
+
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Password Lama <span class="required">*</span></label>
+                    <input type="password" name="password_lama" class="form-control" placeholder="Password" required>
 
                 </div>
                 <br>

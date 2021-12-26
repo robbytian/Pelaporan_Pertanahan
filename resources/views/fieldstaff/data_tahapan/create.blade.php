@@ -34,7 +34,7 @@
 
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
-                            <label>Tahapan Akses Reforma Agraria</label>
+                            <label>Tahapan Akses Reforma Agraria <span class="required">*</span></label>
                             <select id="tahapan" class="select2_single form-control" tabindex="-1" name="tahapan" required>
                                 <option selected disabled>Pilih Tahapan Akses Reforma Agraria</option>
                                 <option value="pemetaan" {{old('tahapan') == "pemetaan" ? 'selected' : ''}}>Pemetaan Sosial</option>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
-                            <label>Realisasi Fisik</label>
+                            <label>Realisasi Fisik <span class="required">*</span></label>
                             <input id="realisasiFisik" name="jumlahRealisasi" type="number" class="form-control " placeholder="Realisasi Fisik" value="{{old('jumlahRealisasi')}}" required>
                         </div>
                     </div>

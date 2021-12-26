@@ -10,6 +10,10 @@ class Kanwil extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function Kantah()
     {
         return $this->hasMany(Kantah::class, 'kanwil_id');

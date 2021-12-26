@@ -27,8 +27,7 @@ class UpdateAkunRequest extends FormRequest
         return [
             'username' => 'required|unique:users,username,' . $this->id->id,
             'password_lama' => 'required',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required',
+            'password' => 'confirmed',
         ];
     }
 
