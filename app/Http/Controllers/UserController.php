@@ -18,17 +18,83 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-
+        $ranking = [];
         if (Auth::User()->level == 1) {
             $data['totalKantah'] = Kantah::count();
             $data['totalFieldstaff'] = Fieldstaff::count();
             $data['totalLaporan'] = Report::count();
             $data['tanggal_akhir'] = Report::orderBy('created_at', 'desc')->first();
-            return view('kanwil.index')->with($data);
+            $totalTarget = Fieldstaff::whereNotNull('kantah_id')->sum('target');
+            $tahapan = Stages::whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->whereNotNull('kantah_id');
+            })->get();
+            if ($totalTarget > 0) {
+                $data['persenPemetaan'] = $tahapan->sum('pemetaan') / $totalTarget * 100;
+                $data['persenPenyuluhan'] = $tahapan->sum('penyuluhan') / $totalTarget * 100;
+                $data['persenPenyusunan'] = $tahapan->sum('penyusunan') / $totalTarget * 100;
+                $data['persenPendampingan'] = $tahapan->sum('pendampingan') / $totalTarget * 100;
+                $data['persenEvaluasi'] = $tahapan->sum('evaluasi') / $totalTarget * 100;
+            } else {
+                $data['persenPemetaan'] = 0;
+                $data['persenPenyuluhan'] = 0;
+                $data['persenPenyusunan'] = 0;
+                $data['persenPendampingan'] = 0;
+                $data['persenEvaluasi'] = 0;
+            }
+            $kantahs = Kantah::with('Fieldstaff', 'Fieldstaff.Tahapan')->has('Fieldstaff')->get();
+            foreach ($kantahs as $kantah) {
+                $kinerja = 0;
+                $totalRealisasi = 0;
+                $totalTarget = ($kantah->Fieldstaff->sum('target')) * 5;
+
+                foreach ($kantah->Fieldstaff as $field) {
+                    $totalRealisasi += ($field->Tahapan->pemetaan + $field->Tahapan->penyuluhan + $field->Tahapan->penyusunan + $field->Tahapan->pendampingan + $field->Tahapan->evaluasi);
+                }
+
+                $totalRealisasi = $totalRealisasi / $totalTarget * 100;
+                $ranking[] = [
+                    'name' => $kantah->name, 'progress' => $totalRealisasi
+                ];
+            }
+            array_multisort(array_column($ranking, "progress"), SORT_DESC, $ranking);
+            $collectRanking = collect($ranking);
+            return view('kanwil.index', ['ranking' => $collectRanking])->with($data);
         } else if (Auth::User()->level == 2) {
+            $ranking = [];
             $data['fieldstaff'] = Fieldstaff::where('kantah_id', Kantah::getUser()->id)->get();
-            $data['allData'] = Kantah::with('Fieldstaff', 'Fieldstaff.Report', 'Fieldstaff.Tahapan', 'Fieldstaff.Rencana')->where('user_id', Auth::User()->id)->first();
-            return view('kantah.index')->with($data);
+            $data['laporan'] = Report::whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
+            })->orderBy('created_at', 'desc')->get();
+            $totalTarget = Fieldstaff::where('kantah_id', Kantah::getUser()->id)->sum('target');
+            $tahapan = Stages::whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
+            })->get();
+            if ($totalTarget > 0) {
+                $data['persenPemetaan'] = $tahapan->sum('pemetaan') / $totalTarget * 100;
+                $data['persenPenyuluhan'] = $tahapan->sum('penyuluhan') / $totalTarget * 100;
+                $data['persenPenyusunan'] = $tahapan->sum('penyusunan') / $totalTarget * 100;
+                $data['persenPendampingan'] = $tahapan->sum('pendampingan') / $totalTarget * 100;
+                $data['persenEvaluasi'] = $tahapan->sum('evaluasi') / $totalTarget * 100;
+                foreach ($data['fieldstaff'] as $field) {
+                    $field->load('Tahapan');
+                    $totalTarget = $field->target * 5;
+                    $totalKinerja = $field->Tahapan->pemetaan + $field->Tahapan->penyuluhan + $field->Tahapan->penyusunan + $field->Tahapan->pendampingan + $field->Tahapan->evaluasi;
+                    $kinerja = $totalKinerja / $totalTarget * 100;
+                    $ranking[] = [
+                        'name' => $field->name, 'progress' => $kinerja
+                    ];
+                }
+                array_multisort(array_column($ranking, "progress"), SORT_DESC, $ranking);
+                $collectRanking = collect($ranking);
+            } else {
+                $data['persenPemetaan'] = 0;
+                $data['persenPenyuluhan'] = 0;
+                $data['persenPenyusunan'] = 0;
+                $data['persenPendampingan'] = 0;
+                $data['persenEvaluasi'] = 0;
+                $collectRanking = collect($ranking);
+            }
+            return view('kantah.index', ['ranking' => $collectRanking])->with($data);
         } else if (Auth::User()->level == 3) {
             $fieldstaff = Fieldstaff::with('Tahapan')->where('user_id', Auth::User()->id)->first();
             $data['totalLaporan'] = Report::where('fieldstaff_id', $fieldstaff->id)->get();

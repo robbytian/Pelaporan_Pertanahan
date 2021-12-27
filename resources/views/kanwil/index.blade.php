@@ -26,6 +26,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel tile">
         <div class="x_title">
+
             <h2>Ranking Kinerja Kantah</h2>
             <div class="clearfix"></div>
         </div>
@@ -33,85 +34,85 @@
         <div class="x_content" style="margin-top:20px;">
             <div class="widget_summary mt-3">
                 <div class="w_left w_25">
-                    <span>KANTOR PERTANAHAN KUBU RAYAAAA</span>
+                    <span>{{empty($ranking[0]) ? '-' : $ranking[0]['name']}}</span>
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-green" data-transitiongoal="60">
-                            <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar bg-green" data-transitiongoal="{{empty($ranking[0]) ? '0' : $ranking[0]['progress']}}">
+                            <span class="sr-only">{{empty($ranking[0]) ? '0' : $ranking[0]['progress']}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>60%</span>
+                    <span>{{empty($ranking[0]) ? '0' : $ranking[0]['progress']}}%</span>
                 </div>
 
             </div>
             <hr>
             <div class="widget_summary mt-5">
                 <div class="w_left w_25">
-                    <span>Kantor Pertanahan B</span>
+                    <span>{{empty($ranking[1]) ? '-' : $ranking[1]['name']}}</span>
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-blue" data-transitiongoal="60">
-                            <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar bg-blue" data-transitiongoal="{{empty($ranking[1]) ? '0' : $ranking[1]['progress']}}">
+                            <span class="sr-only">{{empty($ranking[1]) ? '0' : $ranking[1]['progress']}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>60%</span>
+                    <span>{{empty($ranking[1]) ? '0' : $ranking[1]['progress']}}%</span>
                 </div>
 
             </div>
             <hr>
             <div class="widget_summary mt-3">
                 <div class="w_left w_25">
-                    <span>Kantor Pertanahan C</span>
+                    <span>{{empty($ranking[2]) ? '-' : $ranking[2]['name']}}</span>
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-orange" data-transitiongoal="60">
-                            <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar bg-orange" data-transitiongoal="{{empty($ranking[2]) ? '0' : $ranking[2]['progress']}}">
+                            <span class="sr-only">{{empty($ranking[2]) ? '0' : $ranking[2]['progress']}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>50%</span>
+                    <span>{{empty($ranking[2]) ? '0' : $ranking[2]['progress']}}%</span>
                 </div>
 
             </div>
             <hr>
             <div class="widget_summary mt-3">
                 <div class="w_left w_25">
-                    <span>Kantor Pertanahan D</span>
+                    <span>{{empty($ranking[3]) ? '-' : $ranking[3]['name']}}</span>
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-red" data-transitiongoal="60">
-                            <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar bg-red" data-transitiongoal="{{empty($ranking[3]) ? '0' : $ranking[3]['progress']}}">
+                            <span class="sr-only">{{empty($ranking[3]) ? '0' : $ranking[3]['progress']}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>0%</span>
+                    <span>{{empty($ranking[3]) ? '0' : $ranking[3]['progress']}}%</span>
                 </div>
 
             </div>
             <hr>
             <div class="widget_summary mt-3">
                 <div class="w_left w_25">
-                    <span>Kantor Pertanahan E</span>
+                    <span>{{empty($ranking[4]) ? '-' : $ranking[4]['name']}}</span>
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-blue-sky" data-transitiongoal="60">
-                            <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar bg-blue-sky" data-transitiongoal="{{empty($ranking[4]) ? '0' : $ranking[4]['progress']}}">
+                            <span class="sr-only">{{empty($ranking[4]) ? '0' : $ranking[4]['progress']}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>0%</span>
+                    <span>{{empty($ranking[4]) ? '0' : $ranking[4]['progress']}}%</span>
                 </div>
 
             </div>
@@ -126,7 +127,7 @@
             </div>
             <div class="x_content ">
                 <div style="text-align: center; margin-bottom: 17px">
-                    <span class="chart" id="pemetaan_kanwil" data-percent="86">
+                    <span class="chart" id="pemetaan_kanwil" data-percent="{{$persenPemetaan}}">
                         <span class="percent"></span>
                     </span>
                 </div>
@@ -142,7 +143,7 @@
             </div>
             <div class="x_content">
                 <div style="text-align: center; margin-bottom: 17px">
-                    <span class="chart" id="penyuluhan_kanwil" data-percent="9%">
+                    <span class="chart" id="penyuluhan_kanwil" data-percent="{{$persenPenyuluhan}}">
                         <span class="percent"></span>
                     </span>
                 </div>
@@ -158,7 +159,7 @@
             </div>
             <div class="x_content">
                 <div style="text-align: center; margin-bottom: 17px">
-                    <span class="chart" id="penyusunan_kanwil" data-percent="46">
+                    <span class="chart" id="penyusunan_kanwil" data-percent="{{$persenPenyusunan}}">
                         <span class="percent"></span>
                     </span>
                 </div>
@@ -174,7 +175,7 @@
             </div>
             <div class="x_content">
                 <div style="text-align: center; margin-bottom: 17px">
-                    <span class="chart" id="pendampingan_kanwil" data-percent="26">
+                    <span class="chart" id="pendampingan_kanwil" data-percent="{{$persenPendampingan}}">
                         <span class="percent"></span>
                     </span>
                 </div>
@@ -190,7 +191,7 @@
             </div>
             <div class="x_content">
                 <div style="text-align: center; margin-bottom: 17px">
-                    <span class="chart" id="evaluasi_kanwil" data-percent="16">
+                    <span class="chart" id="evaluasi_kanwil" data-percent="{{$persenEvaluasi}}">
                         <span class="percent"></span>
                     </span>
                 </div>
@@ -224,7 +225,7 @@
                 trackWidth: 16,
                 lineCap: 'butt',
                 onStep: function(from, to, percent) {
-                    $(this.el).find('.percent').text(Math.round(percent));
+                    $(this.el).find('.percent').text(Math.round(percent) + "%");
                 }
             });
 

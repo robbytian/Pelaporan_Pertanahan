@@ -9,7 +9,7 @@ class Stages extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'pemetaan', 'penyusunan', 'penyuluhan', 'pendampingan', 'evaluasi'
+        'pemetaan', 'penyusunan', 'penyuluhan', 'pendampingan', 'evaluasi', 'fieldstaff_id'
     ];
 
     public function Fieldstaff()
