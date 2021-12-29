@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Kantah;
+use App\Models\Stages;
 use App\Models\Fieldstaff;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreFieldstaffRequest;
@@ -53,12 +54,14 @@ class FieldstaffController extends Controller
     public function store(StoreFieldstaffRequest $request)
     {
         $validated = $request->validated();
+        if ($validated['target'] < 1) {
+            return back()->with('error', 'Jumlah target minimal 1');
+        }
         $data['username'] = $validated['username'];
         $data['password'] = bcrypt($validated['password']);
         $data['level'] = 3;
         $createUser = User::create($data);
         if ($createUser) {
-
             $profile['name'] = $validated['name'];
             $profile['date_born'] = $validated['date_born'];
             $profile['alamat'] = $validated['alamat'];
@@ -67,9 +70,17 @@ class FieldstaffController extends Controller
             $profile['kantah_id'] = Kantah::where('user_id', Auth::User()->id)->first()->id;
             $profile['user_id'] = $createUser->id;
             $createProfile = Fieldstaff::create($profile);
-
             if ($createProfile) {
-                return redirect('/dataFieldstaff');
+                $tahapan['pemetaan'] = 0;
+                $tahapan['penyuluhan'] = 0;
+                $tahapan['penyusunan'] = 0;
+                $tahapan['pendampingan'] = 0;
+                $tahapan['evaluasi'] = 0;
+                $tahapan['fieldstaff_id'] = $createProfile->id;
+                $createTahapan = Stages::create($tahapan);
+                if ($createTahapan) {
+                    return redirect('/dataFieldstaff')->with('success', 'Akun Fieldstaff berhasil dibuat');
+                }
             }
         }
     }

@@ -1,8 +1,21 @@
 @extends('fieldstaff.layouts.main')
 @section('title') Tambah Laporan @endsection
+@section('style')
+<style>
+  input[type="file"] {
+    display: none;
+  }
 
+  .custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+</style>
+@endsection
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
+  @include('layouts.notif')
   <div class="page-title">
     <div class="title_left">
       <h4><small><a href="/dataLaporan">Data Laporan</a> / Tambah Laporan</small></h4>
@@ -14,7 +27,7 @@
       <div class="clearfix"></div>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-margin">
-      <form class="form-horizontal form-label-left" method="post" action="/dataLaporan">
+      <form class="form-horizontal form-label-left" method="post" action="/dataLaporan" enctype='multipart/form-data'>
         @csrf
         <br>
         <div class="form-group">
@@ -24,54 +37,82 @@
         <br>
         <div class="form-group">
           <label>Tanggal <span class="required">*</span></label>
-          <input type="date" name="tanggal_laporan" class="form-control" placeholder="Password" value="<?php echo date('Y-m-d') ?>">
+          <input type="date" name="tanggal_laporan" class="form-control" placeholder="Password" value="{{old('tanggal_laporan') != null ?old('tanggal_laporan') : date('Y-m-d')}}">
         </div>
         <br>
         <div class="form-group">
           <label>Kegiatan <span class="required">*</span></label>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatan" class="flat" checked name="iCheck"> Koordinasi dengan kantah
+              <input type="checkbox" name="kegiatans[]" class="flat" checked value="koordinasi" @if(is_array(old('kegiatans')) && in_array("koordinasi", old('kegiatans'))) checked @endif> Koordinasi dengan kantah
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatan" class="flat" name="iCheck"> Melakukan Pendampingan
+              <input type="checkbox" name="kegiatans[]" class="flat" value="pendampingan" @if(is_array(old('kegiatans')) && in_array("pendampingan", old('kegiatans'))) checked @endif> Melakukan Pendampingan
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatan" class="flat" name="iCheck"> Rapat/Meeting
+              <input type="checkbox" name="kegiatans[]" class="flat" value="rapat" @if(is_array(old('kegiatans')) && in_array("rapat", old('kegiatans'))) checked @endif> Rapat/Meeting
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatan" class="flat" name="iCheck"> Melakukan Kunjungan
+              <input type="checkbox" name="kegiatans[]" class="flat" value="kunjungan" @if(is_array(old('kegiatans')) && in_array("kunjungan", old('kegiatans'))) checked @endif> Melakukan Kunjungan
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatan" class="flat" name="iCheck"> Lainnya
+              <input type="checkbox" name="kegiatans[]" class="flat" value="lainnya" @if(is_array(old('kegiatans')) && in_array("lainnya", old('kegiatans'))) checked @endif> Lainnya
             </label>
           </div>
         </div>
         <br>
         <div class="form-group">
           <label for="message">Keterangan <span class="required">*</span></label>
-          <textarea id="message" name="keterangan" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" rows="3" placeholder="Keterangan.."></textarea>
+          <textarea id="message" name="keterangan" required="required" class="form-control" rows="3" placeholder="Keterangan..">{{old('keterangan')}}</textarea>
         </div>
         <br>
-        <div class="form-group">
+        <div class=" form-group">
           <label>Peserta <span class="required">*</span></label>
-          <input type="email" name="peserta" class="form-control" placeholder="Peserta">
+          <input type="text" name="peserta" class="form-control" placeholder="Peserta" value="{{old('peserta')}}">
         </div>
         <br>
         <div class="form-group">
-          <label>Upload Foto</label>
-          <input type="email" class="form-control" placeholder="Enter email">
+          <label>Upload Foto</label><br>
+          <label class="custom-file-upload btn btn-success">
+            <input type="file" name="foto" onchange="return onChangeImg(event, this)" accept=".jpg,.png,.jpeg .JPG" id="file-input" />
+            <i class="fa fa-upload"></i>&nbsp;Silahkan Pilih Foto
+          </label>
+
+          <br>
+          <img id="foto" src="#" class="imgLaporan" style="display:none" />
+          <div class="row" id="divNamaFile" style="margin-top:5px;display:none">
+            <div class="col-md-11 col-xs-11" style="overflow:hidden">
+              <p id="namaFile"></p>
+            </div>
+            <div class="col-md-1 col-xs-1">
+              <a href="javascript:void(0)" id="remove"><i class="fa fa-close"></i></a>
+            </div>
+
+
+          </div>
+
         </div>
         <br>
         <div class="form-group">
+          <button type="button" id="addKeluhan" class="btn btn-default col-md-12 col-xs-12" style="float:left;border:1px dashed gray"><i class="fa fa-plus"></i> Tambah Keluhan</button=>
+        </div>
+
+        <div class="form-group" style="display:none" id="formKeluhan">
+          <br>
+          <label for="message">Keluhan</label> <span class="pull-right"> <a href="javascript:void(0)" id="closeKeluhan"><i class="fa fa-minus-circle"></i></a> </span>
+          <textarea id="inputKeluhan" name="keluhan" class="form-control col-md-11" name="message" placeholder="Keluhan.." rows="3"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+
           <button type="submit" class="btn btn-primary" style="float:left">Simpan</button=>
         </div>
     </div>
@@ -80,4 +121,44 @@
 </div>
 
 
+@endsection
+
+@section('script')
+<script>
+  $("#addKeluhan").on('click', function() {
+    $("#formKeluhan").show();
+    $(this).prop("disabled", true);
+    $("#inputKeluhan").prop("required", true);
+  })
+
+  $("#closeKeluhan").on('click', function() {
+    $("#formKeluhan").hide();
+    $('#addKeluhan').prop("disabled", false);
+    $("#inputKeluhan").removeAttr("required");
+  })
+
+  $('#remove').on('click', function() {
+    $("#file-input").val('');
+    $("#foto").hide();
+    $("#divNamaFile").hide();
+    document.getElementById("remove").style.display = "none";
+  });
+
+  function onChangeImg(event, fileInput) {
+
+    var filePath = fileInput.value;
+    var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+    if (ext == "jpg" || ext == "JPG" || ext == "png" || ext == "jpeg" || ext == "gif") {
+      $("#foto").attr("src", URL.createObjectURL(event.target.files[0]));
+      $("#foto").show();
+      $("#divNamaFile").show();
+      $("#namaFile").text(fileInput.value.replace(/C:\\fakepath\\/i, ''));
+      return true;
+    } else {
+      alert("Hanya Bisa Memasukan Gambar");
+      fileInput.focus();
+      return false;
+    }
+  }
+</script>
 @endsection

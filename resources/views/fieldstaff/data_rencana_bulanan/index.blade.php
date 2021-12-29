@@ -30,9 +30,9 @@
           <td>{{date('F Y',strtotime($rencana->periode))}}</td>
           <td>{{$rencana->lokasi}}</td>
           <td>{{$rencana->tindak_lanjut}}</td>
-          <td><button class="btn btn-default btn-sm" id="btnLihat" data-id="{{$rencana->id}}" type="button" data-toggle="modal" data-target="#modalRencana">
+          <td><button class="btn btn-default btn-sm btnLihat" id="" data-id="{{$rencana->id}}" type="button" data-toggle="modal" data-target="#modalRencana">
               <i class="fa fa-search"></i> Lihat</button>
-            <button class="btn btn-danger btn-sm" id="btnHapus" type="button" data-id="{{$rencana->id}}" type="button" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-trash"></i> Delete</button>
+            <button class="btn btn-danger btn-sm btnHapus" id="" type="button" data-id="{{$rencana->id}}" type="button" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-trash"></i> Delete</button>
           </td>
         </tr>
         @endforeach
@@ -60,17 +60,17 @@
               <label>Nama Fieldstaff</label>
               <input type="text" id="" name="name" class="form-control" placeholder="Nama Fieldstaff" value="{{\App\Models\Fieldstaff::getUser()->name}}" readonly>
             </div>
-
+            <br>
             <div class="form-group">
               <label>Periode</label>
               <input type="text" id="periode" name="periode" class="form-control" placeholder="Periode" required readonly>
             </div>
-
+            <br>
             <div class="form-group">
               <label>Lokasi</label>
               <input type="text" id="lokasi" name="lokasi" class="form-control" placeholder="Lokasi" required>
             </div>
-
+            <br>
             <div class="form-group">
               <label>Rencana Tindak Lanjut</label>
               <textarea id="rencana" name="tindak_lanjut" required="required" class="form-control" placeholder="Keterangan.." rows="3"></textarea>
@@ -120,7 +120,7 @@
       "autoWidth": false,
     });
 
-    $('body').on('click', '#btnLihat', function(event) {
+    $('body').on('click', '.btnLihat', function(event) {
       event.preventDefault();
       var id = $(this).data('id');
       $("#updateRencana").attr('action', '/dataRencana/' + id);
@@ -132,7 +132,7 @@
       })
     });
 
-    $('body').on('click', '#btnHapus', function() {
+    $('body').on('click', '.btnHapus', function() {
       event.preventDefault();
       var id = $(this).data('id');
       $("#deleteRencana").attr('action', '/dataRencana/' + id);

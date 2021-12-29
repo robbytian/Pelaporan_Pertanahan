@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Controllers\FieldstaffController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kantah extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     protected $fillable = [
         'name', 'user_id', 'email', 'head_name', 'nip_head_name', 'kanwil_id',

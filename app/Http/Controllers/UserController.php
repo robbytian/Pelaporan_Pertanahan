@@ -162,13 +162,13 @@ class UserController extends Controller
     public function updateAkun(UpdateAkunRequest $request, User $id)
     {
         $validated = $request->validated();
-        if (!Hash::check($validated['password_lama'], $id->password)) {
+        if ($validated['password_lama'] != $id->password) {
             return back()->with('error', 'Password Lama tidak sesuai');
         }
 
         $data['username'] = $validated['username'];
         if ($validated['password'] != '') {
-            $data['password'] = bcrypt($validated['password']);
+            $data['password'] = $validated['password'];
         }
         $update = $id->update($data);
         if ($update) {

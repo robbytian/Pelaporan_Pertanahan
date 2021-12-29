@@ -30,6 +30,7 @@ class CreateFieldstaffsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('kantah_id')->references('id')->on('kantahs')->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

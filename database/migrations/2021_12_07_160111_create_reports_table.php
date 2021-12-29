@@ -16,7 +16,7 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_laporan');
-            $table->string('kegiatan', 30);
+            $table->string('kegiatan', 100);
             $table->string('keterangan');
             $table->string('foto')->nullable();
             $table->string('keluhan')->nullable();

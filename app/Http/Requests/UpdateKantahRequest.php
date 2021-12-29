@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateKantahRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateKantahRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,25 @@ class UpdateKantahRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'required',
+            'head_name' => 'required',
+            'nip_head_name' => 'required',
+            'username' => 'required|unique:users,username,' . $this->dataKantah->User->id,
+            'password' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Field Nama Tidak Boleh Kosong',
+            'email.required' => 'Field Email Tidak Boleh Kosong',
+            'head_name.required' => 'Field Head_Name Tidak Boleh Kosong',
+            'nip_head_name.required' => 'Field NIP Tidak Boleh Kosong',
+            'username.required' => 'Field Username Tidak Boleh Kosong',
+            'username.unique' => 'Username sudah dipakai oleh akun lain',
+            'password.required' => 'Field Password Tidak Boleh Kosong'
         ];
     }
 }

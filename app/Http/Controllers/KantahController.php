@@ -11,10 +11,6 @@ use App\Http\Requests\UpdateKantahRequest;
 
 class KantahController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('kanwil')->only('create', 'store');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -46,11 +42,10 @@ class KantahController extends Controller
     {
         $validated = $request->validated();
         $data['username'] = $validated['username'];
-        $data['password'] = bcrypt($validated['password']);
+        $data['password'] = $validated['password'];
         $data['level'] = 2;
         $createUser = User::create($data);
         if ($createUser) {
-
             $profile['name'] = $validated['name'];
             $profile['email'] = $validated['email'];
             $profile['head_name'] = $validated['head_name'];
@@ -58,9 +53,8 @@ class KantahController extends Controller
             $profile['kanwil_id'] = Kanwil::where('user_id', Auth::User()->id)->first()->id;
             $profile['user_id'] = $createUser->id;
             $createProfile = Kantah::create($profile);
-
             if ($createProfile) {
-                return redirect('/dataKantah');
+                return redirect('/dataKantah')->with('success', 'Akun Kantah berhasil dibuat');
             }
         }
     }
@@ -94,9 +88,25 @@ class KantahController extends Controller
      * @param  \App\Models\Kantah  $kantah
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKantahRequest $request, Kantah $kantah)
+    public function update(UpdateKantahRequest $request, Kantah $dataKantah)
     {
-        //
+        $dataKantah->load('User');
+        $validated = $request->validated();
+        $data['username'] = $validated['username'];
+        $data['password'] = $validated['password'];
+        $data['level'] = 2;
+        $updateUser = $dataKantah->user->update($data);
+        if ($updateUser) {
+            $profile['name'] = $validated['name'];
+            $profile['email'] = $validated['email'];
+            $profile['head_name'] = $validated['head_name'];
+            $profile['nip_head_name'] = $validated['nip_head_name'];
+            $profile['kanwil_id'] = Kanwil::where('user_id', Auth::User()->id)->first()->id;
+            $updateProfile = $dataKantah->update($profile);
+            if ($updateProfile) {
+                return redirect('/dataKantah')->with('success', 'Akun Kantah berhasil diupdate');
+            }
+        }
     }
 
     /**
@@ -105,9 +115,12 @@ class KantahController extends Controller
      * @param  \App\Models\Kantah  $kantah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kantah $kantah)
+    public function destroy(Kantah $dataKantah)
     {
-        //
+        $user = User::where('id', $dataKantah->user_id)->first();
+        $dataKantah->delete();
+        $user->delete();
+        return back()->with('success', 'Akun berhasil dihapus');
     }
 
     public function detKantah($id)

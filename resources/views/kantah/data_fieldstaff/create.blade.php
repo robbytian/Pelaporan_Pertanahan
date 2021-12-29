@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
+    @include('layouts.notif')
     <div class="page-title">
         <div class="title_left">
             <h4><small><a href="/dataFieldstaff">Data Fieldstaff</a> / Tambah Fieldstaff</small></h4>
@@ -42,7 +43,7 @@
                 <br>
                 <div class="form-group">
                     <label>Target Fisik (KK)</label>
-                    <input type="number" name="target" class="form-control" placeholder="No.Telepon" required>
+                    <input type="number" name="target" class="form-control" placeholder="No.Telepon" min=1 required>
                 </div>
                 <br>
                 <div class="form-group">

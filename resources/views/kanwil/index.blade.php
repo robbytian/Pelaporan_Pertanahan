@@ -2,7 +2,6 @@
 @section('title') Dashboard @endsection
 
 @section('content')
-
 <div class="row tile_count">
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count mt-2 text-center">
         <span class="count_top"><i class="fa fa-user"></i> Total Kantah</span>
@@ -38,13 +37,13 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-green" data-transitiongoal="{{empty($ranking[0]) ? '0' : $ranking[0]['progress']}}">
-                            <span class="sr-only">{{empty($ranking[0]) ? '0' : $ranking[0]['progress']}}% Complete</span>
+                        <div class="progress-bar bg-green" data-transitiongoal="{{empty($ranking[0]) ? '0' : round($ranking[0]['progress'])}}">
+                            <span class="sr-only">{{empty($ranking[0]) ? '0' : round($ranking[0]['progress'])}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>{{empty($ranking[0]) ? '0' : $ranking[0]['progress']}}%</span>
+                    <span>{{empty($ranking[0]) ? '0' : round($ranking[0]['progress'])}}%</span>
                 </div>
 
             </div>
@@ -55,13 +54,13 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-blue" data-transitiongoal="{{empty($ranking[1]) ? '0' : $ranking[1]['progress']}}">
-                            <span class="sr-only">{{empty($ranking[1]) ? '0' : $ranking[1]['progress']}}% Complete</span>
+                        <div class="progress-bar bg-blue" data-transitiongoal="{{empty($ranking[1]) ? '0' : round($ranking[1]['progress'])}}">
+                            <span class="sr-only">{{empty($ranking[1]) ? '0' : round($ranking[1]['progress'])}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>{{empty($ranking[1]) ? '0' : $ranking[1]['progress']}}%</span>
+                    <span>{{empty($ranking[1]) ? '0' : round($ranking[1]['progress'])}}%</span>
                 </div>
 
             </div>
@@ -72,13 +71,13 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-orange" data-transitiongoal="{{empty($ranking[2]) ? '0' : $ranking[2]['progress']}}">
-                            <span class="sr-only">{{empty($ranking[2]) ? '0' : $ranking[2]['progress']}}% Complete</span>
+                        <div class="progress-bar bg-orange" data-transitiongoal="{{empty($ranking[2]) ? '0' : round($ranking[2]['progress'])}}">
+                            <span class="sr-only">{{empty($ranking[2]) ? '0' : round($ranking[2]['progress'])}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>{{empty($ranking[2]) ? '0' : $ranking[2]['progress']}}%</span>
+                    <span>{{empty($ranking[2]) ? '0' : round($ranking[2]['progress'])}}%</span>
                 </div>
 
             </div>
@@ -89,13 +88,13 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-red" data-transitiongoal="{{empty($ranking[3]) ? '0' : $ranking[3]['progress']}}">
-                            <span class="sr-only">{{empty($ranking[3]) ? '0' : $ranking[3]['progress']}}% Complete</span>
+                        <div class="progress-bar bg-red" data-transitiongoal="{{empty($ranking[3]) ? '0' : round($ranking[3]['progress'])}}">
+                            <span class="sr-only">{{empty($ranking[3]) ? '0' : round($ranking[3]['progress'])}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>{{empty($ranking[3]) ? '0' : $ranking[3]['progress']}}%</span>
+                    <span>{{empty($ranking[3]) ? '0' : round($ranking[3]['progress'])}}%</span>
                 </div>
 
             </div>
@@ -106,13 +105,13 @@
                 </div>
                 <div class="w_center w_55" style="margin-left:20px">
                     <div class="progress">
-                        <div class="progress-bar bg-blue-sky" data-transitiongoal="{{empty($ranking[4]) ? '0' : $ranking[4]['progress']}}">
-                            <span class="sr-only">{{empty($ranking[4]) ? '0' : $ranking[4]['progress']}}% Complete</span>
+                        <div class="progress-bar bg-blue-sky" data-transitiongoal="{{empty($ranking[4]) ? '0' : round($ranking[4]['progress'])}}">
+                            <span class="sr-only">{{empty($ranking[4]) ? '0' : round($ranking[4]['progress'])}}% Complete</span>
                         </div>
                     </div>
                 </div>
                 <div class="w_right w_20">
-                    <span>{{empty($ranking[4]) ? '0' : $ranking[4]['progress']}}%</span>
+                    <span>{{empty($ranking[4]) ? '0' : round($ranking[4]['progress'])}}%</span>
                 </div>
 
             </div>

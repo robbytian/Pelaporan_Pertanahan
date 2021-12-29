@@ -20,19 +20,19 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'username' => 'kanwil',
-            'password' => bcrypt('kanwil'), // password
+            'password' => 'kanwil', // password
             'level' => 1,
         ]);
 
         User::create([
             'username' => 'kantah',
-            'password' => bcrypt('kantah'), // password
+            'password' => 'kantah', // password
             'level' => 2,
         ]);
 
         User::create([
             'username' => 'fieldstaff',
-            'password' => bcrypt('fieldstaff'), // password
+            'password' => 'fieldstaff', // password
             'level' => 3,
         ]);
 

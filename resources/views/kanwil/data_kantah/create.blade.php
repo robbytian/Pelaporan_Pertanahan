@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
+  @include('layouts.notif')
   <div class="page-title">
     <div class="title_left">
       <h4><small><a href="/dataKantah">Data Kantah</a> / Tambah Kantah</small></h4>
@@ -19,22 +20,23 @@
         <br>
         <div class="form-group">
           <label>Nama Kantah</label>
-          <input type="text" name="name" class="form-control" placeholder="Nama Kantah" >
+          <input type="text" name="name" class="form-control" placeholder="Nama Kantah" value="{{old('name')}}">
         </div>
-        <br> <div class="form-group">
+        <br>
+        <div class="form-group">
           <label>Email</label>
-          <input type="text" name="email" class="form-control" placeholder="Email" required>
+          <input type="text" name="email" class="form-control" placeholder="Email" required value="{{old('email')}}">
         </div>
-        
+
         <br>
         <div class="form-group">
           <label for="message">Kasi Penataan dan Pemberdayaan</label>
-          <input type="text" name="head_name" class="form-control" placeholder="Kasi Penataan dan Pemberdayaan" required>
+          <input type="text" name="head_name" value="{{old('head_name')}}" class="form-control" placeholder="Kasi Penataan dan Pemberdayaan" required>
         </div>
         <br>
         <div class="form-group">
           <label>NIP</label>
-          <input type="text" name="nip_head_name" class="form-control" placeholder="NIP" required>
+          <input type="text" name="nip_head_name" value="{{old('nip_head_name')}}" class="form-control" placeholder="NIP" required>
         </div>
         <br>
         <div class="form-group">
@@ -49,12 +51,12 @@
         </div>
         <br>
         <div class="form-group">
-        <button type="submit" class="btn btn-primary" style="float:left">Tambah Kantah</buttoclass=>
+          <button type="submit" class="btn btn-primary" style="float:left">Tambah Kantah</buttoclass=>
         </div>
-        </div>
-      </form>
     </div>
+    </form>
   </div>
+</div>
 
 
 @endsection

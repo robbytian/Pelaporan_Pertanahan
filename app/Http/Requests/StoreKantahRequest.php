@@ -42,6 +42,7 @@ class StoreKantahRequest extends FormRequest
             'head_name.required' => 'Field Head_Name Tidak Boleh Kosong',
             'nip_head_name.required' => 'Field NIP Tidak Boleh Kosong',
             'username.required' => 'Field Username Tidak Boleh Kosong',
+            'username.unique' => 'Username sudah dipakai oleh akun lain',
             'password.required' => 'Field Password Tidak Boleh Kosong'
         ];
     }

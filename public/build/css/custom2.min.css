@@ -4121,3 +4121,17 @@ ul.notifications {
     object-fit: cover;
     background-size: cover;
 }
+
+.imgLaporan {
+    object-fit: cover;
+    width: 90px;
+    height: 100px;
+    margin-top: 15px;
+}
+
+.imgLaporan2 {
+    object-fit: cover;
+    width: 190px;
+    height: 200px;
+    margin-top: 15px;
+}

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use Carbon\Carbon;
 use App\Models\Plan;
+use App\Models\User;
 use App\Models\Report;
 use App\Models\Stages;
 use App\Models\Fieldstaff;
@@ -11,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
-use PDF;
 
 class PlanController extends Controller
 {
@@ -31,9 +32,12 @@ class PlanController extends Controller
             $rencanas = Plan::where('fieldstaff_id', $fieldstaff->id)->get();
             return view('fieldstaff.data_rencana_bulanan.index', compact('rencanas'));
         } else if (Auth::User()->level == 2) {
-            return view('kantah.data_rencana_bulanan.index');
+            $data['plans'] = Plan::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
+            })->orderBy('created_at', 'desc')->get();
+            return view('kantah.data_rencana_bulanan.index')->with($data);
         } else if (Auth::User()->level == 1) {
-            $plans = Plan::with('Fieldstaff')->get();
+            $plans = Plan::with('Fieldstaff')->orderBy('created_at', 'desc')->get();
             return view('kanwil.data_rencana_bulanan.index', compact('plans'));
         }
     }
@@ -115,7 +119,7 @@ class PlanController extends Controller
     public function destroy(Plan $dataRencana)
     {
         $dataRencana->delete();
-        return back()->with('success', 'Data berhasil dihapus');
+        return back()->with('success', 'Laporan berhasil dihapus');
     }
 
     public function cetak()
@@ -126,6 +130,7 @@ class PlanController extends Controller
 
     public function detRencana(Plan $id)
     {
+        $id->load('Fieldstaff');
         $id->periode = date('F Y', strtotime($id->periode));
         return response()->json([
             'rencana' => $id,
