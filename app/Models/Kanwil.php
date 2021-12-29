@@ -24,6 +24,11 @@ class Kanwil extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function Fieldstaff()
+    {
+        return $this->hasMany(Fieldstaff::class, 'kanwil_id');
+    }
+
     // public static function getUser()
     // {
     //     $user = Kanwil::where('user_id', Auth::User()->id)->first();

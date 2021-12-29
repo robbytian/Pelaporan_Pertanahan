@@ -36,4 +36,17 @@ class Kantah extends Model
         $user = Kantah::where('user_id', Auth::User()->id)->first();
         return $user;
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($kantah) {
+            $kantah->User->update(['username' => $kantah->User->username . date("Ymd")]);
+            $kantah->User->delete();
+            foreach ($kantah->Fieldstaff()->get() as $fieldstaff) {
+                $fieldstaff->delete();
+            }
+        });
+    }
 }

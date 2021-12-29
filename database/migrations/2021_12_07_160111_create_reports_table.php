@@ -25,6 +25,7 @@ class CreateReportsTable extends Migration
             $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('set null');
             $table->string('peserta', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

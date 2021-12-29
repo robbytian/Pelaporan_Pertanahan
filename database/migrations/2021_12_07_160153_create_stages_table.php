@@ -23,6 +23,7 @@ class CreateStagesTable extends Migration
             $table->foreignId('fieldstaff_id')->nullable();
             $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

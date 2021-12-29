@@ -129,11 +129,8 @@
 <script>
     $(document).ready(function() {
         console.log('aa');
-
         $('#tableKantah').dataTable({
-
             "autoWidth": false,
-
         });
 
         $('body').on('click', '#btnLihat', function(event) {

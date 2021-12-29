@@ -12,11 +12,6 @@ use App\Http\Requests\UpdateFieldstaffRequest;
 
 class FieldstaffController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('kantah')->only('create');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,11 +21,11 @@ class FieldstaffController extends Controller
     {
         if (Auth::User()->level == '2') {
             $kantah = Kantah::where('user_id', Auth::User()->id)->first();
-            $fieldstaffs = Fieldstaff::where('kantah_id', $kantah->id)->get();
+            $fieldstaffs = Fieldstaff::with('Kantah', 'Kanwil')->where('kantah_id', $kantah->id)->get();
             return view('kantah.data_fieldstaff.index', compact('fieldstaffs'));
         }
         if (Auth::User()->level == '1') {
-            $fieldstaffs = Fieldstaff::all();
+            $fieldstaffs = Fieldstaff::with('Kantah', 'Kanwil')->orderBy('created_at', 'desc')->get();
             return view('kanwil.data_fieldstaff.index', compact('fieldstaffs'));
         }
     }
@@ -42,7 +37,12 @@ class FieldstaffController extends Controller
      */
     public function create()
     {
-        return view('kantah.data_fieldstaff.create');
+        if (Auth::User()->level == '2') {
+            return view('kantah.data_fieldstaff.create');
+        }
+        if (Auth::User()->level == '1') {
+            return view('kanwil.data_fieldstaff.create');
+        }
     }
 
     /**
@@ -54,32 +54,47 @@ class FieldstaffController extends Controller
     public function store(StoreFieldstaffRequest $request)
     {
         $validated = $request->validated();
-        if ($validated['target'] < 1) {
-            return back()->with('error', 'Jumlah target minimal 1');
+        if (Auth::User()->level == 2) {
+            if ($validated['target'] < 1) {
+                return back()->with('error', 'Jumlah target minimal 1');
+            }
         }
         $data['username'] = $validated['username'];
-        $data['password'] = bcrypt($validated['password']);
+        $data['password'] = $validated['password'];
         $data['level'] = 3;
         $createUser = User::create($data);
         if ($createUser) {
-            $profile['name'] = $validated['name'];
-            $profile['date_born'] = $validated['date_born'];
-            $profile['alamat'] = $validated['alamat'];
-            $profile['phone_number'] = $validated['phone_number'];
-            $profile['target'] = $validated['target'];
-            $profile['kantah_id'] = Kantah::where('user_id', Auth::User()->id)->first()->id;
-            $profile['user_id'] = $createUser->id;
-            $createProfile = Fieldstaff::create($profile);
-            if ($createProfile) {
-                $tahapan['pemetaan'] = 0;
-                $tahapan['penyuluhan'] = 0;
-                $tahapan['penyusunan'] = 0;
-                $tahapan['pendampingan'] = 0;
-                $tahapan['evaluasi'] = 0;
-                $tahapan['fieldstaff_id'] = $createProfile->id;
-                $createTahapan = Stages::create($tahapan);
-                if ($createTahapan) {
+            if (Auth::User()->level == 1) {
+                $profile['name'] = $validated['name'];
+                $profile['date_born'] = $validated['date_born'];
+                $profile['alamat'] = $validated['alamat'];
+                $profile['phone_number'] = $validated['phone_number'];
+                $profile['kanwil_id'] = User::getUser()->id;
+                $profile['user_id'] = $createUser->id;
+                $createProfile = Fieldstaff::create($profile);
+                if ($createProfile) {
                     return redirect('/dataFieldstaff')->with('success', 'Akun Fieldstaff berhasil dibuat');
+                }
+            } else if (Auth::User()->level == 2) {
+                $profile['name'] = $validated['name'];
+                $profile['date_born'] = $validated['date_born'];
+                $profile['alamat'] = $validated['alamat'];
+                $profile['phone_number'] = $validated['phone_number'];
+                $profile['target'] = $validated['target'];
+                $profile['kantah_id'] = Kantah::where('user_id', Auth::User()->id)->first()->id;
+                $profile['user_id'] = $createUser->id;
+                $createProfile = Fieldstaff::create($profile);
+                if ($createProfile) {
+                    $tahapan['pemetaan'] = 0;
+                    $tahapan['penyuluhan'] = 0;
+                    $tahapan['penyusunan'] = 0;
+                    $tahapan['pendampingan'] = 0;
+                    $tahapan['evaluasi'] = 0;
+                    $tahapan['fieldstaff_id'] = $createProfile->id;
+                    $createTahapan = Stages::create($tahapan);
+                    if ($createTahapan) {
+                        return redirect('/dataFieldstaff')->with('success', 'Akun Fieldstaff berhasil dibuat');
+                    }
                 }
             }
         }
@@ -114,9 +129,27 @@ class FieldstaffController extends Controller
      * @param  \App\Models\Fieldstaff  $fieldstaff
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFieldstaffRequest $request, Fieldstaff $fieldstaff)
+    public function update(UpdateFieldstaffRequest $request, Fieldstaff $dataFieldstaff)
     {
-        //
+        $validated = $request->validated();
+        $dataFieldstaff->load('User');
+        if ($dataFieldstaff->kantah_id != null) {
+            if ($validated['target'] == null) {
+                return back()->with('error', 'Data Target tidak boleh kosong');
+            }
+            $profile['target'] = $validated['target'];
+        }
+        $data['username'] = $validated['username'];
+        $data['password'] = $validated['password'];
+        $profile['name'] = $validated['name'];
+        $profile['date_born'] = $validated['date_born'];
+        $profile['alamat'] = $validated['alamat'];
+        $profile['phone_number'] = $validated['phone_number'];
+        $updateUSer = $dataFieldstaff->User->update($data);
+        $updateProfile = $dataFieldstaff->update($profile);
+        if ($updateProfile && $updateUSer) {
+            return back()->with('success', 'Data Fieldstaff berhasil diupdate');
+        }
     }
 
     /**
@@ -125,9 +158,10 @@ class FieldstaffController extends Controller
      * @param  \App\Models\Fieldstaff  $fieldstaff
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fieldstaff $fieldstaff)
+    public function destroy(Fieldstaff $dataFieldstaff)
     {
-        //
+        $dataFieldstaff->delete();
+        return back()->with('success', 'Akun berhasil dihapus');
     }
 
     public function detFieldstaff($id)

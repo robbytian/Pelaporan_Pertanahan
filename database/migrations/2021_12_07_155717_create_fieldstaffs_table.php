@@ -24,11 +24,13 @@ class CreateFieldstaffsTable extends Migration
             $table->boolean('penyusunan')->nullable();
             $table->boolean('pendampingan')->nullable();
             $table->boolean('evaluasi')->nullable();
-            $table->integer('target');
+            $table->integer('target')->nullable();
             $table->foreignId('user_id');
             $table->foreignId('kantah_id')->nullable();
+            $table->foreignId('kanwil_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('kantah_id')->references('id')->on('kantahs')->onDelete('set null');
+            $table->foreign('kanwil_id')->references('id')->on('kanwils')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
