@@ -28,9 +28,12 @@ class ReportController extends Controller
             $reports = Report::where('fieldstaff_id', $fieldstaff->id)->get();
             return view('fieldstaff.data_laporan.index', compact('reports'));
         } else if (Auth::User()->level == 2) {
-            return view('kantah.data_laporan.index');
+            $reports = Report::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
+            })->orderBy('created_at', 'desc')->get();
+            return view('kantah.data_laporan.index', compact('reports'));
         } else if (Auth::User()->level == 1) {
-            $reports = Report::with('Fieldstaff')->get();
+            $reports = Report::with('Fieldstaff')->orderBy('created_at', 'desc')->get();
             return view('kanwil.data_laporan.index', compact('reports'));
         }
     }
@@ -105,9 +108,14 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateReportRequest $request, Report $report)
+    public function update(UpdateReportRequest $request, Report $dataLaporan)
     {
-        //
+        $validated = $request->validated();
+        if (Auth::User()->level == 3) {
+            $validated['kegiatan'] = implode(", ", $validated['kegiatans']);
+        }
+        $dataLaporan->update($validated);
+        return back()->with('success', 'Laporan berhasil diupdate');
     }
 
     /**
@@ -119,7 +127,7 @@ class ReportController extends Controller
     public function destroy(Report $dataLaporan)
     {
         $dataLaporan->delete();
-        return back()->with('success', 'Rencana berhasil dihapus');
+        return back()->with('success', 'Laporan berhasil dihapus');
     }
 
     public function cetak()

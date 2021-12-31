@@ -33,15 +33,17 @@
           <div class="product-image">
             <img src="{{asset('images/Logo-3.webp')}}" alt="..." style="width:60%; margin:0" />
           </div>
+
           <form method="post" action="/login">
             @csrf
             <h1>Silahkan Masuk</h1>
+            @if(session()->has('error')) <p class="text-danger">{{session('error')}}</p>@endif
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-              <input type="text" name="username" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
+              <input type="text" name="username" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Username" required>
               <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-              <input type="password" name="password" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Password">
+              <input type="password" name="password" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Password" required>
               <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
             </div>
             <div class='col-md-12 col-sm-12 col-xs-12 form-group'>

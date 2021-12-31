@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReportRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateReportRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -23,8 +24,26 @@ class UpdateReportRequest extends FormRequest
      */
     public function rules()
     {
+        if (Auth::User()->level == 3) {
+            return [
+                'kegiatans' => 'required',
+                'keterangan' => 'required',
+                'peserta' => 'required',
+                'keluhan' => 'present'
+            ];
+        } else {
+            return [
+                'saran' => 'present'
+            ];
+        }
+    }
+
+    public function messages()
+    {
         return [
-            //
+            'kegiatans' => 'Pilih minimal 1 kegiatan',
+            'keterangan' => 'Field Keterangan tidak boleh kosong',
+            'peserta' => 'Field Peserta tidak boleh kosong',
         ];
     }
 }

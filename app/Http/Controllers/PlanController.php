@@ -119,7 +119,7 @@ class PlanController extends Controller
     public function destroy(Plan $dataRencana)
     {
         $dataRencana->delete();
-        return back()->with('success', 'Laporan berhasil dihapus');
+        return back()->with('success', 'Rencana berhasil dihapus');
     }
 
     public function cetak()

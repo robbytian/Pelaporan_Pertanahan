@@ -36,10 +36,10 @@ class StoreReportRequest extends FormRequest
     public function messages()
     {
         return [
-            'tanggal_laporan' => 'Field Tanggal Laporan tidak boleh kosong',
-            'kegiatans' => 'Pilih minimal 1 kegiatan',
-            'keterangan' => 'Field Keterangan tidak boleh kosong',
-            'peserta' => 'Field Peserta tidak boleh kosong',
+            'tanggal_laporan.required' => 'Field Tanggal Laporan tidak boleh kosong',
+            'kegiatans.required' => 'Pilih minimal 1 kegiatan',
+            'keterangan.required' => 'Field Keterangan tidak boleh kosong',
+            'peserta.required' => 'Field Peserta tidak boleh kosong',
             'foto.max' => 'Foto tidak boleh lebih dari 1MB'
         ];
     }

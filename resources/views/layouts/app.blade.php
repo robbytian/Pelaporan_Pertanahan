@@ -24,7 +24,7 @@
     <!-- bootstrap-progressbar -->
     <link href="{{asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
     <!-- JQVMap -->
-    <link href="{{asset('vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet" />
+    <!-- <link href="{{asset('vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet" /> -->
     <!-- bootstrap-daterangepicker -->
     <link href="{{asset('vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
     <!-- Datatables -->
@@ -80,30 +80,33 @@
             <!-- top navigation -->
             <div class="top_nav">
                 <div class="nav_menu">
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="{{asset('images/user.png')}}" alt="">
-                                {{\App\Models\User::getUser()->name}}
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="/editAkun">Edit Akun</a></li>
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{asset('images/user.png')}}" alt="">
 
-                                @csrf
-                                <li>
-                                    <!-- <form action="/logout" method="post"> -->
-                                    <a href="{{url('/logout')}}" onclick="$(this).closest('form').submit()""><i class=" fa fa-sign-out pull-right"></i> Log Out</a>
-                                    <!-- </form> -->
-                                </li>
+                                    {{ \Illuminate\Support\Str::limit(\App\Models\User::getUser()->name, 20, $end='...')}}
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="/editAkun">Edit Akun</a></li>
+
+                                    @csrf
+                                    <li>
+                                        <!-- <form action="/logout" method="post"> -->
+                                        <a href="{{url('/logout')}}" onclick="$(this).closest('form').submit()""><i class=" fa fa-sign-out pull-right"></i> Log Out</a>
+                                        <!-- </form> -->
+                                    </li>
 
 
-                            </ul>
-                        </li>
-                    </ul>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <!-- /top navigation -->
@@ -156,10 +159,6 @@
     <script src="{{asset('vendors/flot.curvedlines/curvedLines.js')}}"></script>
     <!-- DateJS -->
     <script src="{{asset('vendors/DateJS/build/date.js')}}"></script>
-    <!-- JQVMap -->
-    <script src="{{asset('vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
-    <script src="{{asset('vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-    <script src="{{asset('/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="{{asset('vendors/moment/min/moment.min.js')}}"></script>
     <script src="{{asset('vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>

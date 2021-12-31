@@ -7,11 +7,11 @@
         <table id="tableRencana" class="table table-striped table-bordered ">
             <thead>
                 <tr>
-                    <th>Nama Fieldstaff</th>
-                    <th>Periode</th>
-                    <th>Lokasi</th>
-                    <th>Rencana Tindak Lanjut</th>
-                    <th>Action</th>
+                    <th width="15%">Nama Fieldstaff</th>
+                    <th width="15%">Periode</th>
+                    <th width="17%">Lokasi</th>
+                    <th width="40%">Rencana Tindak Lanjut</th>
+                    <th width="13%">Action</th>
                 </tr>
             </thead>
 

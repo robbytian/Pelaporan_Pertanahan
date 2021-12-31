@@ -14,7 +14,7 @@
                     <th width="15%">Tanggal Lahir</th>
                     <th width="22%">Alamat</th>
                     <th width="15%">Target Fisik (KK)</th>
-                    <th width="15%">Nama Kantah</th>
+                    @if(Auth::User()->level==1)<th width="15%">Nama Kantah</th>@endif
                     <th width="18%">Action</th>
                 </tr>
             </thead>
@@ -27,7 +27,7 @@
                     <td>{{date('d F Y',strtotime($fieldstaff->date_born))}}</td>
                     <td>{{$fieldstaff->alamat}}</td>
                     <td class="text-center">{{empty($fieldstaff->target) ? '-' : $fieldstaff->target}}</td>
-                    <td>{{$fieldstaff->kantah_id != null ? $fieldstaff->Kantah->name : $fieldstaff->Kanwil->name}}</td>
+                    @if(Auth::User()->level==1)<td>{{$fieldstaff->kantah_id != null ? $fieldstaff->Kantah->name : $fieldstaff->Kanwil->name}}</td>@endif
 
                     <td> <button class="btn btn-default btn-sm btnLihat" id="" type="button" data-toggle="modal" data-target="#dataFieldstaff" data-id="{{$fieldstaff->id}}">
                             <i class="fa fa-search"></i> Lihat</button>
@@ -95,7 +95,12 @@
                         <br>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                            <div class="input-group" id="show_hide_password">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"> <i class="fa fa-eye-slash"></i> </button>
+                                </span>
+                            </div>
                         </div>
                 </div>
             </div>

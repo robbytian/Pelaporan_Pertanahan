@@ -84,10 +84,13 @@
                         <br>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" id="password_kantah" name="password" class="form-control" placeholder="Password" required>
-
+                            <div class="input-group" id="show_hide_password">
+                                <input type="password" id="password_kantah" name="password" class="form-control" placeholder="Password" required>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"> <i class="fa fa-eye-slash"></i> </button>
+                                </span>
+                            </div>
                         </div>
-
 
                 </div>
             </div>

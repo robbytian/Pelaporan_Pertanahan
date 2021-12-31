@@ -51,21 +51,33 @@
 
                 <br>
                 <div class="form-group">
-                    <label>Password Baru</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password">
-
+                    <label>Password Baru </label>
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" name="password" class="form-control" placeholder="Password Baru">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"> <i class="fa fa-eye-slash"></i> </button>
+                        </span>
+                    </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Konfirmasi Password Baru</label>
-                    <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
-
+                    <label>Konfirmasi Password Baru </label>
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" name="password_confirmation" class="form-control" placeholder="Konfirmasi Password Baru">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"> <i class="fa fa-eye-slash"></i> </button>
+                        </span>
+                    </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Password Lama <span class="required">*</span></label>
-                    <input type="password" name="password_lama" class="form-control" placeholder="Password" required>
-
+                    <label>Password Lama </label>
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" name="password_lama" class="form-control" placeholder="Password Lama" required>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"> <i class="fa fa-eye-slash"></i> </button>
+                        </span>
+                    </div>
                 </div>
                 <br>
                 <div class="form-group">

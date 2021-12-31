@@ -32,7 +32,18 @@
           <td>{{date('d F Y',strtotime($report->tanggal_laporan))}}</td>
           <td>{{date('d F Y',strtotime($report->created_at))}}</td>
           <td>{{$report->kegiatan}}</td>
-          <td>{{empty($report->keluhan) ? '-' : $report->keluhan}}</td>
+          <td>
+            @if(empty($report->keluhan))
+            -
+            @else
+            @if(empty($report->saran))
+            <span class="label label-danger">Terdapat Keluhan</span>
+            @else
+            <span class="label label-success">Saran sudah diberikan</span>
+            @endif
+            @endif
+
+          </td>
           <td> <button class="btn btn-default btn-sm btnLihat" type="button" data-toggle="modal" data-target="#modalUpdate" data-id="{{$report->id}}"> <i class="fa fa-search"></i> Lihat</button>
             <button data-id="{{$report->id}}" class="btn btn-danger btn-sm btnHapus" type="button" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-trash"></i> Delete</button>
           </td>
@@ -57,7 +68,7 @@
       </div>
       <div class="modal-body">
         <div class="">
-          <form class="form-horizontal form-label-left" method="post" id="upadteLaporan">
+          <form class="form-horizontal form-label-left" method="post" id="updateLaporan">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -67,39 +78,39 @@
             <br>
             <div class="form-group">
               <label>Tanggal Laporan</label>
-              <input type="text" name="tanggal_laporan" id="tanggal_laporan" class="form-control" placeholder="Password" readonly>
+              <input type="text" name="tanggal_laporan" id="tanggal_laporan" class="form-control" placeholder="tanggal laporan" readonly>
             </div>
             <br>
             <div class="form-group">
               <label>Tanggal Input</label>
-              <input type="text" name="tanggal_input" id="tanggal_input" class="form-control" placeholder="Password" readonly>
+              <input type="text" name="tanggal_input" id="tanggal_input" class="form-control" placeholder="tanggal input" readonly>
             </div>
             <br>
-            <div class="form-group">
+            <div class="form-group ">
               <label>Kegiatan </label>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="koordinasi" name="kegiatans[]" class="flat" value="koordinasi" checked=FALSE> Koordinasi dengan kantah
+                  <input type="checkbox" id="koordinasi" name="kegiatans[]" value="koordinasi"> Koordinasi dengan kantah
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="pendampingan" name="kegiatans[]" class="flat" value="pendampingan"> Melakukan Pendampingan
+                  <input type="checkbox" id="pendampingan" name="kegiatans[]" value="pendampingan"> Melakukan Pendampingan
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="rapat" name="kegiatans[]" class="flat" value="rapat"> Rapat/Meeting
+                  <input type="checkbox" id="rapat" name="kegiatans[]" value="rapat"> Rapat/Meeting
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="kunjungan" name="kegiatans[]" class="flat" value="kunjungan"> Melakukan Kunjungan
+                  <input type="checkbox" id="kunjungan" name="kegiatans[]" value="kunjungan"> Melakukan Kunjungan
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="lainnya" name="kegiatans[]" class="flat" value="lainnya"> Lainnya
+                  <input type="checkbox" id="lainnya" name="kegiatans[]" value="lainnya"> Lainnya
                 </label>
               </div>
             </div>
@@ -116,12 +127,12 @@
             <br>
             <div class="form-group">
               <label for="message">Keluhan </label>
-              <textarea name="keluhan" id="keluhan" required="required" class="form-control" rows="3" placeholder="Keterangan.."></textarea>
+              <textarea name="keluhan" id="keluhan" class="form-control" rows="3" placeholder="Keluhan.."></textarea>
             </div>
             <br>
             <div class="form-group">
               <label for="message">Saran</label>
-              <textarea name="saran" id="saran" required="required" class="form-control" rows="3" placeholder="Keterangan.." readonly></textarea>
+              <textarea name="saran" id="saran" class="form-control" rows="3" placeholder="Saran.." readonly></textarea>
             </div>
             <br>
             <div class="form-group">
@@ -187,39 +198,38 @@
     $('body').on('click', '.btnLihat', function(event) {
       event.preventDefault();
       $('#foto').hide();
-      // $('#noFoto').hide();
-      // $('#koordinasi').removeAttr('checked');
-      // $('#pendampingan').removeAttr('checked');
-      // $('#rapat').removeAttr('checked');
-      // $('#kunjungan').removeAttr('checked');
-      // $('#lainnya').removeAttr('checked');
+      $('#noFoto').hide();
+      $('#koordinasi').prop('checked', false);
+      $('#pendampingan').prop('checked', false);
+      $('#rapat').prop('checked', false);
+      $('#kunjungan').prop('checked', false);
+      $('#lainnya').prop('checked', false);
       var id = $(this).data('id');
+      console.log(id);
       $("#updateLaporan").attr('action', '/dataLaporan/' + id);
       $.get('dataLaporan/' + id + '/detail', function(data) {
         var kegiatan = data.laporan.kegiatan.split(",");
-        console.log(kegiatan);
-        console.log(kegiatan.indexOf("koordinasi"));
         $('#tanggal_laporan').val(data.laporan.tanggal_laporan);
         $('#tanggal_input').val(data.laporan.tanggal_input);
         $('#keterangan').val(data.laporan.keterangan);
         $('#peserta').val(data.laporan.peserta);
         $('#keluhan').val(data.laporan.keluhan);
         $('#saran').val(data.laporan.saran);
-        if (kegiatan.indexOf("koordinasi") > -1) {
+
+        if (kegiatan.indexOf("koordinasi") > -1 || kegiatan.indexOf(" koordinasi") > -1) {
           $('#koordinasi').prop('checked', true);
         }
-        if (kegiatan.indexOf("pendampingan") > -1) {
+        if (kegiatan.indexOf("pendampingan") > -1 || kegiatan.indexOf(" pendampingan") > -1) {
           $('#pendampingan').prop('checked', true);
         }
-        if (kegiatan.indexOf("rapat") > -1) {
-          $('#rapat').prop('checked', true);
-
+        if (kegiatan.indexOf("rapat") > -1 || kegiatan.indexOf(" rapat") > -1) {
+          $('#rapat').prop('checked', true)
         }
-        if (kegiatan.indexOf("kunjungan") > -1) {
-          $('#kunjungan').prop('checked', true);
+        if (kegiatan.indexOf("kunjungan") > -1 || kegiatan.indexOf(" kunjungan") > -1) {
+          $('#kunjungan').prop('checked', true)
         }
-        if (kegiatan.indexOf("lainnya") > -1) {
-          $('#lainnya').prop('checked', true);
+        if (kegiatan.indexOf("lainnya") > -1 || kegiatan.indexOf(" lainnya") > -1) {
+          $('#lainnya').prop('checked', true)
         }
         if (data.laporan.foto != null) {
           $('#foto').show();

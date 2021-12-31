@@ -49,8 +49,12 @@
                 <br>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    <i class="bi bi-eye-slash" id="togglePassword"></i>
+                    <div class="input-group" id="show_hide_password">
+                        <input type="password" name="password" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"> <i class="fa fa-eye-slash"></i> </button>
+                        </span>
+                    </div>
                 </div>
                 <br>
                 <div class="form-group">

@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Kantah::create([
-            'name' => 'kantah',
+            'name' => 'KANTAH PERTANAHAN UTARA',
             'user_id' => 2,
             'email' => 'kantah@gmail.com',
             'head_name' => 'jajang',
