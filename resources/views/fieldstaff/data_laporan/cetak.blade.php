@@ -6,7 +6,7 @@
     @include('layouts.notif')
     <div class="page-title">
         <div class="title_left">
-            <h4><small><a href="/dataLaporan">Data Laporan</a> / Cetak Rencana</small></h4>
+            <h4><small><a href="/dataLaporan">Data Laporan</a> / Cetak Laporan</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -14,7 +14,7 @@
             <div class="row x_title">
                 <div class="col-md-6 col-xs-12 col-sm-12">
                     <h2>
-                        Pilih Periode
+                        Pilih Rentang Tanggal Laporan
                     </h2>
                 </div>
             </div>
@@ -22,18 +22,16 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-margin">
                     <div class="form-group">
                         <label>Mulai Dari</label>
-                        <input type="date" id="periode_dari" class="form-control periode" required placeholder="MM-YYYY">
+                        <input type="date" id="periode_dari" class="form-control periode" required>
                     </div>
                     <div class="form-group">
                         <label>Sampai</label>
-                        <input type="date" id="periode_sampai" class="form-control periode" required placeholder="MM-YYYY">
+                        <input type="date" id="periode_sampai" class="form-control periode" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" id="btnLihatData" class="btn btn-primary">Tampilkan Data</button>
+                        <button type="button" id="btnLihatData" class="btn btn-primary">Tampilkan Data</button>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -72,40 +70,63 @@
     </div>
 </div>
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section('script')
 <script>
     $(document).ready(function() {
-        console.log('aa');
-
+        var flagsUrl = "{{ URL::asset('/images/laporan/') }}";
         $('#tableCetak').dataTable({
             "paginate": false,
             "searching": false
         });
 
+        $('body').on('click', '#btnLihatData', function(event) {
+            const awal = $('#periode_dari').val();
+            const akhir = $('#periode_sampai').val();
+            $("#isiData").empty();
+            $('#btnCetak').prop('disabled', true);
+            $('#titlePeriode').text("Tanggal Laporan " + awal + " s.d " + akhir);
+            $('#linkCetak').attr('action', '/dataLaporan/{{\App\Models\Fieldstaff::getUser()->id}}/cetakPDF');
+            $('#cetakAwal').val(awal);
+            $('#cetakAkhir').val(akhir);
+            event.preventDefault();
+            $.get('/dataLaporan/{{\App\Models\Fieldstaff::getUser()->id}}/cekDataPeriode?awal=' + awal + '&akhir=' + akhir, function(data) {
+                if (data.data == null) {
+                    $("#isiData").append(
+                        '<tr>' +
+                        "<td colspan=5 class='text-center'>Data Tidak Ditemukan</td>" +
+                        '</tr>'
+                    );
+                } else {
+                    $.each(data.data, function(key, value) {
+                        if (data.data[key].foto != null) {
+                            $("#isiData").append(
+                                '<tr>' +
+                                '<td style="vertical-align:middle">' + data.data[key].tanggal_laporan + '</td>' +
+                                '<td style="vertical-align:middle">' + data.data[key].kegiatan + '</td>' +
+                                '<td style="vertical-align:middle">' + data.data[key].keterangan + '</td>' +
+                                '<td style="vertical-align:middle">' + data.data[key].peserta + '</td>' +
+                                '<td style="vertical-align:middle"><img src="' + flagsUrl + "/" + data.data[key].foto + '" class="imgLaporan3"/></td>' +
+                                '</tr>'
+                            );
+                        } else {
+                            $("#isiData").append(
+                                '<tr>' +
+                                '<td>' + data.data[key].tanggal_laporan + '</td>' +
+                                '<td>' + data.data[key].kegiatan + '</td>' +
+                                '<td>' + data.data[key].keterangan + '</td>' +
+                                '<td>' + data.data[key].peserta + '</td>' +
+                                '<td>Tidak ada Foto diupload</td>' +
+                                '</tr>'
+                            );
+                        }
+
+                    });
+                    $('#btnCetak').prop('disabled', false);
+                }
+            });
+        });
     });
 </script>
 

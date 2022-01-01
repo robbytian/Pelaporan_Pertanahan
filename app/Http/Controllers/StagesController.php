@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Stages;
 use App\Models\Fieldstaff;
 use Illuminate\Http\Request;
@@ -26,9 +27,15 @@ class StagesController extends Controller
         if (Auth::User()->level == 3) {
             $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
             $tahapan = Stages::where('fieldstaff_id', $fieldstaff->id)->first();
+            if (empty($tahapan)) {
+                abort(404);
+            }
             return view('fieldstaff.data_tahapan.index', compact('tahapan', 'fieldstaff'));
         } else if (Auth::User()->level == 2) {
-            return view('kantah.data_tahapan.index');
+            $tahapans = Stages::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
+            })->orderBy('created_at', 'desc')->get();
+            return view('kantah.data_tahapan.index', compact('tahapans'));
         } else if (Auth::User()->level == 1) {
             $tahapans = Stages::with('Fieldstaff')->get();
             return view('kanwil.data_tahapan.index', compact('tahapans'));
@@ -143,6 +150,9 @@ class StagesController extends Controller
     public function inputTahapan()
     {
         $tahapan = Stages::where('fieldstaff_id', \App\Models\Fieldstaff::getUser()->id)->first();
+        if (empty($tahapan)) {
+            abort(404);
+        }
         return view('fieldstaff.data_tahapan.create', compact('tahapan'));
     }
 }

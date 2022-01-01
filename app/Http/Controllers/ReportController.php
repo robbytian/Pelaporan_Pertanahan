@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\User;
 use App\Models\Report;
 use App\Models\Fieldstaff;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
-use GuzzleHttp\Psr7\Request;
+
 
 class ReportController extends Controller
 {
@@ -25,7 +27,7 @@ class ReportController extends Controller
     {
         if (Auth::User()->level == 3) {
             $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
-            $reports = Report::where('fieldstaff_id', $fieldstaff->id)->get();
+            $reports = Report::where('fieldstaff_id', $fieldstaff->id)->orderByDesc('created_at')->get();
             return view('fieldstaff.data_laporan.index', compact('reports'));
         } else if (Auth::User()->level == 2) {
             $reports = Report::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
@@ -140,5 +142,40 @@ class ReportController extends Controller
         $id->tanggal_laporan = date('d F Y', strtotime($id->tanggal_laporan));
         $id->tanggal_input = date('d F Y', strtotime($id->created_at));
         return response()->json(['laporan' => $id]);
+    }
+
+    public function cekPeriode(Fieldstaff $id, Request $request)
+    {
+        if (empty($request->awal) || empty($request->akhir)) {
+            return response()->json(['data' => null]);
+        }
+        $periodeAwal = $request->awal;
+        $periodeAkhir = $request->akhir;
+        $alldata = $id->load(['Report' => function ($query) use ($periodeAwal, $periodeAkhir) {
+            $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir);
+        }], 'Kantah');
+        foreach ($alldata->Report as $data) {
+            $laporan[] = [
+                "tanggal_laporan" => date('d F Y', strtotime($data->tanggal_laporan)),
+                'kegiatan' => $data->kegiatan,
+                'keterangan' => $data->keterangan,
+                'peserta' => $data->peserta,
+                'foto' => $data->foto,
+            ];
+        }
+
+        return response()->json(['data' => @$laporan]);
+    }
+
+    public function cetakLaporan(Fieldstaff $id, Request $request)
+    {
+        $periodeAwal = $request->awal;
+        $periodeAkhir = $request->akhir;
+        $alldata = $id->load(['Report' => function ($query) use ($periodeAwal, $periodeAkhir) {
+            $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir);
+        }]);
+        $pdf = PDF::loadView('layouts.pdf_laporan', ['alldata' => $alldata, 'awal' => $periodeAwal, 'akhir' => $periodeAkhir]);
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download("Laporan - " . $id->name . "_" . date("YmdHis") . ".pdf");
     }
 }

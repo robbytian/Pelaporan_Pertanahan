@@ -14,7 +14,10 @@ class PlanFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'periode' => '2021-12-01',
+            'lokasi' => 'Bandung',
+            'tindak_lanjut' => 'memperbaiki',
+            'fieldstaff_id' => 1
         ];
     }
 }

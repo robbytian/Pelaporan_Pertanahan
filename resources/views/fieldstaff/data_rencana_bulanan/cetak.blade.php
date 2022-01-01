@@ -22,7 +22,6 @@
                 </div>
             </div>
             <div class="x_content">
-
                 <div class="form-group">
                     <label>Mulai Dari</label>
                     <input type="text" id="periode_dari" class="form-control periode" required placeholder="MM-YYYY">
@@ -34,10 +33,8 @@
                     <input type="hidden" id="data-periode_sampai" name="periode" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="btnLihatData" class="btn btn-primary">Tampilkan Data</button>
+                    <button type="button" id="btnLihatData" class="btn btn-primary">Tampilkan Data</button>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -119,9 +116,7 @@
         $('#cetakAkhir').val(akhir);
         event.preventDefault();
         $.get('/dataRencana/{{\App\Models\Fieldstaff::getUser()->id}}/cekDataPeriode?awal=' + awal + '&akhir=' + akhir, function(data) {
-            console.log(data);
             if (data.data == null) {
-                console.log('aa');
                 $("#isiData").append(
                     '<tr>' +
                     "<td colspan=3 class='text-center'>Data Tidak Ditemukan</td>" +

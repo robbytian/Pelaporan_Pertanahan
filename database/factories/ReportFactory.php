@@ -14,7 +14,11 @@ class ReportFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'tanggal_laporan' => '2021-12-30',
+            'kegiatan' => 'koordinasi',
+            'keterangan' => 'test Doang',
+            'fieldstaff_id' => 1,
+            'peserta' => 'siapa'
         ];
     }
 }

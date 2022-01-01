@@ -5,47 +5,49 @@
             <h2>Data Laporan</h2>
             <div class="clearfix"></div>
         </div>
-        <table id="tableLaporan" class="table table-striped table-bordered dt-responsive">
-            <thead>
-                <tr>
-                    <th width="15%">Nama Fieldstaff</th>
-                    <th width="15%">Tanggal Laporan</th>
-                    <th width="15%">Tanggal Input</th>
-                    <th width="19%">Kegiatan</th>
-                    <th width="18%">Keluhan</th>
-                    <th width="18%">Action</th>
-                </tr>
-            </thead>
+        <div class="x-content">
+            <table id="tableLaporan" class="table table-striped table-bordered dt-responsive">
+                <thead>
+                    <tr>
+                        <th width="15%">Nama Fieldstaff</th>
+                        <th width="15%">Tanggal Laporan</th>
+                        <th width="15%">Tanggal Input</th>
+                        <th width="19%">Kegiatan</th>
+                        <th width="18%">Keluhan</th>
+                        <th width="18%">Action</th>
+                    </tr>
+                </thead>
 
 
-            <tbody>
-                @foreach($reports as $report)
-                <tr>
-                    <td>{{$report->Fieldstaff->name}}</td>
-                    <td>{{date('d F Y',strtotime($report->tanggal_laporan))}}</td>
-                    <td>{{date('d F Y',strtotime($report->created_at))}}</td>
-                    <td>{{$report->kegiatan}}</td>
-                    <td>
-                        @if(empty($report->keluhan))
-                        -
-                        @else
-                        @if(empty($report->saran))
-                        <span class="label label-danger">Terdapat Keluhan</span>
-                        @else
-                        <span class="label label-success">Saran sudah diberikan</span>
-                        @endif
-                        @endif
+                <tbody>
+                    @foreach($reports as $report)
+                    <tr>
+                        <td>{{$report->Fieldstaff->name}}</td>
+                        <td>{{date('d F Y',strtotime($report->tanggal_laporan))}}</td>
+                        <td>{{date('d F Y',strtotime($report->created_at))}}</td>
+                        <td>{{$report->kegiatan}}</td>
+                        <td>
+                            @if(empty($report->keluhan))
+                            -
+                            @else
+                            @if(empty($report->saran))
+                            <span class="label label-danger">Terdapat Keluhan</span>
+                            @else
+                            <span class="label label-success">Saran sudah diberikan</span>
+                            @endif
+                            @endif
 
-                    </td>
-                    <td> <button class="btn btn-default btn-sm btnLihat" type="button" data-toggle="modal" data-target="#modalUpdate" data-id="{{$report->id}}"> <i class="fa fa-search"></i> Lihat</button>
-                        <button class="btn btn-danger btn-sm btnHapus" data-toggle="modal" data-target="#modalDelete" data-id="{{$report->id}}" type="button"><i class="fa fa-trash"></i> Delete</button>
-                    </td>
-                </tr>
-                @endforeach
+                        </td>
+                        <td> <button class="btn btn-default btn-sm btnLihat" type="button" data-toggle="modal" data-target="#modalUpdate" data-id="{{$report->id}}"> <i class="fa fa-search"></i> Lihat</button>
+                            <button class="btn btn-danger btn-sm btnHapus" data-toggle="modal" data-target="#modalDelete" data-id="{{$report->id}}" type="button"><i class="fa fa-trash"></i> Delete</button>
+                        </td>
+                    </tr>
+                    @endforeach
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

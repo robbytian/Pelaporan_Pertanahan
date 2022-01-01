@@ -101,11 +101,19 @@ class UserController extends Controller
             $data['laporanKeluhan'] = Report::where('fieldstaff_id', $fieldstaff->id)->whereNotNull('keluhan')->where('keluhan', '!=', '')->get();
             $data['laporanSaran'] = Report::where('fieldstaff_id', $fieldstaff->id)->whereNotNull('saran')->where('saran', '!=', '')->get();
             $data['tanggal_akhir'] = Report::where('fieldstaff_id', $fieldstaff->id)->orderBy('created_at', 'desc')->first();
-            $data['persenPemetaan'] = $fieldstaff->Tahapan->pemetaan / $fieldstaff->target * 100;
-            $data['persenPenyuluhan'] = $fieldstaff->Tahapan->penyuluhan / $fieldstaff->target * 100;
-            $data['persenPenyusunan'] = $fieldstaff->Tahapan->penyusunan / $fieldstaff->target * 100;
-            $data['persenPendampingan'] = $fieldstaff->Tahapan->pendampingan / $fieldstaff->target * 100;
-            $data['persenEvaluasi']  = $fieldstaff->Tahapan->evaluasi / $fieldstaff->target * 100;
+            if (!empty($fieldstaff->Tahapan)) {
+                $data['persenPemetaan'] = $fieldstaff->Tahapan->pemetaan / $fieldstaff->target * 100;
+                $data['persenPenyuluhan'] = $fieldstaff->Tahapan->penyuluhan / $fieldstaff->target * 100;
+                $data['persenPenyusunan'] = $fieldstaff->Tahapan->penyusunan / $fieldstaff->target * 100;
+                $data['persenPendampingan'] = $fieldstaff->Tahapan->pendampingan / $fieldstaff->target * 100;
+                $data['persenEvaluasi']  = $fieldstaff->Tahapan->evaluasi / $fieldstaff->target * 100;
+            } else {
+                $data['persenPemetaan'] = 0;
+                $data['persenPenyuluhan'] = 0;
+                $data['persenPenyusunan'] = 0;
+                $data['persenPendampingan'] = 0;
+                $data['persenEvaluasi']  = 0;
+            }
             return view('fieldstaff.index')->with($data);
         }
     }

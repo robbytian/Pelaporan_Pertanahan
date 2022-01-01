@@ -36,6 +36,12 @@
             background-color: #0275d8;
             color: white;
         }
+
+        .imgLaporan3 {
+            object-fit: cover;
+            width: 90px;
+            height: 60px;
+        }
     </style>
 
 </head>
@@ -53,7 +59,7 @@
         <tr>
             <td><strong>Periode</strong></td>
             <td><strong> :</strong> </td>
-            <td><strong>{{$awal == $akhir ? date('F Y',strtotime($awal)) : date('F Y',strtotime($awal)) ." - ". date('F Y',strtotime($akhir))}}</strong></td>
+            <td><strong>{{$awal == $akhir ? date('d F Y',strtotime($awal)) : date('d F Y',strtotime($awal)) ." - ". date('d F Y',strtotime($akhir))}}</strong></td>
         </tr>
 
     </table>
@@ -63,23 +69,30 @@
     <table width="100%" class="tab">
         <thead class="blue">
             <tr>
-                <th>Periode</th>
-                <th>Lokasi</th>
-                <th>Rencana Tindak Lanjut</th>
+                <th width="15%">Tanggal Laporan</th>
+                <th width="15%">Kegiatan</th>
+                <th width="30%">Deskripsi Kegiatan</th>
+                <th width="20%">Peserta</th>
+                <th width="20%">Foto</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($alldata->Rencana as $data)
+            @foreach($alldata->Report as $data)
             <tr class="isi">
-                <td>{{date('F Y',strtotime($data->periode))}}</td>
-                <td>{{$data->lokasi}}</td>
-                <td>{{$data->tindak_lanjut}}</td>
+                <td style="vertical-align:middle">{{date('d F Y',strtotime($data->tanggal_laporan))}}</td>
+                <td style="vertical-align:middle">{{$data->kegiatan}}</td>
+                <td style="vertical-align:middle">{{$data->keterangan}}</td>
+                <td style="vertical-align:middle">{{$data->peserta}}</td>
+                @if(empty($data->foto))
+                <td style="vertical-align:middle">Tidak ada Foto diupload</td>
+                @else
+                <td style="vertical-align:middle"><img src="{{URL::asset('/images/laporan/')}}/{{$data->foto}}" class="imgLaporan3"></td>
+                @endif
+
             </tr>
             @endforeach
 
         </tbody>
-
-
     </table>
     <br>
     <br>

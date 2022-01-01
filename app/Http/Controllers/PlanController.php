@@ -29,7 +29,7 @@ class PlanController extends Controller
     {
         if (Auth::User()->level == 3) {
             $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
-            $rencanas = Plan::where('fieldstaff_id', $fieldstaff->id)->get();
+            $rencanas = Plan::where('fieldstaff_id', $fieldstaff->id)->orderByDesc('created_at')->get();
             return view('fieldstaff.data_rencana_bulanan.index', compact('rencanas'));
         } else if (Auth::User()->level == 2) {
             $data['plans'] = Plan::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
@@ -139,6 +139,9 @@ class PlanController extends Controller
 
     public function cekPeriode(Fieldstaff $id, Request $request)
     {
+        if (empty($request->awal) || empty($request->akhir)) {
+            return response()->json(['data' => null]);
+        }
         $periodeAwal = Carbon::createFromFormat('d-m-Y', $request->awal)->format('Y-m-d');
         $periodeAkhir = Carbon::createFromFormat('d-m-Y', $request->akhir)->format('Y-m-d');
         $alldata = $id->load(['Rencana' => function ($query) use ($periodeAwal, $periodeAkhir) {
@@ -164,6 +167,6 @@ class PlanController extends Controller
         }]);
         $pdf = PDF::loadView('layouts.pdf_rencana', ['alldata' => $alldata, 'awal' => $periodeAwal, 'akhir' => $periodeAkhir]);
         $pdf->setPaper('A4', 'landscape');
-        return $pdf->download("Rencana Bulanan-" . $id->name . "_" . date("YmdHis") . ".pdf");
+        return $pdf->download("Rencana Bulanan - " . $id->name . "_" . date("YmdHis") . ".pdf");
     }
 }
