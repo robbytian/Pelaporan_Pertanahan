@@ -45,13 +45,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'KANTAH PERTANAHAN UTARA',
             'user_id' => 2,
             'email' => 'kantah@gmail.com',
-            'head_name' => 'jajang',
+            'head_name' => 'Jajang Setiawan',
             'nip_head_name' => '190613011',
             'kanwil_id' => 1,
         ]);
 
         Fieldstaff::create([
-            'name' => 'fieldstaff',
+            'name' => 'Robby Gustian',
             'date_born' => '2001-11-11',
             'alamat' => 'Di Rumah',
             'phone_number' => '089636466772',

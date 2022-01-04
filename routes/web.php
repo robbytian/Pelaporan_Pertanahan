@@ -51,7 +51,6 @@ Route::resource('/dataKantah', KantahController::class)->middleware('kanwil');
 Route::resource('/dataLaporan', ReportController::class)->middleware('auth');
 Route::resource('/dataTahapan', StagesController::class)->except(['create'])->middleware('auth');
 Route::resource('/dataRencana', PlanController::class)->middleware('auth');
-Route::group(['middleware' => ['kanwil', 'kanwil']], function () {
-    Route::get('/dataFieldstaff/{id}/detail', [FieldstaffController::class, 'detFieldstaff']);
-    Route::resource('/dataFieldstaff', FieldstaffController::class);
-});
+//group
+Route::get('/dataFieldstaff/{id}/detail', [FieldstaffController::class, 'detFieldstaff'])->middleware('auth');
+Route::resource('/dataFieldstaff', FieldstaffController::class)->middleware('auth');

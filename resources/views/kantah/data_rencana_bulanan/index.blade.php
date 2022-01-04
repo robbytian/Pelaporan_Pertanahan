@@ -46,6 +46,29 @@
     </div>
 </div>
 
+<!-- Modal Delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Konfirmasi Penghapusan</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="deleteRencana">
+                    @csrf
+                    @method('DELETE')
+                    <p>Anda yakin ingin menghapus data rencana ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -68,6 +91,12 @@
             })
         });
     });
+
+    $('body').on('click', '.btnHapus', function() {
+        event.preventDefault();
+        var id = $(this).data('id');
+        $("#deleteRencana").attr('action', '/dataRencana/' + id);
+    })
 </script>
 
 @endsection

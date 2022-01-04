@@ -108,7 +108,7 @@
         </tr>
         <tr style="font-size:small">
             <td style="text-align:left;vertical-align:top;padding-top:80px"><b><u>{{$alldata->name}}</b></u></td>
-            <td style="text-align:left;vertical-align:top;padding-top:80px"><b>@if(!empty($alldata->Kantah))<u>{{$alldata->Kantah}}</u>@else - @endif</b></td>
+            <td style="text-align:left;vertical-align:top;padding-top:80px"><b>@if(!empty($alldata->Kantah))<u>{{$alldata->Kantah->head_name}}</u>@else - @endif</b></td>
         </tr>
         <tr style="font-size:small">
             <td style="text-align:left;vertical-align:top">Field Staff</td>

@@ -41,10 +41,11 @@
                 <thead>
                     <tr>
                         <th width="15">Nama Fieldstaff</th>
-                        <th width="17%">Pemetaan Sosial</th>
-                        <th width="15%">Penyuluhan</th>
-                        <th width="18%">Penyusunan Model</th>
-                        <th width="15%">Pendampingan</th>
+                        <th width="7%">Target</th>
+                        <th width="15%">Pemetaan Sosial</th>
+                        <th width="13%">Penyuluhan</th>
+                        <th width="16%">Penyusunan Model</th>
+                        <th width="14%">Pendampingan</th>
                         <th width="20%">Evaluasi dan Pelaporan</th>
                     </tr>
                 </thead>
@@ -52,6 +53,7 @@
                     @foreach($tahapans as $tahapan)
                     <tr>
                         <td>{{$tahapan->Fieldstaff->name}}</td>
+                        <td>{{$tahapan->Fieldstaff->target}}</td>
                         <td>{{$tahapan->pemetaan}}</td>
                         <td>{{$tahapan->penyuluhan}}</td>
                         <td>{{$tahapan->penyusunan}}</td>

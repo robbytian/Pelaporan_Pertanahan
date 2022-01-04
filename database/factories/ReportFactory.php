@@ -18,7 +18,8 @@ class ReportFactory extends Factory
             'kegiatan' => 'koordinasi',
             'keterangan' => 'test Doang',
             'fieldstaff_id' => 1,
-            'peserta' => 'siapa'
+            'peserta' => 'siapa',
+            'foto' => '0103202219284061d2ebf887d0757e2288e20f7d1d613ed6975_Icon-incident-management.png'
         ];
     }
 }
