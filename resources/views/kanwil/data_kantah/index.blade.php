@@ -131,7 +131,6 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        console.log('aa');
         $('#tableKantah').dataTable({
             "autoWidth": false,
         });

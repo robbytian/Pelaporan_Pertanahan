@@ -10,7 +10,6 @@
 <script>
   var flagsUrl = "{{ URL::asset('/images/laporan/') }}";
   $(document).ready(function() {
-    console.log('aa');
     $('#tableLaporan').dataTable({
       "autoWidth": false,
       "aaSorting": []
@@ -32,6 +31,7 @@
       $('#rapat').prop('checked', false);
       $('#kunjungan').prop('checked', false);
       $('#lainnya').prop('checked', false);
+      $('#saran').removeAttr('readonly');
       var id = $(this).data('id');
       console.log(id);
       $("#updateLaporan").attr('action', '/dataLaporan/' + id);
@@ -64,6 +64,10 @@
           $("#foto").attr("src", flagsUrl + "/" + data.laporan.foto);
         } else {
           $('#noFoto').show();
+        }
+
+        if (data.laporan.keluhan == null) {
+          $('#saran').prop('readonly', true);
         }
 
       })

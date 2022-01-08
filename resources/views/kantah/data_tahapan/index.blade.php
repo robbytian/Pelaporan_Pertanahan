@@ -8,8 +8,6 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        console.log('aa');
-
         $('#tableTahapan').dataTable({
             "autoWidth": false,
         });

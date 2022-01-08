@@ -70,6 +70,15 @@ class ReportController extends Controller
         if ($request->keluhan != null) {
             $data['keluhan'] = $request->keluhan;
         }
+
+        //cek apakah tanggal laporan sudah ada
+        $cekTanggal = Report::where('tanggal_laporan', $validated['tanggal_laporan'])->where('fieldstaff_id', User::getUser()->id)->first();
+
+
+        if (!empty($cekTanggal)) {
+            return back()->with('error', 'Laporan untuk tanggal ' . date('d F Y', strtotime($validated['tanggal_laporan'])) . ' sudah ada');
+        }
+
         $data['kegiatan'] = implode(", ", $validated['kegiatans']);
         $data['tanggal_laporan'] = $validated['tanggal_laporan'];
         $data['keterangan'] = $validated['keterangan'];
@@ -128,7 +137,13 @@ class ReportController extends Controller
      */
     public function destroy(Report $dataLaporan)
     {
-        $dataLaporan->delete();
+        //hapus jika ada foto
+        if (!empty($dataLaporan->foto)) {
+            unlink(public_path('images/laporan') . '/' . $dataLaporan->foto);
+        }
+
+        // $dataLaporan->delete();
+        $dataLaporan->forceDelete();
         return back()->with('success', 'Laporan berhasil dihapus');
     }
 

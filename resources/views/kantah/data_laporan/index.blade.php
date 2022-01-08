@@ -10,7 +10,6 @@
 <script>
   var flagsUrl = "{{ URL::asset('/images/laporan/') }}";
   $(document).ready(function() {
-    console.log('aa');
     $('#tableLaporan').dataTable({
       "autoWidth": false,
       "aaSorting": []

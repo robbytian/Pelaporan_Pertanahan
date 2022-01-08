@@ -23,7 +23,22 @@
                     <input type="text" name="name" class="form-control" placeholder="Nama Kanwil" value="{{\App\Models\User::getUser()->name}}">
                 </div>
                 <br>
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" name="email" class="form-control" value="{{\App\Models\User::getUser()->email}}" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Kasi Penataan dan Pemberdayaan <span class="required">*</span></label>
+                    <input type="text" name="head_name" class="form-control" placeholder="Kasi Penataan dan Pemberdayaan" value="{{\App\Models\User::getUser()->head_name}}">
+                </div>
+                <br>
 
+                <div class="form-group">
+                    <label>NIP <span class="required">*</span></label>
+                    <input type="text" name="nip_head_name" class="form-control" placeholder="No.Telepon" required value="{{\App\Models\User::getUser()->nip_head_name}}">
+                </div>
+                <br>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" style="float:left">Update</buttoclass=>
                 </div>

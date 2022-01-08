@@ -13,7 +13,5 @@
 @endsection
 
 @section('script')
-<script>
-    console.log('aa')
-</script>
+
 @endsection

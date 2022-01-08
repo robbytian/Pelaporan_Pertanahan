@@ -98,8 +98,6 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    console.log('aa');
-
     $('#tableLaporan').dataTable({
       "paginate": false,
       buttons: [{

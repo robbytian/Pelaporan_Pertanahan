@@ -74,7 +74,6 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        console.log('aa');
         $('#tableRencana').dataTable({
             "autoWidth": false,
             "aaSorting": []

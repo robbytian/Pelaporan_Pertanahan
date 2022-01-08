@@ -38,7 +38,10 @@ class DatabaseSeeder extends Seeder
 
         Kanwil::create([
             'name' => 'kanwil',
-            'user_id' => 1
+            'user_id' => 1,
+            'email' => 'kanwil@gmail.com',
+            'head_name' => 'Kanwil',
+            'nip_head_name' => '99999999'
         ]);
 
         Kantah::create([

@@ -39,8 +39,8 @@
 
         .imgLaporan3 {
             object-fit: cover;
-            width: 90px;
-            height: 60px;
+            width: 128px;
+            height: 100px;
         }
     </style>
 

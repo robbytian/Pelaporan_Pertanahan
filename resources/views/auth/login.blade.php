@@ -39,7 +39,7 @@
             <h1>Silahkan Masuk</h1>
             @if(session()->has('error')) <p class="text-danger">{{session('error')}}</p>@endif
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-              <input type="text" name="username" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Username" required>
+              <input type="text" name="username" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Username" required value="{{old('username')}}">
               <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
