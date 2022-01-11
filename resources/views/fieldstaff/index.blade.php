@@ -16,7 +16,7 @@
                 <div class="count">{{$totalLaporan->count()}}</div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 tile_stats_count text-center mt-2">
-                <span class="count_top"><i class="fa fa-warning"></i> Laporan Dengan Keluhan</span>
+                <span class="count_top"><i class="fa fa-warning"></i> Laporan Dengan Kendala</span>
                 <div class="count">{{$laporanKeluhan->count()}}</div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 tile_stats_count text-center mt-2">

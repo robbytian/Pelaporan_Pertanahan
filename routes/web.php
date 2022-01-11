@@ -31,6 +31,7 @@ Route::get('/', function () {
 });
 Route::get('dashboard', [UserController::class, 'dashboard'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'index'])->middleware('guest')->name('login');
+
 Route::post('/login', [AuthController::class, 'authenticate'])->middleware('guest');
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/dataLaporan/cetak', [ReportController::class, 'cetak'])->middleware('fieldstaff');

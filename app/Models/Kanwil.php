@@ -11,7 +11,7 @@ class Kanwil extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name', 'email', 'head_name', 'nip_head_name'
     ];
 
     public function Kantah()

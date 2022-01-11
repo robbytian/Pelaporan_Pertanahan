@@ -158,8 +158,12 @@ class UserController extends Controller
         } else if ($id->level == 1) {
             $validated = $request->validate([
                 'name' => 'required',
+                'email' => 'required',
+                'head_name' => 'required',
+                'nip_head_name' => 'required'
             ]);
             $kanwil = Kanwil::where('user_id', $id->id)->first();
+
             $updateData = $kanwil->update($validated);
             if ($updateData) {
                 return back()->with('success', 'Data berhasil diupdate');

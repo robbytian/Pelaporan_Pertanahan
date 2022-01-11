@@ -19,7 +19,7 @@
           <th width="15%">Tanggal Laporan</th>
           <th width="15%">Tanggal Input</th>
           <th width="19%">Kegiatan</th>
-          <th width="18%">Keluhan</th>
+          <th width="18%">Kendala</th>
           <th width="18%">Action</th>
         </tr>
       </thead>
@@ -37,7 +37,7 @@
             -
             @else
             @if(empty($report->saran))
-            <span class="label label-danger">Terdapat Keluhan</span>
+            <span class="label label-danger">Terdapat Kendala</span>
             @else
             <span class="label label-success">Saran sudah diberikan</span>
             @endif
@@ -126,8 +126,8 @@
             </div>
             <br>
             <div class="form-group">
-              <label for="message">Keluhan </label>
-              <textarea name="keluhan" id="keluhan" class="form-control" rows="3" placeholder="Keluhan.."></textarea>
+              <label for="message">Kendala </label>
+              <textarea name="keluhan" id="keluhan" class="form-control" rows="3" placeholder="Kendala.."></textarea>
             </div>
             <br>
             <div class="form-group">

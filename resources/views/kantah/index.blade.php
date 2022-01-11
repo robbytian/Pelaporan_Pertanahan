@@ -10,7 +10,7 @@
 
     </div>
     <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count text-center">
-        <span class="count_top"><i class="fa fa-clock-o"></i> Laporan Dengan Keluhan</span>
+        <span class="count_top"><i class="fa fa-clock-o"></i> Laporan Dengan Kendala</span>
         <div class="count">{{$laporan->whereNotNull('keluhan')->where('keluhan', '!=', '')->count()}}</div>
 
     </div>

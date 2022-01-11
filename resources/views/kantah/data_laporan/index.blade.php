@@ -39,7 +39,7 @@
         $('#tanggal_laporan').val(data.laporan.tanggal_laporan);
         $('#tanggal_input').val(data.laporan.tanggal_input);
         $('#keterangan').val(data.laporan.keterangan);
-        $('#peserta').val(data.laporan.peserta);
+        $('#peserta').val(data.namaPeserta);
         $('#keluhan').val(data.laporan.keluhan);
         $('#saran').val(data.laporan.saran);
 

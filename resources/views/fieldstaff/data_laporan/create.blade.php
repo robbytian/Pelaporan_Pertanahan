@@ -74,9 +74,14 @@
           <textarea id="message" name="keterangan" required="required" class="form-control" rows="3" placeholder="Keterangan..">{{old('keterangan')}}</textarea>
         </div>
         <br>
-        <div class=" form-group">
-          <label>Peserta <span class="required">*</span></label>
-          <input type="text" name="peserta" class="form-control" placeholder="Peserta" value="{{old('peserta')}}">
+        <div class="listPeserta">
+          <div class="form-group">
+            <label>Peserta <span class="required">*</span></label>
+            <input type="text" name="peserta[]" class="form-control" placeholder="Peserta" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="button" id="addPeserta" class="btn btn-default col-md-12 col-xs-12" style="float:left;border:1px dashed gray"><i class="fa fa-plus"></i> Tambah Peserta</button=>
         </div>
         <br>
         <div class="form-group">
@@ -95,24 +100,19 @@
             <div class="col-md-1 col-xs-1">
               <a href="javascript:void(0)" id="remove"><i class="fa fa-close"></i></a>
             </div>
-
-
           </div>
-
         </div>
         <br>
         <div class="form-group">
-          <button type="button" id="addKeluhan" class="btn btn-default col-md-12 col-xs-12" style="float:left;border:1px dashed gray"><i class="fa fa-plus"></i> Tambah Keluhan</button=>
+          <button type="button" id="addKeluhan" class="btn btn-default col-md-12 col-xs-12" style="float:left;border:1px dashed gray"><i class="fa fa-plus"></i> Tambah Kendala</button=>
         </div>
-
         <div class="form-group" style="display:none" id="formKeluhan">
           <br>
-          <label for="message">Keluhan</label> <span class="pull-right"> <a href="javascript:void(0)" id="closeKeluhan"><i class="fa fa-minus-circle"></i></a> </span>
-          <textarea id="inputKeluhan" name="keluhan" class="form-control col-md-11" name="message" placeholder="Keluhan.." rows="3"></textarea>
+          <label for="message">Kendala</label> <span class="pull-right"> <a href="javascript:void(0)" id="closeKeluhan"><i class="fa fa-minus-circle"></i></a> </span>
+          <textarea id="inputKeluhan" name="keluhan" class="form-control col-md-11" name="message" placeholder="Kendala.." rows="3"></textarea>
         </div>
         <br>
         <div class="form-group">
-
           <button type="submit" class="btn btn-primary" style="float:left">Simpan</button=>
         </div>
     </div>
@@ -125,11 +125,31 @@
 
 @section('script')
 <script>
+  var inc = 1;
   $("#addKeluhan").on('click', function() {
     $("#formKeluhan").show();
     $(this).prop("disabled", true);
     $("#inputKeluhan").prop("required", true);
   })
+
+  $("#addPeserta").on('click', function() {
+    $('.listPeserta').append(
+      '<div class="input-group" id="peserta' + inc + '">' +
+      '<input type="text" name="peserta[]" class="form-control" placeholder="Peserta" required>' +
+      '<span class="input-group-btn">' +
+      '<button type="button" class="btn btn-danger removePeserta" id="' + inc + '"><i class="fa fa-close"></i></button>' +
+      '</span>' +
+      '</div>'
+    );
+    inc++;
+  });
+
+  $(document).on('click', '.removePeserta', function() {
+    console.log('aa');
+    $id = $(this).attr('id');
+    $('#peserta' + $id).remove();
+
+  });
 
   $("#closeKeluhan").on('click', function() {
     $("#formKeluhan").hide();

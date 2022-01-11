@@ -82,11 +82,15 @@
                 <td style="vertical-align:middle">{{date('d F Y',strtotime($data->tanggal_laporan))}}</td>
                 <td style="vertical-align:middle">{{$data->kegiatan}}</td>
                 <td style="vertical-align:middle">{{$data->keterangan}}</td>
-                <td style="vertical-align:middle">{{$data->peserta}}</td>
+                <td>
+                    @foreach($data->Participant as $peserta)
+                    <p>{{$loop->iteration}}. {{$peserta->nama_peserta}}</p>
+                    @endforeach
+                </td>
                 @if(empty($data->foto))
                 <td style="vertical-align:middle">Tidak ada Foto diupload</td>
                 @else
-                <td style="vertical-align:middle"><img src="{{URL::asset('/images/laporan/')}}/{{$data->foto}}" class="imgLaporan3"></td>
+                <td><img src="{{URL::asset('/images/laporan/')}}/{{$data->foto}}" class="imgLaporan3"></td>
                 @endif
 
             </tr>
@@ -104,15 +108,15 @@
         </tr>
         <tr>
             <td style="text-align:left;vertical-align:top">Tenaga Ahli Field Staff</td>
-            <td style="text-align:left;vertical-align:top">Kasi Pemberdayaan Tanah Masyarakat</td>
+            <td style="text-align:left;vertical-align:top">@if(!empty($alldata->Kantah)) Kasi Pemberdayaan Tanah Masyarakat @else Koordinator Pemberdayaan Tanah Masyarakat @endif </td>
         </tr>
         <tr style="font-size:small">
             <td style="text-align:left;vertical-align:top;padding-top:80px"><b><u>{{$alldata->name}}</b></u></td>
-            <td style="text-align:left;vertical-align:top;padding-top:80px"><b>@if(!empty($alldata->Kantah))<u>{{$alldata->Kantah->head_name}}</u>@else - @endif</b></td>
+            <td style="text-align:left;vertical-align:top;padding-top:80px"><b><u>@if(!empty($alldata->Kantah)){{$alldata->Kantah->head_name}} @else {{$alldata->Kanwil->head_name}} @endif</b></u></td>
         </tr>
         <tr style="font-size:small">
             <td style="text-align:left;vertical-align:top">Field Staff</td>
-            <td style="text-align:left;vertical-align:top">NIP: {{empty($alldata->Kantah) ? '-' : $alldata->Kantah->nip_head_name}}</td>
+            <td style="text-align:left;vertical-align:top">NIP: {{empty($alldata->Kantah) ? $alldata->Kanwil->nip_head_name : $alldata->Kantah->nip_head_name}}</td>
         </tr>
 
     </table>

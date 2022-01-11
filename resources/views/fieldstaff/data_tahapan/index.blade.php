@@ -83,14 +83,31 @@
           <div class="col-md-1 col-sm-1 col-xs-2">
             <p for="">{{$tahapan->evaluasi}}/{{$fieldstaff->target}}</p>
           </div>
-
         </div>
-
       </div>
-
     </div>
+  </div>
 
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Histori Penambahan</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x-content">
+      <table id="tableTahapan" class="table table-striped table-bordered ">
+        <thead>
+          <tr>
+            <th width="30%">Tanggal Input</th>
+            <th width="30%">Tahapan</th>
+            <th width="20%">Jumlah</th>
+            <th width="20%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
 
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 @endsection
@@ -98,14 +115,11 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#tableLaporan').dataTable({
-      "paginate": false,
-      buttons: [{
-        text: 'My button',
-        action: function(e, dt, node, config) {
-          alert('Button activated');
-        }
-      }]
+    $('#tableTahapan').dataTable({
+      "autoWidth": false,
+      "bLengthChange": false,
+      "bInfo": false,
+      "searching": false
     });
 
   });

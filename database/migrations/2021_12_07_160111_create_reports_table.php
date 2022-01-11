@@ -23,7 +23,6 @@ class CreateReportsTable extends Migration
             $table->string('saran')->nullable();
             $table->foreignId('fieldstaff_id')->nullable();
             $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('set null');
-            $table->string('peserta', 100);
             $table->timestamps();
             $table->softDeletes();
         });

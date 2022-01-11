@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label>NIP <span class="required">*</span></label>
-                    <input type="text" name="nip_head_name" class="form-control" placeholder="No.Telepon" required value="{{\App\Models\User::getUser()->nip_head_name}}">
+                    <input type="text" name="nip_head_name" class="form-control" placeholder="NIP" required value="{{\App\Models\User::getUser()->nip_head_name}}">
                 </div>
                 <br>
                 <div class="form-group">

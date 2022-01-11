@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
-
+use App\Models\Participant;
 
 class ReportController extends Controller
 {
@@ -27,15 +27,15 @@ class ReportController extends Controller
     {
         if (Auth::User()->level == 3) {
             $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
-            $reports = Report::where('fieldstaff_id', $fieldstaff->id)->orderByDesc('created_at')->get();
+            $reports = Report::with('Participant')->where('fieldstaff_id', $fieldstaff->id)->orderByDesc('created_at')->get();
             return view('fieldstaff.data_laporan.index', compact('reports'));
         } else if (Auth::User()->level == 2) {
-            $reports = Report::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
+            $reports = Report::with('Fieldstaff', 'Participant')->whereIn('fieldstaff_id', function ($q) {
                 $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
             })->orderBy('created_at', 'desc')->get();
             return view('kantah.data_laporan.index', compact('reports'));
         } else if (Auth::User()->level == 1) {
-            $reports = Report::with('Fieldstaff')->orderBy('created_at', 'desc')->get();
+            $reports = Report::with('Fieldstaff', 'Participant')->orderBy('created_at', 'desc')->get();
             return view('kanwil.data_laporan.index', compact('reports'));
         }
     }
@@ -76,16 +76,18 @@ class ReportController extends Controller
 
 
         if (!empty($cekTanggal)) {
-            return back()->with('error', 'Laporan untuk tanggal ' . date('d F Y', strtotime($validated['tanggal_laporan'])) . ' sudah ada');
+            return back()->with('error', 'Laporan untuk tanggal ' . date('d F Y', strtotime($validated['tanggal_laporan'])) . ' sudah ada')->withInput();
         }
 
         $data['kegiatan'] = implode(", ", $validated['kegiatans']);
         $data['tanggal_laporan'] = $validated['tanggal_laporan'];
         $data['keterangan'] = $validated['keterangan'];
-        $data['peserta'] = $validated['peserta'];
         $data['fieldstaff_id'] = User::getUser()->id;
         $inputLaporan = Report::create($data);
         if ($inputLaporan) {
+            foreach ($validated['peserta'] as $peserta) {
+                Participant::create(['nama_peserta' => $peserta, 'laporan_id' => $inputLaporan->id]);
+            }
             return redirect('/dataLaporan')->with('success', 'Laporan berhasil diinput');
         }
     }
@@ -154,9 +156,16 @@ class ReportController extends Controller
 
     public function detLaporan(Report $id)
     {
+
+        $id = $id->load('Participant');
+        $nama = [];
+        foreach ($id->Participant as $part) {
+            $nama[] = $part->nama_peserta;
+        }
+        $peserta = implode(', ', $nama);
         $id->tanggal_laporan = date('d F Y', strtotime($id->tanggal_laporan));
         $id->tanggal_input = date('d F Y', strtotime($id->created_at));
-        return response()->json(['laporan' => $id]);
+        return response()->json(['laporan' => $id, 'namaPeserta' => $peserta]);
     }
 
     public function cekPeriode(Fieldstaff $id, Request $request)
@@ -168,13 +177,18 @@ class ReportController extends Controller
         $periodeAkhir = $request->akhir;
         $alldata = $id->load(['Report' => function ($query) use ($periodeAwal, $periodeAkhir) {
             $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir);
-        }], 'Kantah');
+        }], 'Report.Participant', 'Kantah');
         foreach ($alldata->Report as $data) {
+            $nama = [];
+            foreach ($data->Participant as $part) {
+                $nama[] = $part->nama_peserta;
+            }
+            $peserta = implode(', ', $nama);
             $laporan[] = [
                 "tanggal_laporan" => date('d F Y', strtotime($data->tanggal_laporan)),
                 'kegiatan' => $data->kegiatan,
                 'keterangan' => $data->keterangan,
-                'peserta' => $data->peserta,
+                'peserta' => $peserta,
                 'foto' => $data->foto,
             ];
         }
@@ -188,7 +202,7 @@ class ReportController extends Controller
         $periodeAkhir = $request->akhir;
         $alldata = $id->load(['Report' => function ($query) use ($periodeAwal, $periodeAkhir) {
             $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir);
-        }]);
+        }], 'Report.Participant', 'Kantah', 'Kanwil');
         $pdf = PDF::loadView('layouts.pdf_laporan', ['alldata' => $alldata, 'awal' => $periodeAwal, 'akhir' => $periodeAkhir]);
         $pdf->setPaper('A4', 'landscape');
         return $pdf->download("Laporan - " . $id->name . "_" . date("YmdHis") . ".pdf");
