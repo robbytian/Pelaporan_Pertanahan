@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreStagesRequest;
 use App\Http\Requests\UpdateStagesRequest;
+use App\Models\TahapanHistory;
 
 class StagesController extends Controller
 {
@@ -25,12 +26,13 @@ class StagesController extends Controller
     public function index()
     {
         if (Auth::User()->level == 3) {
+            $histories = TahapanHistory::where('fieldstaff_id', \App\Models\Fieldstaff::getUser()->id)->get();
             $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
             $tahapan = Stages::where('fieldstaff_id', $fieldstaff->id)->first();
             if (empty($tahapan)) {
                 abort(404);
             }
-            return view('fieldstaff.data_tahapan.index', compact('tahapan', 'fieldstaff'));
+            return view('fieldstaff.data_tahapan.index', compact('tahapan', 'fieldstaff', 'histories'));
         } else if (Auth::User()->level == 2) {
             $tahapans = Stages::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
                 $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
@@ -111,6 +113,11 @@ class StagesController extends Controller
                 $dataTahapan->update(['evaluasi' => DB::raw("evaluasi+$jumlah")]);
             }
         }
+        TahapanHistory::create([
+            'fieldstaff_id' => $dataTahapan->fieldstaff_id,
+            'tahapan' => $validated['tahapan'],
+            'jumlah' => $jumlah
+        ]);
 
         return redirect('/dataTahapan')->with('success', 'Data Tahapan berhasil diinput');
     }

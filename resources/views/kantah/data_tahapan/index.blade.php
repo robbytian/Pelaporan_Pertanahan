@@ -11,7 +11,6 @@
         $('#tableTahapan').dataTable({
             "autoWidth": false,
         });
-
     });
 </script>
 

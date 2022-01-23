@@ -52,6 +52,11 @@ class Fieldstaff extends Model
         return $user;
     }
 
+    public function HistoriTahapan()
+    {
+        return $this->hasMany(TahapanHistory::class, 'fieldstaff_id');
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -67,6 +72,9 @@ class Fieldstaff extends Model
             }
             foreach ($fieldstaff->Report()->get() as $report) {
                 $report->delete();
+            }
+            foreach ($fieldstaff->HistoriTahapan()->get() as $stage) {
+                $stage->delete();
             }
         });
     }

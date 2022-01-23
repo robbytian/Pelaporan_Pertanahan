@@ -104,9 +104,40 @@
           </tr>
         </thead>
         <tbody>
-
+          @foreach($histories as $histori)
+          <tr>
+            <td>{{date('d F Y ( H:i:s )',strtotime($histori->created_at))}}</td>
+            <td>{{$histori->tahapan}}</td>
+            <td>{{$histori->jumlah}}</td>
+            <td><button data-id="{{$histori->id}}" class="btn btn-danger btn-sm btnHapus" type="button" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-trash"></i> Delete</button></td>
+          </tr>
+          @endforeach
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi Penghapusan</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="deleteHistori">
+          @csrf
+          @method('DELETE')
+          <p>Anda yakin ingin menghapus histori tahapan ini?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -120,6 +151,12 @@
       "bLengthChange": false,
       "bInfo": false,
       "searching": false
+    });
+
+    $('body').on('click', '.btnHapus', function() {
+      event.preventDefault();
+      var id = $(this).data('id');
+      $("#deleteHistori").attr('action', '/dataHistori/' + id);
     });
 
   });

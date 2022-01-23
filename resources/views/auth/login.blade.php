@@ -12,13 +12,13 @@
   <title>Login</title>
 
   <!-- Bootstrap -->
-  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
-  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
   <!-- NProgress -->
-  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+  <link href="{{asset('vendors/nprogress/nprogress.css')}}" rel="stylesheet">
   <!-- Animate.css -->
-  <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+  <link href="{{asset('vendors/animate.css/animate.min.css')}}" rel="stylesheet">
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom2.min.css" rel="stylesheet">
@@ -39,11 +39,11 @@
             <h1>Silahkan Masuk</h1>
             @if(session()->has('error')) <p class="text-danger">{{session('error')}}</p>@endif
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-              <input type="text" name="username" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Username" required value="{{old('username')}}">
+              <input type="text" name="username" class="form-control has-feedback-left" placeholder="Username" required value="{{old('username')}}">
               <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-              <input type="password" name="password" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Password" required>
+              <input type="password" name="password" class="form-control has-feedback-left" placeholder="Password" required>
               <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
             </div>
             <div class='col-md-12 col-sm-12 col-xs-12 form-group'>

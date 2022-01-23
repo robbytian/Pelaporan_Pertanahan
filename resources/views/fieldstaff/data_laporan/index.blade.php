@@ -120,9 +120,20 @@
               <textarea id="keterangan" name="keterangan" required="required" class="form-control" rows="3" placeholder="Keterangan.."></textarea>
             </div>
             <br>
-            <div class=" form-group">
+            <div class="form-group pesertaPertama">
               <label>Peserta </label>
-              <input type="text" name="peserta" id="peserta" class="form-control" placeholder="Peserta" value="{{old('peserta')}}">
+
+            </div>
+            <div id="listPeserta">
+              <!-- <div class="input-group" id="peserta' + inc + '">
+                <input type="text" name="peserta[]" class="form-control" placeholder="Peserta" required>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-danger removePeserta" id="' + inc + '"><i class="fa fa-close"></i></button>
+                </span>
+              </div> -->
+            </div>
+            <div class="form-group">
+              <button type="button" id="addPeserta" class="btn btn-default col-md-12 col-xs-12" style="float:left;border:1px dashed gray"><i class="fa fa-plus"></i> Tambah Peserta</button=>
             </div>
             <br>
             <div class="form-group">
@@ -181,6 +192,7 @@
   // var base_url = "{!! url('public/images/laporan') !!}";
   // console.log(base_url);
   var flagsUrl = "{{ URL::asset('/images/laporan/') }}";
+  var inc = 0;
   $(document).ready(function() {
 
     $('#tableLaporan').dataTable({
@@ -195,26 +207,38 @@
     });
 
     $('body').on('click', '.btnLihat', function(event) {
+      console.log(inc);
       event.preventDefault();
-      $('#foto').hide();
-      $('#noFoto').hide();
-      $('#koordinasi').prop('checked', false);
-      $('#pendampingan').prop('checked', false);
-      $('#rapat').prop('checked', false);
-      $('#kunjungan').prop('checked', false);
-      $('#lainnya').prop('checked', false);
+
       var id = $(this).data('id');
-      console.log(id);
+      // console.log(id);
       $("#updateLaporan").attr('action', '/dataLaporan/' + id);
       $.get('dataLaporan/' + id + '/detail', function(data) {
         var kegiatan = data.laporan.kegiatan.split(",");
         $('#tanggal_laporan').val(data.laporan.tanggal_laporan);
         $('#tanggal_input').val(data.laporan.tanggal_input);
         $('#keterangan').val(data.laporan.keterangan);
-        $('#peserta').val(data.laporan.peserta);
+        // console.log(data.listPeserta);
         $('#keluhan').val(data.laporan.keluhan);
         $('#saran').val(data.laporan.saran);
 
+        data.listPeserta.forEach(function(index) {
+          if (inc == 0) {
+            $('.pesertaPertama').append(
+              '<input type="text" name="peserta[]" id="peserta" class="form-control inputPeserta" placeholder="Peserta" required value="' + index + '">'
+            );
+          } else {
+            $('#listPeserta').append(
+              '<div class="input-group inputPeserta" id="peserta' + inc + '">' +
+              '<input type="text" name="peserta[]" class="form-control" placeholder="Peserta" required value="' + index + '">' +
+              '<span class="input-group-btn">' +
+              '<button type="button" class="btn btn-danger removePeserta" id="' + inc + '"><i class="fa fa-close"></i></button>' +
+              '</span>' +
+              '</div>'
+            );
+          }
+          inc++;
+        });
         if (kegiatan.indexOf("koordinasi") > -1 || kegiatan.indexOf(" koordinasi") > -1) {
           $('#koordinasi').prop('checked', true);
         }
@@ -238,6 +262,36 @@
         }
 
       })
+    });
+
+    $('#modalUpdate').on('hidden.bs.modal', function() {
+      $('#foto').hide();
+      $('#noFoto').hide();
+      $('#koordinasi').prop('checked', false);
+      $('#pendampingan').prop('checked', false);
+      $('#rapat').prop('checked', false);
+      $('#kunjungan').prop('checked', false);
+      $('#lainnya').prop('checked', false);
+      $('.inputPeserta').remove();
+      inc = 0;
+    })
+
+    $("#addPeserta").on('click', function() {
+      $('#listPeserta').append(
+        '<div class="input-group inputPeserta" id="peserta' + inc + '">' +
+        '<input type="text" name="peserta[]" class="form-control" placeholder="Peserta" required>' +
+        '<span class="input-group-btn">' +
+        '<button type="button" class="btn btn-danger removePeserta" id="' + inc + '"><i class="fa fa-close"></i></button>' +
+        '</span>' +
+        '</div>'
+      );
+      inc++;
+    });
+
+    $(document).on('click', '.removePeserta', function() {
+      $id = $(this).attr('id');
+      $('#peserta' + $id).remove();
+
     });
   });
 </script>

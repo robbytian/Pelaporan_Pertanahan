@@ -39,8 +39,12 @@
 
         .imgLaporan3 {
             object-fit: cover;
-            width: 128px;
-            height: 100px;
+            width: 190px;
+            height: 100%;
+        }
+
+        .foto {
+            height: 130px;
         }
     </style>
 
@@ -88,9 +92,9 @@
                     @endforeach
                 </td>
                 @if(empty($data->foto))
-                <td style="vertical-align:middle">Tidak ada Foto diupload</td>
+                <td style="vertical-align:middle" class="foto">Tidak ada Foto diupload</td>
                 @else
-                <td><img src="{{URL::asset('/images/laporan/')}}/{{$data->foto}}" class="imgLaporan3"></td>
+                <td class="foto"><img src="{{URL::asset('/images/laporan/')}}/{{$data->foto}}" class="imgLaporan3"></td>
                 @endif
 
             </tr>

@@ -212,7 +212,7 @@
             if (typeof($.fn.easyPieChart) === 'undefined') {
                 return;
             }
-            console.log('chartDashboard');
+            // console.log('chartDashboard');
 
             $('#' + id).easyPieChart({
                 easing: 'easeOutElastic',

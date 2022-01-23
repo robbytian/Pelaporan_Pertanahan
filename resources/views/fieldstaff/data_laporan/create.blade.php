@@ -142,10 +142,10 @@
       '</div>'
     );
     inc++;
+    console.log(inc);
   });
 
   $(document).on('click', '.removePeserta', function() {
-    console.log('aa');
     $id = $(this).attr('id');
     $('#peserta' + $id).remove();
 

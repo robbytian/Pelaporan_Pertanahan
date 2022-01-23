@@ -123,8 +123,13 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $dataLaporan)
     {
+        $dataLaporan = $dataLaporan->load('Participant');
         $validated = $request->validated();
         if (Auth::User()->level == 3) {
+            $dataLaporan->Participant->each->forceDelete();
+            foreach ($validated['peserta'] as $peserta) {
+                Participant::create(['nama_peserta' => $peserta, 'laporan_id' => $dataLaporan->id]);
+            }
             $validated['kegiatan'] = implode(", ", $validated['kegiatans']);
         }
         $dataLaporan->update($validated);
@@ -165,7 +170,7 @@ class ReportController extends Controller
         $peserta = implode(', ', $nama);
         $id->tanggal_laporan = date('d F Y', strtotime($id->tanggal_laporan));
         $id->tanggal_input = date('d F Y', strtotime($id->created_at));
-        return response()->json(['laporan' => $id, 'namaPeserta' => $peserta]);
+        return response()->json(['laporan' => $id, 'namaPeserta' => $peserta, 'listPeserta' => $nama]);
     }
 
     public function cekPeriode(Fieldstaff $id, Request $request)

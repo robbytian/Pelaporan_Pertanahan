@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StagesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FieldstaffController;
+use App\Http\Controllers\TahapanHistoriController;
 use App\Models\Fieldstaff;
 use App\Models\Plan;
 use App\Models\Report;
@@ -52,6 +53,7 @@ Route::resource('/dataKantah', KantahController::class)->middleware('kanwil');
 Route::resource('/dataLaporan', ReportController::class)->middleware('auth');
 Route::resource('/dataTahapan', StagesController::class)->except(['create'])->middleware('auth');
 Route::resource('/dataRencana', PlanController::class)->middleware('auth');
+Route::resource('/dataHistori', TahapanHistoriController::class)->middleware('fieldstaff');
 //group
 Route::get('/dataFieldstaff/{id}/detail', [FieldstaffController::class, 'detFieldstaff'])->middleware('auth');
 Route::resource('/dataFieldstaff', FieldstaffController::class)->middleware('auth');
