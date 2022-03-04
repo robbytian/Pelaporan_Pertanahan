@@ -26,7 +26,7 @@ class StagesController extends Controller
     public function index()
     {
         if (Auth::User()->level == 3) {
-            $histories = TahapanHistory::where('fieldstaff_id', \App\Models\Fieldstaff::getUser()->id)->get();
+            $histories = TahapanHistory::where('fieldstaff_id', \App\Models\Fieldstaff::getUser()->id)->orderBy('created_at', 'desc')->get();
             $fieldstaff = Fieldstaff::where('user_id', Auth::User()->id)->first();
             $tahapan = Stages::where('fieldstaff_id', $fieldstaff->id)->first();
             if (empty($tahapan)) {
@@ -37,10 +37,14 @@ class StagesController extends Controller
             $tahapans = Stages::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
                 $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
             })->orderBy('created_at', 'desc')->get();
-            return view('kantah.data_tahapan.index', compact('tahapans'));
+            $histories = TahapanHistory::with('Fieldstaff')->whereIn('fieldstaff_id', function ($q) {
+                $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
+            })->orderBy('created_at', 'desc')->get();
+            return view('kantah.data_tahapan.index', compact('tahapans', 'histories'));
         } else if (Auth::User()->level == 1) {
             $tahapans = Stages::with('Fieldstaff')->get();
-            return view('kanwil.data_tahapan.index', compact('tahapans'));
+            $histories = TahapanHistory::with('Fieldstaff')->orderBy('created_at', 'desc')->get();
+            return view('kanwil.data_tahapan.index', compact('tahapans', 'histories'));
         }
     }
 
@@ -101,22 +105,29 @@ class StagesController extends Controller
         if ($checkJumlah > $validated['targetFisik']) {
             return back()->with('error', 'Realisasi Fisik Tidak dapat melebihi Target Fisik')->withInput();
         } else {
-            if ($validated['tahapan'] == 'pemetaan') {
-                $dataTahapan->update(['pemetaan' => DB::raw("pemetaan+$jumlah")]);
-            } else if ($validated['tahapan'] == 'penyuluhan') {
+            if ($validated['tahapan'] == 'Penyuluhan') {
                 $dataTahapan->update(['penyuluhan' => DB::raw("penyuluhan+$jumlah")]);
-            } else if ($validated['tahapan'] == 'penyusunan') {
-                $dataTahapan->update(['penyusunan' => DB::raw("penyusunan+$jumlah")]);
-            } else if ($validated['tahapan'] == 'pendampingan') {
+            } else if ($validated['tahapan'] == 'Pemetaan Sosial') {
+                $dataTahapan->update(['pemetaan_sosial' => DB::raw("pemetaan_sosial+$jumlah")]);
+            } else if ($validated['tahapan'] == 'Penyusunan Model') {
+                $dataTahapan->update(['penyusunan_model' => DB::raw("penyusunan_model+$jumlah")]);
+            } else if ($validated['tahapan'] == 'Pendampingan') {
                 $dataTahapan->update(['pendampingan' => DB::raw("pendampingan+$jumlah")]);
-            } else if ($validated['tahapan'] == 'evaluasi') {
-                $dataTahapan->update(['evaluasi' => DB::raw("evaluasi+$jumlah")]);
+            } else if ($validated['tahapan'] == 'Penyusunan Data') {
+                $dataTahapan->update(['penyusunan_data' => DB::raw("penyusunan_data+$jumlah")]);
             }
+        }
+        $evidence = null;
+        if ($request->hasFile('file_evidence')) {
+            $file = $request->file('file_evidence');
+            $evidence = time() . rand(1, 100) . '.' . $file->extension();
+            $file->move(public_path('tahapan_evidence'), $evidence);
         }
         TahapanHistory::create([
             'fieldstaff_id' => $dataTahapan->fieldstaff_id,
             'tahapan' => $validated['tahapan'],
-            'jumlah' => $jumlah
+            'jumlah' => $jumlah,
+            'evidence' => $evidence
         ]);
 
         return redirect('/dataTahapan')->with('success', 'Data Tahapan berhasil diinput');
@@ -136,20 +147,20 @@ class StagesController extends Controller
     public function cekRealisasi(Fieldstaff $id, Request $request)
     {
         $fieldstaff = $id->load('Tahapan');
-        if ($request->jenis == 'pemetaan') {
-            $data = $fieldstaff->Tahapan->pemetaan;
-            return response()->json(['realisasi' => $data]);
-        } else if ($request->jenis == 'penyuluhan') {
+        if ($request->jenis == 'Penyuluhan') {
             $data = $fieldstaff->Tahapan->penyuluhan;
             return response()->json(['realisasi' => $data]);
-        } else if ($request->jenis == 'penyusunan') {
-            $data = $fieldstaff->Tahapan->penyusunan;
+        } else if ($request->jenis == 'Pemetaan Sosial') {
+            $data = $fieldstaff->Tahapan->pemetaan_sosial;
             return response()->json(['realisasi' => $data]);
-        } else if ($request->jenis == 'pendampingan') {
+        } else if ($request->jenis == 'Penyusunan Model') {
+            $data = $fieldstaff->Tahapan->penyusunan_model;
+            return response()->json(['realisasi' => $data]);
+        } else if ($request->jenis == 'Pendampingan') {
             $data = $fieldstaff->Tahapan->pendampingan;
             return response()->json(['realisasi' => $data]);
-        } else if ($request->jenis == 'evaluasi') {
-            $data = $fieldstaff->Tahapan->evaluasi;
+        } else if ($request->jenis == 'Penyusunan Data') {
+            $data = $fieldstaff->Tahapan->penyusunan_data;
             return response()->json(['realisasi' => $data]);
         }
     }

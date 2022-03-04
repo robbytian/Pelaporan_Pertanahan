@@ -5,22 +5,22 @@
 
 <div class="row tile_count">
     <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count text-center">
-        <span class="count_top"><i class="fa fa-user"></i> Total Laporan</span>
+        <span class="count_top"><i class="fa fa-file"></i> Total Laporan</span>
         <div class="count">{{$laporan->count()}}</div>
 
     </div>
     <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count text-center">
-        <span class="count_top"><i class="fa fa-clock-o"></i> Laporan Dengan Kendala</span>
+        <span class="count_top"><i class="fa fa-warning"></i> Laporan Dengan Kendala</span>
         <div class="count">{{$laporan->whereNotNull('keluhan')->where('keluhan', '!=', '')->count()}}</div>
 
     </div>
     <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count text-center">
-        <span class="count_top"><i class="fa fa-user"></i> Laporan Diberikan Saran</span>
+        <span class="count_top"><i class="fa fa-check-square"></i> Laporan Diberikan Saran</span>
         <div class="count">{{$laporan->whereNotNull('saran')->where('saran', '!=', '')->count()}}</div>
 
     </div>
     <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count text-center">
-        <span class="count_top"><i class="fa fa-user"></i> Input Laporan Terakhir</span>
+        <span class="count_top"><i class="fa fa-clock-o"></i> Input Laporan Terakhir</span>
         <div class="count green">
             <h4 class="" style="margin-top:17px">{{empty($laporan->first()->created_at) ? '-' : date('d F Y',strtotime($laporan->first()->created_at))}}</h4>
         </div>
@@ -122,33 +122,17 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel tile">
                         <div class="x_title">
-                            <h5>Realisasi Pemetaan</h5>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content ">
-                            <div style="text-align: center; margin-bottom: 17px">
-                                <span class="chart" id="pemetaan_kantah" data-percent="{{$persenPemetaan}}">
-                                    <span class="percent"></span>
-                                </span>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="x_panel tile  overflow_hidden">
-                        <div class="x_title">
                             <h5>Realisasi Penyuluhan</h5>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="x_content">
+                        <div class="x_content ">
                             <div style="text-align: center; margin-bottom: 17px">
                                 <span class="chart" id="penyuluhan_kantah" data-percent="{{$persenPenyuluhan}}">
                                     <span class="percent"></span>
                                 </span>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -156,12 +140,28 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel tile  overflow_hidden">
                         <div class="x_title">
-                            <h5>Realisasi Penyusunan</h5>
+                            <h5>Realisasi Pemetaan Sosial</h5>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <div style="text-align: center; margin-bottom: 17px">
-                                <span class="chart" id="penyusunan_kantah" data-percent="{{$persenPenyusunan}}">
+                                <span class="chart" id="pemetaan_kantah" data-percent="{{$persenPemetaan}}">
+                                    <span class="percent"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel tile  overflow_hidden">
+                        <div class="x_title">
+                            <h5>Realisasi Penyusunan Model</h5>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div style="text-align: center; margin-bottom: 17px">
+                                <span class="chart" id="penyusunanModel_kantah" data-percent="{{$persenPenyusunanModel}}">
                                     <span class="percent"></span>
                                 </span>
                             </div>
@@ -188,12 +188,12 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel tile  overflow_hidden">
                         <div class="x_title">
-                            <h5>Realisasi Evaluasi</h5>
+                            <h5>Realisasi Penyusunan Data</h5>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <div style="text-align: center; margin-bottom: 17px">
-                                <span class="chart" id="evaluasi_kantah" data-percent="{{$persenEvaluasi}}">
+                                <span class="chart" id="penyusunanData_kantah" data-percent="{{$persenPenyusunanData}}">
                                     <span class="percent"></span>
                                 </span>
                             </div>
@@ -210,11 +210,11 @@
 
 @section('script')
 <script>
-    chartDashboard('pemetaan_kantah', '#455C73');
-    chartDashboard('penyuluhan_kantah', '#3498DB');
-    chartDashboard('penyusunan_kantah', '#9B59B6');
+    chartDashboard('penyuluhan_kantah', '#455C73');
+    chartDashboard('pemetaan_kantah', '#3498DB');
+    chartDashboard('penyusunanModel_kantah', '#9B59B6');
     chartDashboard('pendampingan_kantah', '#26B99A');
-    chartDashboard('evaluasi_kantah', '#BDC3C7');
+    chartDashboard('penyusunanData_kantah', '#BDC3C7');
 
     function chartDashboard(id, warna) {
 

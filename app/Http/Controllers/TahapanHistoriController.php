@@ -83,18 +83,22 @@ class TahapanHistoriController extends Controller
     public function destroy(TahapanHistory $dataHistori)
     {
         $dataTahapan = Stages::where('fieldstaff_id', $dataHistori->fieldstaff_id)->first();
-        if ($dataHistori->tahapan == 'pemetaan') {
-            $dataTahapan->update(['pemetaan' => DB::raw("pemetaan-$dataHistori->jumlah")]);
-        } else if ($dataHistori->tahapan == 'penyuluhan') {
+        if ($dataHistori->tahapan == 'Penyuluhan') {
             $dataTahapan->update(['penyuluhan' => DB::raw("penyuluhan-$dataHistori->jumlah")]);
-        } else if ($dataHistori->tahapan == 'penyusunan') {
-            $dataTahapan->update(['penyusunan' => DB::raw("penyusunan-$dataHistori->jumlah")]);
-        } else if ($dataHistori->tahapan == 'pendampingan') {
+        } else if ($dataHistori->tahapan == 'Pemetaan Sosial') {
+            $dataTahapan->update(['pemetaan_sosial' => DB::raw("pemetaan_sosial-$dataHistori->jumlah")]);
+        } else if ($dataHistori->tahapan == 'Penyusunan Model') {
+            $dataTahapan->update(['penyusunan_model' => DB::raw("penyusunan_model-$dataHistori->jumlah")]);
+        } else if ($dataHistori->tahapan == 'Pendampingan') {
             $dataTahapan->update(['pendampingan' => DB::raw("pendampingan-$dataHistori->jumlah")]);
-        } else if ($dataHistori->tahapan == 'evaluasi') {
-            $dataTahapan->update(['evaluasi' => DB::raw("evaluasi-$dataHistori->jumlah")]);
+        } else if ($dataHistori->tahapan == 'Penyusunan Data') {
+            $dataTahapan->update(['penyusunan_data' => DB::raw("penyusunan_data-$dataHistori->jumlah")]);
+        }
+        if (!empty($dataHistori->evidence)) {
+            unlink(public_path('tahapan_evidence') . '/' . $dataHistori->evidence);
         }
         $dataHistori->forceDelete();
+
         return back()->with('success', 'Histori Tahapan berhasil dihapus');
     }
 }

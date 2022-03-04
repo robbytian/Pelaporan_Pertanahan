@@ -11,7 +11,7 @@ class Stages extends Model
     use SoftDeletes;
     use HasFactory;
     protected $fillable = [
-        'pemetaan', 'penyusunan', 'penyuluhan', 'pendampingan', 'evaluasi', 'fieldstaff_id'
+        'penyuluhan', 'pemetaan_sosial', 'penyusunan_model', 'pendampingan', 'penyusunan_data', 'fieldstaff_id'
     ];
 
     public function Fieldstaff()

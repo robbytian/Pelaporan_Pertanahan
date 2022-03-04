@@ -34,31 +34,14 @@
         <div class="clearfix"></div>
         <hr>
 
+        @if(!empty(auth()->user()->getUser()->kantah_id))
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="x_panel tile">
-                <div class="x_title">
-                    <h2>Realisasi Pemetaan</h2>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content ">
-                    <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="pemetaan_fieldstaff" data-percent="{{$persenPemetaan}}">
-                            <span class="percent"></span>
-                        </span>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="x_panel tile  overflow_hidden">
                 <div class="x_title">
                     <h2>Realisasi Penyuluhan</h2>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                <div class="x_content ">
                     <div style="text-align: center; margin-bottom: 17px">
                         <span class="chart" id="penyuluhan_fieldstaff" data-percent="{{$persenPenyuluhan}}">
                             <span class="percent"></span>
@@ -71,12 +54,28 @@
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="x_panel tile  overflow_hidden">
                 <div class="x_title">
-                    <h2>Realisasi Penyusunan</h2>
+                    <h2>Realisasi Pemetaan Sosial</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="penyusunan_fieldstaff" data-percent="{{$persenPenyusunan}}">
+                        <span class="chart" id="pemetaan_fieldstaff" data-percent="{{$persenPemetaan}}">
+                            <span class="percent"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile  overflow_hidden">
+                <div class="x_title">
+                    <h2>Realisasi Penyusunan Model</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div style="text-align: center; margin-bottom: 17px">
+                        <span class="chart" id="penyusunanModel_fieldstaff" data-percent="{{$persenPenyusunanModel}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -103,12 +102,12 @@
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="x_panel tile  overflow_hidden">
                 <div class="x_title">
-                    <h2>Realisasi Evaluasi</h2>
+                    <h2>Realisasi Penyusunan Data</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" id="evaluasi_fieldstaff" data-percent="{{$persenEvaluasi}}">
+                        <span class="chart" id="penyusunanData_fieldstaff" data-percent="{{$persenPenyusunanData}}">
                             <span class="percent"></span>
                         </span>
                     </div>
@@ -116,17 +115,51 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel tile  overflow_hidden">
+            <div class="x_title">
+                <h2>Realisasi Pemetaan Sosial</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="pemetaan_fieldstaff" data-percent="{{$persenPemetaan}}">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel tile  overflow_hidden">
+            <div class="x_title">
+                <h2>Realisasi Pendampingan</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div style="text-align: center; margin-bottom: 17px">
+                    <span class="chart" id="pendampingan_fieldstaff" data-percent="{{$persenPendampingan}}">
+                        <span class="percent"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endif
 
 </div>
 @endsection
 
 @section('script')
 <script>
-    chartDashboard('pemetaan_fieldstaff', '#455C73');
-    chartDashboard('penyuluhan_fieldstaff', '#3498DB');
-    chartDashboard('penyusunan_fieldstaff', '#9B59B6');
+    chartDashboard('penyuluhan_fieldstaff', '#455C73');
+    chartDashboard('pemetaan_fieldstaff', '#3498DB');
+    chartDashboard('penyusunanModel_fieldstaff', '#9B59B6');
     chartDashboard('pendampingan_fieldstaff', '#26B99A');
-    chartDashboard('evaluasi_fieldstaff', '#BDC3C7');
+    chartDashboard('penyusunanData_fieldstaff', '#BDC3C7');
 
     function chartDashboard(id, warna) {
 

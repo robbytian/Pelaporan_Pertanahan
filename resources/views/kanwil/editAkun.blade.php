@@ -29,7 +29,7 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Kasi Penataan dan Pemberdayaan <span class="required">*</span></label>
+                    <label>Koordinator Pemberdayaan Tanah Masyarakat <span class="required">*</span></label>
                     <input type="text" name="head_name" class="form-control" placeholder="Kasi Penataan dan Pemberdayaan" value="{{\App\Models\User::getUser()->head_name}}">
                 </div>
                 <br>

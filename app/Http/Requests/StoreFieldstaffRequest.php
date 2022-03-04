@@ -31,6 +31,7 @@ class StoreFieldstaffRequest extends FormRequest
                 'date_born' => 'required',
                 'alamat' => 'required',
                 'phone_number' => 'required',
+                'target' => 'required|max:3',
                 'username' => "required|unique:users,deleted_at,NULL",
                 'password' => 'required'
             ];
@@ -57,7 +58,8 @@ class StoreFieldstaffRequest extends FormRequest
             'username.required' => 'Field Username Tidak Boleh Kosong',
             'target.required' => 'Field Target Fisik Tidak Boleh Kosong',
             'username.unique' => 'Username sudah digunakan oleh akun lain',
-            'password.required' => 'Field PAssword Tidak Boleh Kosong'
+            'password.required' => 'Field PAssword Tidak Boleh Kosong',
+            'target.max' => 'Target tidak bisa lebih dari 3 angka'
         ];
     }
 }

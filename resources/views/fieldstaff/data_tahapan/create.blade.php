@@ -15,7 +15,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 left-margin">
-            <form class="form-horizontal form-label-left" method="post" action="/dataTahapan/{{$tahapan->id}}">
+            <form class="form-horizontal form-label-left" method="post" action="/dataTahapan/{{$tahapan->id}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -36,12 +36,18 @@
                         <div class="form-group">
                             <label>Tahapan Akses Reforma Agraria <span class="required">*</span></label>
                             <select id="tahapan" class="select2_single form-control" tabindex="-1" name="tahapan" required>
+                                @if(!empty(auth()->user()->getUser()->kantah_id))
                                 <option selected disabled>Pilih Tahapan Akses Reforma Agraria</option>
-                                <option value="pemetaan" {{old('tahapan') == "pemetaan" ? 'selected' : ''}}>Pemetaan Sosial</option>
-                                <option value="penyuluhan" {{old('tahapan') == "penyuluhan" ? 'selected' : ''}}>Penyuluhan</option>
-                                <option value="penyusunan" {{old('tahapan') == "penyusunan" ? 'selected' : ''}}>Penyusunan Model</option>
-                                <option value="pendampingan" {{old('tahapan') == "pendampingan" ? 'selected' : ''}}>Pendampingan</option>
-                                <option value="evaluasi" {{old('tahapan') == "evaluasi" ? 'selected' : ''}}>Evaluasi dan Pelaporan</option>
+                                <option value="Penyuluhan" {{old('tahapan') == "Penyuluhan" ? 'selected' : ''}}>Penyuluhan</option>
+                                <option value="Pemetaan Sosial" {{old('tahapan') == "Pemetaan Sosial" ? 'selected' : ''}}>Pemetaan Sosial</option>
+                                <option value="Penyusunan Model" {{old('tahapan') == "Penyusunan Model" ? 'selected' : ''}}>Penyusunan Model</option>
+                                <option value="Pendampingan" {{old('tahapan') == "Pendampingan" ? 'selected' : ''}}>Pendampingan</option>
+                                <option value="Penyusunan Data" {{old('tahapan') == "Penyusunan Data" ? 'selected' : ''}}>Penyusunan Data</option>
+                                @else
+                                <option selected disabled>Pilih Tahapan Akses Reforma Agraria</option>
+                                <option value="Pemetaan Sosial" {{old('tahapan') == "Pemetaan Sosial" ? 'selected' : ''}}>Pemetaan Sosial</option>
+                                <option value="Pendampingan" {{old('tahapan') == "Pendampingan" ? 'selected' : ''}}>Pendampingan</option>
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -54,7 +60,13 @@
                     <div class="col-md-6 col-xs-12" style="margin-top:10px">
                         <div class="form-group">
                             <label>Realisasi Fisik <span class="required">*</span></label>
-                            <input id="realisasiFisik" name="jumlahRealisasi" type="number" class="form-control " placeholder="Realisasi Fisik" value="{{old('jumlahRealisasi')}}" required>
+                            <input id="realisasiFisik" name="jumlahRealisasi" type="number" min="1" class="form-control " placeholder="Realisasi Fisik" value="{{old('jumlahRealisasi')}}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12" style="margin-top:10px">
+                        <div class="form-group">
+                            <label>Upload Evidence</label>
+                            <input name="file_evidence" type="file" class="form-control" accept=".zip, .rar, .pdf">
                         </div>
                     </div>
 

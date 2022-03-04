@@ -24,49 +24,74 @@
 
     $('body').on('click', '.btnLihat', function(event) {
       event.preventDefault();
-      $('#foto').hide();
-      $('#noFoto').hide();
-      $('#koordinasi').prop('checked', false);
-      $('#pendampingan').prop('checked', false);
-      $('#rapat').prop('checked', false);
-      $('#kunjungan').prop('checked', false);
-      $('#lainnya').prop('checked', false);
-      $('#saran').removeAttr('readonly');
+      $('.foto').hide();
+      $('.noFoto').hide();
+      $('.penyuluhan').prop('checked', false);
+      $('.pemetaan').prop('checked', false);
+      $('.penyusunan_model').prop('checked', false);
+      $('.pendampingan').prop('checked', false);
+      $('.penyusunan_data').prop('checked', false);
+      $('.koordinasi').prop('checked', false);
+      $('.rapat').prop('checked', false);
+      $('.lainnya').prop('checked', false);
+      $('.pemetaan_sebelumnya').prop('checked', false);
+      $('.pendampingan_sebelumnya').prop('checked', false);
+      $('.monitoring').prop('checked', false);
+      $('.saran').removeAttr('readonly');
       var id = $(this).data('id');
-      $("#updateLaporan").attr('action', '/dataLaporan/' + id);
+      $(".updateLaporan").attr('action', '/dataLaporan/' + id);
       $.get('dataLaporan/' + id + '/detail', function(data) {
         var kegiatan = data.laporan.kegiatan.split(",");
-        $('#tanggal_laporan').val(data.laporan.tanggal_laporan);
-        $('#tanggal_input').val(data.laporan.tanggal_input);
-        $('#keterangan').val(data.laporan.keterangan);
-        $('#peserta').val(data.namaPeserta);
-        $('#keluhan').val(data.laporan.keluhan);
-        $('#saran').val(data.laporan.saran);
+        $('.name').val(data.fieldstaff);
+        $('.tanggal_laporan').val(data.laporan.tanggal_laporan);
+        $('.tanggal_input').val(data.laporan.tanggal_input);
+        $('.keterangan').val(data.laporan.keterangan);
+        $('.peserta').val(data.namaPeserta);
+        $('.keluhan').val(data.laporan.keluhan);
+        $('.saran').val(data.laporan.saran);
 
-        if (kegiatan.indexOf("koordinasi") > -1 || kegiatan.indexOf(" koordinasi") > -1) {
-          $('#koordinasi').prop('checked', true);
+        if (kegiatan.indexOf("Penyuluhan") > -1 || kegiatan.indexOf(" Penyuluhan") > -1) {
+          $('.penyuluhan').prop('checked', true);
         }
-        if (kegiatan.indexOf("pendampingan") > -1 || kegiatan.indexOf(" pendampingan") > -1) {
-          $('#pendampingan').prop('checked', true);
+        if (kegiatan.indexOf("Pemetaan") > -1 || kegiatan.indexOf(" Pemetaan") > -1) {
+          $('.pemetaan').prop('checked', true);
         }
-        if (kegiatan.indexOf("rapat") > -1 || kegiatan.indexOf(" rapat") > -1) {
-          $('#rapat').prop('checked', true)
+        if (kegiatan.indexOf("Penyusunan Model") > -1 || kegiatan.indexOf(" Penyusunan Model") > -1) {
+          $('.penyusunan_model').prop('checked', true)
         }
-        if (kegiatan.indexOf("kunjungan") > -1 || kegiatan.indexOf(" kunjungan") > -1) {
-          $('#kunjungan').prop('checked', true)
+        if (kegiatan.indexOf("Pendampingan") > -1 || kegiatan.indexOf(" Pendampingan") > -1) {
+          $('.pendampingan').prop('checked', true)
         }
-        if (kegiatan.indexOf("lainnya") > -1 || kegiatan.indexOf(" lainnya") > -1) {
-          $('#lainnya').prop('checked', true)
+        if (kegiatan.indexOf("Penyusunan Data") > -1 || kegiatan.indexOf(" Penyusunan Data") > -1) {
+          $('.penyusunan_data').prop('checked', true)
+        }
+        if (kegiatan.indexOf("Koordinasi") > -1 || kegiatan.indexOf(" Koordinasi") > -1) {
+          $('.koordinasi').prop('checked', true)
+        }
+        if (kegiatan.indexOf("Rapat") > -1 || kegiatan.indexOf(" Rapat") > -1) {
+          $('.rapat').prop('checked', true)
+        }
+        if (kegiatan.indexOf("Lainnya") > -1 || kegiatan.indexOf(" Lainnya") > -1) {
+          $('.lainnya').prop('checked', true)
+        }
+        if (kegiatan.indexOf("Pemetaan Tahun Sebelumnya") > -1 || kegiatan.indexOf(" Pemetaan Tahun Sebelumnya") > -1) {
+          $('.pemetaan_sebelumnya').prop('checked', true)
+        }
+        if (kegiatan.indexOf("Pendampingan Tahun Sebelumnya") > -1 || kegiatan.indexOf(" Pendampingan Tahun Sebelumnya") > -1) {
+          $('.pendampingan_sebelumnya').prop('checked', true)
+        }
+        if (kegiatan.indexOf("Monitoring dan Evaluasi") > -1 || kegiatan.indexOf(" Monitoring dan Evaluasi") > -1) {
+          $('.monitoring').prop('checked', true)
         }
         if (data.laporan.foto != null) {
-          $('#foto').show();
-          $("#foto").attr("src", flagsUrl + "/" + data.laporan.foto);
+          $('.foto').show();
+          $(".foto").attr("src", flagsUrl + "/" + data.laporan.foto);
         } else {
-          $('#noFoto').show();
+          $('.noFoto').show();
         }
 
         if (data.laporan.keluhan == null) {
-          $('#saran').prop('readonly', true);
+          $('.saran').prop('readonly', true);
         }
 
       })

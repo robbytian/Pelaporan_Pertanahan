@@ -19,11 +19,11 @@ class CreateFieldstaffsTable extends Migration
             $table->date('date_born');
             $table->string('alamat');
             $table->string('phone_number', 15);
-            $table->boolean('pemetaan')->nullable();
             $table->boolean('penyuluhan')->nullable();
-            $table->boolean('penyusunan')->nullable();
+            $table->boolean('pemetaan_sosial')->nullable();
+            $table->boolean('penyusunan_model')->nullable();
             $table->boolean('pendampingan')->nullable();
-            $table->boolean('evaluasi')->nullable();
+            $table->boolean('penyusunan_data')->nullable();
             $table->integer('target')->nullable();
             $table->foreignId('user_id');
             $table->foreignId('kantah_id')->nullable();

@@ -18,6 +18,7 @@ class CreateTahapanHistoriesTable extends Migration
             $table->foreignId('fieldstaff_id');
             $table->string('tahapan', 20);
             $table->integer('jumlah');
+            $table->string('evidence')->nullable();
             $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

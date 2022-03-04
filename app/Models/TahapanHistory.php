@@ -11,7 +11,7 @@ class TahapanHistory extends Model
     use SoftDeletes;
     use HasFactory;
     protected $fillable = [
-        'fieldstaff_id', 'tahapan', 'jumlah'
+        'fieldstaff_id', 'tahapan', 'jumlah', 'evidence'
     ];
 
     public function Fieldstaff()

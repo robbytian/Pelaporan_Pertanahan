@@ -64,11 +64,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Stages::create([
-            'pemetaan' => 0,
             'penyuluhan' => 0,
-            'penyusunan' => 0,
+            'pemetaan_sosial' => 0,
+            'penyusunan_model' => 0,
             'pendampingan' => 0,
-            'evaluasi' => 0,
+            'penyusunan_data' => 0,
             'fieldstaff_id' => 1,
         ]);
     }

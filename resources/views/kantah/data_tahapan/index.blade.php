@@ -12,6 +12,12 @@
             "autoWidth": false,
         });
     });
+
+    $(document).ready(function() {
+        $('#tableHistoriTahapan').dataTable({
+            "autoWidth": false,
+        });
+    });
 </script>
 
 @endsection

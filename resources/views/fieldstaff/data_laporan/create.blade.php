@@ -40,34 +40,81 @@
           <input type="date" name="tanggal_laporan" class="form-control" placeholder="Password" value="{{old('tanggal_laporan') != null ?old('tanggal_laporan') : date('Y-m-d')}}">
         </div>
         <br>
+        @if(auth()->user()->getUser()->kantah_id != null)
         <div class="form-group">
           <label>Kegiatan <span class="required">*</span></label>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatans[]" class="flat" checked value="koordinasi" @if(is_array(old('kegiatans')) && in_array("koordinasi", old('kegiatans'))) checked @endif> Koordinasi dengan kantah
+              <input type="checkbox" name="kegiatans[]" class="flat" checked value="Penyuluhan" @if(is_array(old('kegiatans')) && in_array("Penyuluhan", old('kegiatans'))) checked @endif> Melaksanakan Penyuluhan
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatans[]" class="flat" value="pendampingan" @if(is_array(old('kegiatans')) && in_array("pendampingan", old('kegiatans'))) checked @endif> Melakukan Pendampingan
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Pemetaan" @if(is_array(old('kegiatans')) && in_array("Pemetaan", old('kegiatans'))) checked @endif> Melaksanakan Pemetaan Sosial
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatans[]" class="flat" value="rapat" @if(is_array(old('kegiatans')) && in_array("rapat", old('kegiatans'))) checked @endif> Rapat/Meeting
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Penyusunan Model" @if(is_array(old('kegiatans')) && in_array("Penyusunan Model", old('kegiatans'))) checked @endif> Penyusunan Model
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatans[]" class="flat" value="kunjungan" @if(is_array(old('kegiatans')) && in_array("kunjungan", old('kegiatans'))) checked @endif> Melakukan Kunjungan
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Pendampingan" @if(is_array(old('kegiatans')) && in_array("Pendampingan", old('kegiatans'))) checked @endif> Melaksanakan Pendampingan
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="kegiatans[]" class="flat" value="lainnya" @if(is_array(old('kegiatans')) && in_array("lainnya", old('kegiatans'))) checked @endif> Lainnya
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Penyusunan Data" @if(is_array(old('kegiatans')) && in_array("Penyusunan Data", old('kegiatans'))) checked @endif> Penyusunan Data
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Koordinasi" @if(is_array(old('kegiatans')) && in_array("Koordinasi", old('kegiatans'))) checked @endif> Koordinasi dengan Instansi / tim penanganan
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Rapat" @if(is_array(old('kegiatans')) && in_array("Rapat", old('kegiatans'))) checked @endif> Rapat / Meeting
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Lainnya" @if(is_array(old('kegiatans')) && in_array("Lainnya", old('kegiatans'))) checked @endif> Lainnya
             </label>
           </div>
         </div>
+        @elseif(auth()->user()->getUser()->kanwil_id != null)
+        <div class="form-group">
+          <label>Kegiatan <span class="required">*</span></label>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" checked value="Pemetaan Tahun Sebelumnya" @if(is_array(old('kegiatans')) && in_array("Pemetaan Tahun Sebelumnya", old('kegiatans'))) checked @endif> Melaksanakan Pemetaan sosial tahun sebelumnya
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Pendampingan Tahun Sebelumnya" @if(is_array(old('kegiatans')) && in_array("Pendampingan Tahun Sebelumnya", old('kegiatans'))) checked @endif> Melaksanakan Pendampingan tahun sebelumnya
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Monitoring dan Evaluasi" @if(is_array(old('kegiatans')) && in_array("Monitoring dan Evaluasi", old('kegiatans'))) checked @endif> Monitoring dan Evaluasi pelaksanaan akses reforma
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Koordinasi" @if(is_array(old('kegiatans')) && in_array("Koordinasi", old('kegiatans'))) checked @endif> Koordinasi dengan instansi/ tim penanganan
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Rapat" @if(is_array(old('kegiatans')) && in_array("Rapat", old('kegiatans'))) checked @endif> Rapat / Meeting
+            </label>
+          </div>
+
+        </div>
+        @endif
         <br>
         <div class="form-group">
           <label for="message">Keterangan <span class="required">*</span></label>

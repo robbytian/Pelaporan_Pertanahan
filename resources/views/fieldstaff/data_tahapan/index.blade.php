@@ -13,33 +13,34 @@
       <div class="clearfix"></div>
     </div>
     <div class="x-content">
+      @if(!empty(auth()->user()->getUser()->kantah_id))
       <div class="col-md-12 col-xs-12">
         <br>
         <div class="col-md-12 col-xs-12">
           <div class="col-md-3 col-sm-5 col-xs-5">
-            <p for="">Pemetaan Sosial</p>
+            <p for="">Penyuluhan</p>
           </div>
           <div class="col-md-8 col-sm-6 col-xs-5">
             <div class="progress ">
-              <div class="progress-bar progress-bar-success" data-transitiongoal="{{$tahapan->pemetaan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+              <div class="progress-bar progress-bar-success" data-transitiongoal="{{$tahapan->penyuluhan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-2">
-            <p for="">{{$tahapan->pemetaan}}/{{$fieldstaff->target}}</p>
+            <p for="">{{$tahapan->penyuluhan}}/{{$fieldstaff->target}}</p>
           </div>
         </div>
         <hr>
         <div class=" col-md-12 col-xs-12">
           <div class="col-md-3 col-sm-5 col-xs-5">
-            <p for="">Penyuluhan</p>
+            <p for="">Pemetaan Sosial</p>
           </div>
           <div class="col-md-8 col-sm-6 col-xs-5">
             <div class="progress">
-              <div class="progress-bar progress-bar-danger" data-transitiongoal="{{$tahapan->penyuluhan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+              <div class="progress-bar progress-bar-danger" data-transitiongoal="{{$tahapan->pemetaan_sosial}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-2">
-            <p for="">{{$tahapan->penyuluhan}}/{{$fieldstaff->target}}</p>
+            <p for="">{{$tahapan->pemetaan_sosial}}/{{$fieldstaff->target}}</p>
           </div>
         </div>
         <hr>
@@ -49,11 +50,11 @@
           </div>
           <div class="col-md-8 col-sm-6 col-xs-5">
             <div class="progress ">
-              <div class="progress-bar progress-bar-primary" data-transitiongoal="{{$tahapan->penyusunan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+              <div class="progress-bar progress-bar-primary" data-transitiongoal="{{$tahapan->penyusunan_model}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-2">
-            <p for="">{{$tahapan->penyusunan}}/{{$fieldstaff->target}}</p>
+            <p for="">{{$tahapan->penyusunan_model}}/{{$fieldstaff->target}}</p>
           </div>
         </div>
         <hr>
@@ -73,18 +74,53 @@
         <hr>
         <div class="col-md-12 col-xs-12">
           <div class="col-md-3 col-sm-5 col-xs-5">
-            <p for="">Evaluasi dan Pelaporan</p>
+            <p for="">Penyusunan Data</p>
           </div>
           <div class="col-md-8 col-sm-6 col-xs-5">
             <div class="progress">
-              <div class="progress-bar progress-bar-gray" data-transitiongoal="{{$tahapan->evaluasi}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+              <div class="progress-bar progress-bar-gray" data-transitiongoal="{{$tahapan->penyusunan_data}}" aria-valuemax="{{$fieldstaff->target}}"></div>
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-2">
-            <p for="">{{$tahapan->evaluasi}}/{{$fieldstaff->target}}</p>
+            <p for="">{{$tahapan->penyusunan_data}}/{{$fieldstaff->target}}</p>
           </div>
         </div>
       </div>
+      @else
+      <div class="col-md-12 col-xs-12">
+        <br>
+        <div class=" col-md-12 col-xs-12">
+          <div class="col-md-3 col-sm-5 col-xs-5">
+            <p for="">Pemetaan Sosial</p>
+          </div>
+          <div class="col-md-8 col-sm-6 col-xs-5">
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" data-transitiongoal="{{$tahapan->pemetaan_sosial}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-sm-1 col-xs-2">
+            <p for="">{{$tahapan->pemetaan_sosial}}/{{$fieldstaff->target}}</p>
+          </div>
+        </div>
+        <hr>
+
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-3 col-sm-5 col-xs-5">
+            <p for="">Pendampingan</p>
+          </div>
+          <div class="col-md-8 col-sm-6 col-xs-5">
+            <div class="progress progress_wide">
+              <div class="progress-bar progress-bar-warning" data-transitiongoal="{{$tahapan->pendampingan}}" aria-valuemax="{{$fieldstaff->target}}"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-sm-1 col-xs-2">
+            <p for="">{{$tahapan->pendampingan}}/{{$fieldstaff->target}}</p>
+          </div>
+        </div>
+        <hr>
+
+      </div>
+      @endif
     </div>
   </div>
 
@@ -100,6 +136,7 @@
             <th width="30%">Tanggal Input</th>
             <th width="30%">Tahapan</th>
             <th width="20%">Jumlah</th>
+            <th width="20%">File Evidence</th>
             <th width="20%">Action</th>
           </tr>
         </thead>
@@ -109,6 +146,13 @@
             <td>{{date('d F Y ( H:i:s )',strtotime($histori->created_at))}}</td>
             <td>{{$histori->tahapan}}</td>
             <td>{{$histori->jumlah}}</td>
+            <td>
+              @if(!empty($histori->evidence))
+              <a href="{{asset('tahapan_evidence/'.$histori->evidence)}}"><i class="fa fa-file"></i> {{$histori->evidence}}</a>
+              @else
+              -
+              @endif
+            </td>
             <td><button data-id="{{$histori->id}}" class="btn btn-danger btn-sm btnHapus" type="button" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-trash"></i> Delete</button></td>
           </tr>
           @endforeach

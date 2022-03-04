@@ -54,48 +54,37 @@ class FieldstaffController extends Controller
     public function store(StoreFieldstaffRequest $request)
     {
         $validated = $request->validated();
-        if (Auth::User()->level == 2) {
-            if ($validated['target'] < 1) {
-                return back()->with('error', 'Jumlah target minimal 1');
-            }
+        if ($validated['target'] < 1) {
+            return back()->with('error', 'Jumlah target minimal 1');
         }
         $data['username'] = $validated['username'];
         $data['password'] = $validated['password'];
         $data['level'] = 3;
         $createUser = User::create($data);
         if ($createUser) {
+            $profile['name'] = $validated['name'];
+            $profile['date_born'] = $validated['date_born'];
+            $profile['alamat'] = $validated['alamat'];
+            $profile['phone_number'] = $validated['phone_number'];
+            $profile['target'] = $validated['target'];
+            $profile['user_id'] = $createUser->id;
             if (Auth::User()->level == 1) {
-                $profile['name'] = $validated['name'];
-                $profile['date_born'] = $validated['date_born'];
-                $profile['alamat'] = $validated['alamat'];
-                $profile['phone_number'] = $validated['phone_number'];
                 $profile['kanwil_id'] = User::getUser()->id;
-                $profile['user_id'] = $createUser->id;
-                $createProfile = Fieldstaff::create($profile);
-                if ($createProfile) {
-                    return redirect('/dataFieldstaff')->with('success', 'Akun Fieldstaff berhasil dibuat');
-                }
             } else if (Auth::User()->level == 2) {
-                $profile['name'] = $validated['name'];
-                $profile['date_born'] = $validated['date_born'];
-                $profile['alamat'] = $validated['alamat'];
-                $profile['phone_number'] = $validated['phone_number'];
-                $profile['target'] = $validated['target'];
                 $profile['kantah_id'] = Kantah::where('user_id', Auth::User()->id)->first()->id;
-                $profile['user_id'] = $createUser->id;
-                $createProfile = Fieldstaff::create($profile);
-                if ($createProfile) {
-                    $tahapan['pemetaan'] = 0;
-                    $tahapan['penyuluhan'] = 0;
-                    $tahapan['penyusunan'] = 0;
-                    $tahapan['pendampingan'] = 0;
-                    $tahapan['evaluasi'] = 0;
-                    $tahapan['fieldstaff_id'] = $createProfile->id;
-                    $createTahapan = Stages::create($tahapan);
-                    if ($createTahapan) {
-                        return redirect('/dataFieldstaff')->with('success', 'Akun Fieldstaff berhasil dibuat');
-                    }
-                }
+            }
+            $createProfile = Fieldstaff::create($profile);
+            if ($createProfile) {
+                $tahapan['penyuluhan'] = 0;
+                $tahapan['pemetaan_sosial'] = 0;
+                $tahapan['penyusunan_model'] = 0;
+                $tahapan['pendampingan'] = 0;
+                $tahapan['penyusunan_data'] = 0;
+                $tahapan['fieldstaff_id'] = $createProfile->id;
+                $createTahapan = Stages::create($tahapan);
+            }
+            if ($createProfile) {
+                return redirect('/dataFieldstaff')->with('success', 'Akun Fieldstaff berhasil dibuat');
             }
         }
     }

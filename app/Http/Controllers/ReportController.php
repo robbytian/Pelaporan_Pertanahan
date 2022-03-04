@@ -162,7 +162,7 @@ class ReportController extends Controller
     public function detLaporan(Report $id)
     {
 
-        $id = $id->load('Participant');
+        $id = $id->load('Participant', 'Fieldstaff');
         $nama = [];
         foreach ($id->Participant as $part) {
             $nama[] = $part->nama_peserta;
@@ -170,7 +170,7 @@ class ReportController extends Controller
         $peserta = implode(', ', $nama);
         $id->tanggal_laporan = date('d F Y', strtotime($id->tanggal_laporan));
         $id->tanggal_input = date('d F Y', strtotime($id->created_at));
-        return response()->json(['laporan' => $id, 'namaPeserta' => $peserta, 'listPeserta' => $nama]);
+        return response()->json(['laporan' => $id, 'fieldstaff' => $id->Fieldstaff->name, 'namaPeserta' => $peserta, 'listPeserta' => $nama]);
     }
 
     public function cekPeriode(Fieldstaff $id, Request $request)

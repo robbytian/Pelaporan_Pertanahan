@@ -28,6 +28,7 @@ class UpdateStagesRequest extends FormRequest
             'jumlahRealisasi' => 'required',
             'tahapan' => 'required',
             'targetFisik' => 'required',
+            'file_evidence' => "mimes:pdf,zip,rar"
         ];
     }
 
@@ -37,6 +38,7 @@ class UpdateStagesRequest extends FormRequest
             'jumlahRealisasi.required' => 'Field Realisasi Fisik Tidak Boleh Kosong',
             'tahapan.required' => 'Pilih Salah satu Tahapan!',
             'targetFisik.required' => 'Field NIP Tidak Boleh Kosong',
+            'file_evidence.mimes' => 'Hanya bisa memasukan file ZIP, RAR dan PDF'
         ];
     }
 }

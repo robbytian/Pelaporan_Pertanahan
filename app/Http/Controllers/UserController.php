@@ -29,17 +29,17 @@ class UserController extends Controller
                 $q->from('fieldstaffs')->select('id')->whereNotNull('kantah_id');
             })->get();
             if ($totalTarget > 0) {
-                $data['persenPemetaan'] = $tahapan->sum('pemetaan') / $totalTarget * 100;
                 $data['persenPenyuluhan'] = $tahapan->sum('penyuluhan') / $totalTarget * 100;
-                $data['persenPenyusunan'] = $tahapan->sum('penyusunan') / $totalTarget * 100;
+                $data['persenPemetaan'] = $tahapan->sum('pemetaan_sosial') / $totalTarget * 100;
+                $data['persenPenyusunanModel'] = $tahapan->sum('penyusunan_model') / $totalTarget * 100;
                 $data['persenPendampingan'] = $tahapan->sum('pendampingan') / $totalTarget * 100;
-                $data['persenEvaluasi'] = $tahapan->sum('evaluasi') / $totalTarget * 100;
+                $data['persenPenyusunanData'] = $tahapan->sum('penyusunan_data') / $totalTarget * 100;
             } else {
-                $data['persenPemetaan'] = 0;
                 $data['persenPenyuluhan'] = 0;
-                $data['persenPenyusunan'] = 0;
+                $data['persenPemetaan'] = 0;
+                $data['persenPenyusunanModel'] = 0;
                 $data['persenPendampingan'] = 0;
-                $data['persenEvaluasi'] = 0;
+                $data['persenPenyusunanData'] = 0;
             }
             $kantahs = Kantah::with('Fieldstaff', 'Fieldstaff.Tahapan')->has('Fieldstaff')->get();
             foreach ($kantahs as $kantah) {
@@ -48,7 +48,7 @@ class UserController extends Controller
                 $totalTarget = ($kantah->Fieldstaff->sum('target')) * 5;
 
                 foreach ($kantah->Fieldstaff as $field) {
-                    $totalRealisasi += ($field->Tahapan->pemetaan + $field->Tahapan->penyuluhan + $field->Tahapan->penyusunan + $field->Tahapan->pendampingan + $field->Tahapan->evaluasi);
+                    $totalRealisasi += ($field->Tahapan->penyuluhan + $field->Tahapan->pemetaan_sosial + $field->Tahapan->penyusunan_model + $field->Tahapan->pendampingan + $field->Tahapan->penyusunan_data);
                 }
 
                 $totalRealisasi = $totalRealisasi / $totalTarget * 100;
@@ -70,15 +70,15 @@ class UserController extends Controller
                 $q->from('fieldstaffs')->select('id')->where('kantah_id', User::getUser()->id);
             })->get();
             if ($totalTarget > 0) {
-                $data['persenPemetaan'] = $tahapan->sum('pemetaan') / $totalTarget * 100;
                 $data['persenPenyuluhan'] = $tahapan->sum('penyuluhan') / $totalTarget * 100;
-                $data['persenPenyusunan'] = $tahapan->sum('penyusunan') / $totalTarget * 100;
+                $data['persenPemetaan'] = $tahapan->sum('pemetaan_sosial') / $totalTarget * 100;
+                $data['persenPenyusunanModel'] = $tahapan->sum('penyusunan_model') / $totalTarget * 100;
                 $data['persenPendampingan'] = $tahapan->sum('pendampingan') / $totalTarget * 100;
-                $data['persenEvaluasi'] = $tahapan->sum('evaluasi') / $totalTarget * 100;
+                $data['persenPenyusunanData'] = $tahapan->sum('penyusunan_data') / $totalTarget * 100;
                 foreach ($data['fieldstaff'] as $field) {
                     $field->load('Tahapan');
                     $totalTarget = $field->target * 5;
-                    $totalKinerja = $field->Tahapan->pemetaan + $field->Tahapan->penyuluhan + $field->Tahapan->penyusunan + $field->Tahapan->pendampingan + $field->Tahapan->evaluasi;
+                    $totalKinerja = $field->Tahapan->penyuluhan + $field->Tahapan->pemetaan_sosial + $field->Tahapan->penyusunan_model + $field->Tahapan->pendampingan + $field->Tahapan->penyusunan_data;
                     $kinerja = $totalKinerja / $totalTarget * 100;
                     $ranking[] = [
                         'name' => $field->name, 'progress' => $kinerja
@@ -87,11 +87,11 @@ class UserController extends Controller
                 array_multisort(array_column($ranking, "progress"), SORT_DESC, $ranking);
                 $collectRanking = collect($ranking);
             } else {
-                $data['persenPemetaan'] = 0;
                 $data['persenPenyuluhan'] = 0;
-                $data['persenPenyusunan'] = 0;
+                $data['persenPemetaan'] = 0;
+                $data['persenPenyusunanModel'] = 0;
                 $data['persenPendampingan'] = 0;
-                $data['persenEvaluasi'] = 0;
+                $data['persenPenyusunanData'] = 0;
                 $collectRanking = collect($ranking);
             }
             return view('kantah.index', ['ranking' => $collectRanking])->with($data);
@@ -102,17 +102,17 @@ class UserController extends Controller
             $data['laporanSaran'] = Report::where('fieldstaff_id', $fieldstaff->id)->whereNotNull('saran')->where('saran', '!=', '')->get();
             $data['tanggal_akhir'] = Report::where('fieldstaff_id', $fieldstaff->id)->orderBy('created_at', 'desc')->first();
             if (!empty($fieldstaff->Tahapan)) {
-                $data['persenPemetaan'] = $fieldstaff->Tahapan->pemetaan / $fieldstaff->target * 100;
                 $data['persenPenyuluhan'] = $fieldstaff->Tahapan->penyuluhan / $fieldstaff->target * 100;
-                $data['persenPenyusunan'] = $fieldstaff->Tahapan->penyusunan / $fieldstaff->target * 100;
+                $data['persenPemetaan'] = $fieldstaff->Tahapan->pemetaan_sosial / $fieldstaff->target * 100;
+                $data['persenPenyusunanModel'] = $fieldstaff->Tahapan->penyusunan_model / $fieldstaff->target * 100;
                 $data['persenPendampingan'] = $fieldstaff->Tahapan->pendampingan / $fieldstaff->target * 100;
-                $data['persenEvaluasi']  = $fieldstaff->Tahapan->evaluasi / $fieldstaff->target * 100;
+                $data['persenPenyusunanData']  = $fieldstaff->Tahapan->penyusunan_data / $fieldstaff->target * 100;
             } else {
-                $data['persenPemetaan'] = 0;
                 $data['persenPenyuluhan'] = 0;
-                $data['persenPenyusunan'] = 0;
+                $data['persenPemetaan'] = 0;
+                $data['persenPenyusunanModel'] = 0;
                 $data['persenPendampingan'] = 0;
-                $data['persenEvaluasi']  = 0;
+                $data['persenPenyusunanData']  = 0;
             }
             return view('fieldstaff.index')->with($data);
         }

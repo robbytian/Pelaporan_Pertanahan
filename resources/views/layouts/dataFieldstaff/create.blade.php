@@ -35,13 +35,11 @@
                     <input type="number" name="phone_number" class="form-control" placeholder="No.Telepon" required>
                 </div>
                 <br>
-                @if(Auth::User()->level==2)
                 <div class="form-group">
                     <label>Target Fisik (KK)</label>
-                    <input type="number" name="target" class="form-control" placeholder="No.Telepon" min=1 required>
+                    <input type="number" name="target" class="form-control" placeholder="Target Fisik" min=1 required>
                 </div>
                 <br>
-                @endif
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="username" class="form-control" placeholder="Username" required>

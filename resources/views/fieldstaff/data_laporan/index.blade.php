@@ -86,34 +86,82 @@
               <input type="text" name="tanggal_input" id="tanggal_input" class="form-control" placeholder="tanggal input" readonly>
             </div>
             <br>
+            @if(auth()->user()->getUser()->kantah_id != null)
+            <input type="hidden" id="fs" value="kantah">
             <div class="form-group ">
               <label>Kegiatan </label>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="koordinasi" name="kegiatans[]" value="koordinasi"> Koordinasi dengan kantah
+                  <input type="checkbox" id="penyuluhan" name="kegiatans[]" value="Penyuluhan"> Melaksanakan Penyuluhan
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="pendampingan" name="kegiatans[]" value="pendampingan"> Melakukan Pendampingan
+                  <input type="checkbox" id="pemetaan" name="kegiatans[]" value="Pemetaan"> Melaksanakan Pemetaan Sosial
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="rapat" name="kegiatans[]" value="rapat"> Rapat/Meeting
+                  <input type="checkbox" id="penyusunan_model" name="kegiatans[]" value="Penyusunan Model"> Penyusunan Model
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="kunjungan" name="kegiatans[]" value="kunjungan"> Melakukan Kunjungan
+                  <input type="checkbox" id="pendampingan" name="kegiatans[]" value="Pendampingan"> Melaksanakan Pendampingan
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="lainnya" name="kegiatans[]" value="lainnya"> Lainnya
+                  <input type="checkbox" id="penyusunan_data" name="kegiatans[]" value="Penyusunan Data"> Penyusunan Data
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="koordinasi" name="kegiatans[]" value="Koordinasi"> Koordinasi dengan Instansi / tim penanganan
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="rapat" name="kegiatans[]" value="Rapat"> Rapat / Meeting
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="lainnya" name="kegiatans[]" value="Lainnya"> Lainnya
                 </label>
               </div>
             </div>
+            @elseif(auth()->user()->getUser()->kanwil_id != null)
+            <input type="hidden" id="fs" value="kanwil">
+            <div class="form-group ">
+              <label>Kegiatan </label>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="pemetaan_sebelumnya" name="kegiatans[]" value="Pemetaan Tahun Sebelumnya"> Melaksanakan Pemetaan sosial tahun sebelumnya
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="pendampingan_sebelumnya" name="kegiatans[]" value="Pendampingan Tahun Sebelumnya"> Melaksanakan Pendampingan tahun sebelumnya
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="monitoring" name="kegiatans[]" value="Monitoring dan Evaluasi"> Monitoring dan Evaluasi pelaksanaan akses reforma
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="koordinasi2" name="kegiatans[]" value="Koordinasi"> Koordinasi dengan instansi/ tim penanganan
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="rapat2" name="kegiatans[]" value="Rapat"> Rapat / Meeting
+                </label>
+              </div>
+            </div>
+            @endif
             <br>
             <div class="form-group">
               <label for="message">Keterangan </label>
@@ -193,7 +241,9 @@
   // console.log(base_url);
   var flagsUrl = "{{ URL::asset('/images/laporan/') }}";
   var inc = 0;
+
   $(document).ready(function() {
+    let fs = $('#fs').val();
 
     $('#tableLaporan').dataTable({
       "autoWidth": false,
@@ -239,20 +289,47 @@
           }
           inc++;
         });
-        if (kegiatan.indexOf("koordinasi") > -1 || kegiatan.indexOf(" koordinasi") > -1) {
-          $('#koordinasi').prop('checked', true);
-        }
-        if (kegiatan.indexOf("pendampingan") > -1 || kegiatan.indexOf(" pendampingan") > -1) {
-          $('#pendampingan').prop('checked', true);
-        }
-        if (kegiatan.indexOf("rapat") > -1 || kegiatan.indexOf(" rapat") > -1) {
-          $('#rapat').prop('checked', true)
-        }
-        if (kegiatan.indexOf("kunjungan") > -1 || kegiatan.indexOf(" kunjungan") > -1) {
-          $('#kunjungan').prop('checked', true)
-        }
-        if (kegiatan.indexOf("lainnya") > -1 || kegiatan.indexOf(" lainnya") > -1) {
-          $('#lainnya').prop('checked', true)
+        if (fs == 'kantah') {
+          if (kegiatan.indexOf("Penyuluhan") > -1 || kegiatan.indexOf(" Penyuluhan") > -1) {
+            $('#penyuluhan').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Pemetaan") > -1 || kegiatan.indexOf(" Pemetaan") > -1) {
+            $('#pemetaan').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Penyusunan Model") > -1 || kegiatan.indexOf(" Penyusunan Model") > -1) {
+            $('#penyusunan_model').prop('checked', true)
+          }
+          if (kegiatan.indexOf("Pendampingan") > -1 || kegiatan.indexOf(" Pendampingan") > -1) {
+            $('#pendampingan').prop('checked', true)
+          }
+          if (kegiatan.indexOf("Penyusunan Data") > -1 || kegiatan.indexOf(" Penyusunan Data") > -1) {
+            $('#penyusunan_data').prop('checked', true)
+          }
+          if (kegiatan.indexOf("Koordinasi") > -1 || kegiatan.indexOf(" Koordinasi") > -1) {
+            $('#koordinasi').prop('checked', true)
+          }
+          if (kegiatan.indexOf("Rapat") > -1 || kegiatan.indexOf(" Rapat") > -1) {
+            $('#rapat').prop('checked', true)
+          }
+          if (kegiatan.indexOf("Lainnya") > -1 || kegiatan.indexOf(" Lainnya") > -1) {
+            $('#lainnya').prop('checked', true)
+          }
+        } else if (fs == 'kanwil') {
+          if (kegiatan.indexOf("Pemetaan Tahun Sebelumnya") > -1 || kegiatan.indexOf(" Pemetaan Tahun Sebelumnya") > -1) {
+            $('#pemetaan_sebelumnya').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Pendampingan Tahun Sebelumnya") > -1 || kegiatan.indexOf(" Pendampingan Tahun Sebelumnya") > -1) {
+            $('#pendampingan_sebelumnya').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Monitoring dan Evaluasi") > -1 || kegiatan.indexOf(" Monitoring dan Evaluasi") > -1) {
+            $('#monitoring').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Koordinasi") > -1 || kegiatan.indexOf(" Koordinasi") > -1) {
+            $('#koordinasi2').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Rapat") > -1 || kegiatan.indexOf(" Rapat") > -1) {
+            $('#rapat2').prop('checked', true);
+          }
         }
         if (data.laporan.foto != null) {
           $('#foto').show();
@@ -267,11 +344,22 @@
     $('#modalUpdate').on('hidden.bs.modal', function() {
       $('#foto').hide();
       $('#noFoto').hide();
-      $('#koordinasi').prop('checked', false);
-      $('#pendampingan').prop('checked', false);
-      $('#rapat').prop('checked', false);
-      $('#kunjungan').prop('checked', false);
-      $('#lainnya').prop('checked', false);
+      if (fs == 'kantah') {
+        $('#penyuluhan').prop('checked', false);
+        $('#pemetaan').prop('checked', false);
+        $('#penyusunan_model').prop('checked', false);
+        $('#pendampingan').prop('checked', false);
+        $('#penyusunan_data').prop('checked', false);
+        $('#koordinasi').prop('checked', false);
+        $('#rapat').prop('checked', false);
+        $('#lainnya').prop('checked', false);
+      } else if (fs == 'kanwil') {
+        $('#pemetaan_sebelumnya').prop('checked', false);
+        $('#pendampingan_sebelumnya').prop('checked', false);
+        $('#monitoring').prop('checked', false);
+        $('#koordinasi2').prop('checked', false);
+        $('#rapat2').prop('checked', false);
+      }
       $('.inputPeserta').remove();
       inc = 0;
     })
