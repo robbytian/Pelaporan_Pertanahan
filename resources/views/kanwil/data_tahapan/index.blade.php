@@ -12,6 +12,10 @@
             "autoWidth": false,
         });
 
+        $('#tableHistoriTahapan').dataTable({
+            "autoWidth": false,
+        });
+
     });
 </script>
 
