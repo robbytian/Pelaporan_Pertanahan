@@ -29,7 +29,7 @@ class UpdateFieldstaffRequest extends FormRequest
             'date_born' => 'required',
             'alamat' => 'required',
             'phone_number' => 'required',
-            'target' => 'max:3',
+            'target' => 'required',
             'username' => 'required|unique:users,username,' . $this->dataFieldstaff->User->id,
             'password' => 'required'
         ];

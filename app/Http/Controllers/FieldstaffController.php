@@ -122,14 +122,9 @@ class FieldstaffController extends Controller
     {
         $validated = $request->validated();
         $dataFieldstaff->load('User');
-        if ($dataFieldstaff->kantah_id != null) {
-            if ($validated['target'] == null) {
-                return back()->with('error', 'Data Target tidak boleh kosong');
-            }
-            $profile['target'] = $validated['target'];
-        }
         $data['username'] = $validated['username'];
         $data['password'] = $validated['password'];
+        $profile['target'] = $validated['target'];
         $profile['name'] = $validated['name'];
         $profile['date_born'] = $validated['date_born'];
         $profile['alamat'] = $validated['alamat'];

@@ -85,7 +85,7 @@
                         <div class="form-group" id="formTarget" style="display:none">
                             <br>
                             <label>Target Fisik (KK)</label>
-                            <input type="number" name="target" id="target" class="form-control" placeholder="No.Telepon">
+                            <input type="number" name="target" id="target" class="form-control" placeholder="Target Fisik ">
                         </div>
                         <br>
                         <div class="form-group">

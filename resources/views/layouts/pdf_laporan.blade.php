@@ -28,7 +28,7 @@
             font-size: x-small;
         }
 
-        .tab tr:nth-child(even) {
+        .baris tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
@@ -80,7 +80,7 @@
                 <th width="20%">Foto</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="baris">
             @foreach($alldata->Report as $data)
             <tr class="isi">
                 <td style="vertical-align:middle">{{date('d F Y',strtotime($data->tanggal_laporan))}}</td>
@@ -111,8 +111,8 @@
             <td style="text-align:left;vertical-align:top">Diketahui Oleh,</td>
         </tr>
         <tr>
-            <td style="text-align:left;vertical-align:top">Tenaga Ahli Field Staff</td>
-            <td style="text-align:left;vertical-align:top">@if(!empty($alldata->Kantah)) Kasi Pemberdayaan Tanah Masyarakat @else Koordinator Pemberdayaan Tanah Masyarakat @endif </td>
+            <td style="text-align:left;vertical-align:top">Tenaga Pendukung Penanganan Akses Reforma</td>
+            <td style="text-align:left;vertical-align:top">@if(!empty($alldata->Kantah)) Kasi Penataan dan Pemberdayaan @else Koordinator Pemberdayaan Tanah Masyarakat @endif </td>
         </tr>
         <tr style="font-size:small">
             <td style="text-align:left;vertical-align:top;padding-top:80px"><b><u>{{$alldata->name}}</b></u></td>

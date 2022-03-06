@@ -1616,11 +1616,26 @@ ul.quick-list li i {
 .widget_summary .w_right span {
     font-size: 20px;
 }
+.w_15 {
+    width: 15%;
+}
 .w_20 {
     width: 20%;
 }
 .w_25 {
     width: 25%;
+}
+.w_35 {
+    width: 35%;
+}
+.w_40 {
+    width: 40%;
+}
+.w_45 {
+    width: 45%;
+}
+.w_50 {
+    width: 50%;
 }
 .w_55 {
     width: 55%;

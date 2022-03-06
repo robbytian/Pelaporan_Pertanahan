@@ -19,7 +19,9 @@ class UserController extends Controller
     public function dashboard()
     {
         $ranking = [];
+        $rankingFS = [];
         if (Auth::User()->level == 1) {
+            $data['fieldstaff'] = Fieldstaff::whereNotNull('kanwil_id')->where('kanwil_id', User::getUser()->id)->get();
             $data['totalKantah'] = Kantah::count();
             $data['totalFieldstaff'] = Fieldstaff::count();
             $data['totalLaporan'] = Report::count();
@@ -56,9 +58,21 @@ class UserController extends Controller
                     'name' => $kantah->name, 'progress' => $totalRealisasi
                 ];
             }
+
+            foreach ($data['fieldstaff'] as $field) {
+                $field->load('Tahapan');
+                $totalTarget = $field->target * 2;
+                $totalKinerja = $field->Tahapan->pemetaan_sosial  + $field->Tahapan->pendampingan;
+                $kinerja = $totalKinerja / $totalTarget * 100;
+                $rankingFS[] = [
+                    'name' => $field->name, 'progress' => $kinerja
+                ];
+            }
             array_multisort(array_column($ranking, "progress"), SORT_DESC, $ranking);
             $collectRanking = collect($ranking);
-            return view('kanwil.index', ['ranking' => $collectRanking])->with($data);
+            array_multisort(array_column($rankingFS, "progress"), SORT_DESC, $rankingFS);
+            $collectRankingFS = collect($rankingFS);
+            return view('kanwil.index', ['ranking' => $collectRanking, 'rankingFS' => $collectRankingFS])->with($data);
         } else if (Auth::User()->level == 2) {
             $ranking = [];
             $data['fieldstaff'] = Fieldstaff::where('kantah_id', Kantah::getUser()->id)->get();

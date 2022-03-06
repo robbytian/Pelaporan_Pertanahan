@@ -35,14 +35,10 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-
-
             <div class="col-md-5 col-sm-12 col-xs-12">
                 <div>
-
                     <div class="x_title">
                         <h2>Ranking Kinerja Fieldstaff</h2>
-
                         <div class="clearfix"></div>
                     </div>
                     <ul class="list-unstyled top_profiles scroll-view">
