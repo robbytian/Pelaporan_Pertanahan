@@ -193,6 +193,8 @@ class ReportController extends Controller
                 "tanggal_laporan" => date('d F Y', strtotime($data->tanggal_laporan)),
                 'kegiatan' => $data->kegiatan,
                 'keterangan' => $data->keterangan,
+                // 'keluhan' => $data->keluhan,
+                // 'saran' => $data->saran,
                 'peserta' => $peserta,
                 'foto' => $data->foto,
             ];

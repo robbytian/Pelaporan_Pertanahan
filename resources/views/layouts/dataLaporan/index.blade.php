@@ -216,6 +216,11 @@
                                     <input type="checkbox" class="rapat" id="rapat_kanwil" name="kegiatans[]" value="Rapat" disabled> Rapat / Meeting
                                 </label>
                             </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="lainnya" id="lainnya_kanwil" name="kegiatans[]" value="Lainnya" disabled> Lainnya
+                                </label>
+                            </div>
                         </div>
                         <br>
                         <div class="form-group">

@@ -46,6 +46,10 @@
         .foto {
             height: 130px;
         }
+
+        .page_break {
+            page-break-before: always;
+        }
     </style>
 
 </head>
@@ -91,6 +95,7 @@
                     <p>{{$loop->iteration}}. {{$peserta->nama_peserta}}</p>
                     @endforeach
                 </td>
+
                 @if(empty($data->foto))
                 <td style="vertical-align:middle" class="foto">Tidak ada Foto diupload</td>
                 @else
@@ -100,6 +105,28 @@
             </tr>
             @endforeach
 
+        </tbody>
+    </table>
+    <div class="page_break"></div>
+    <p style="font-size:small"><strong>Tantangan dan Permasalahan</strong></p>
+    <table width="100%" class="tab">
+        <thead class="blue">
+            <tr>
+                <th width="5%">No</th>
+                <th width="48%">Kendala</th>
+                <th width="47%">Solusi</th>
+            </tr>
+        </thead>
+        <tbody class="baris">
+            @foreach($alldata->Report as $data)
+            @if(!empty($data->keluhan))
+            <tr>
+                <td>{{$loop->iteration}}</td>
+                <td>{{$data->keluhan}}</td>
+                <td>{{empty($data->saran) ? '-' : $data->saran}}</td>
+            </tr>
+            @endif
+            @endforeach
         </tbody>
     </table>
     <br>

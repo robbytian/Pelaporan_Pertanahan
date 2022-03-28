@@ -112,7 +112,11 @@
               <input type="checkbox" name="kegiatans[]" class="flat" value="Rapat" @if(is_array(old('kegiatans')) && in_array("Rapat", old('kegiatans'))) checked @endif> Rapat / Meeting
             </label>
           </div>
-
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="kegiatans[]" class="flat" value="Lainnya" @if(is_array(old('kegiatans')) && in_array("Lainnya", old('kegiatans'))) checked @endif> Lainnya
+            </label>
+          </div>
         </div>
         @endif
         <br>

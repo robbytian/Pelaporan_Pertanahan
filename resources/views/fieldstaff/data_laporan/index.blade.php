@@ -160,6 +160,11 @@
                   <input type="checkbox" id="rapat2" name="kegiatans[]" value="Rapat"> Rapat / Meeting
                 </label>
               </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="lainnya2" name="kegiatans[]" value="Lainnya"> Lainnya
+                </label>
+              </div>
             </div>
             @endif
             <br>
@@ -329,6 +334,9 @@
           }
           if (kegiatan.indexOf("Rapat") > -1 || kegiatan.indexOf(" Rapat") > -1) {
             $('#rapat2').prop('checked', true);
+          }
+          if (kegiatan.indexOf("Lainnya") > -1 || kegiatan.indexOf(" Lainnya") > -1) {
+            $('#lainnya2').prop('checked', true);
           }
         }
         if (data.laporan.foto != null) {
