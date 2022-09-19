@@ -19,8 +19,8 @@ class CreateReportsTable extends Migration
             $table->string('kegiatan', 100);
             $table->text('keterangan');
             $table->string('foto')->nullable();
-            $table->string('keluhan')->nullable();
-            $table->string('saran')->nullable();
+            $table->text('keluhan')->nullable();
+            $table->text('saran')->nullable();
             $table->foreignId('fieldstaff_id')->nullable();
             $table->foreign('fieldstaff_id')->references('id')->on('fieldstaffs')->onDelete('set null');
             $table->timestamps();

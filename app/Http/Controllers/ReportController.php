@@ -181,7 +181,7 @@ class ReportController extends Controller
         $periodeAwal = $request->awal;
         $periodeAkhir = $request->akhir;
         $alldata = $id->load(['Report' => function ($query) use ($periodeAwal, $periodeAkhir) {
-            $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir);
+            $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir)->orderBy('tanggal_laporan');
         }], 'Report.Participant', 'Kantah');
         foreach ($alldata->Report as $data) {
             $nama = [];
@@ -208,7 +208,7 @@ class ReportController extends Controller
         $periodeAwal = $request->awal;
         $periodeAkhir = $request->akhir;
         $alldata = $id->load(['Report' => function ($query) use ($periodeAwal, $periodeAkhir) {
-            $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir);
+            $query->where('tanggal_laporan', '>=', $periodeAwal)->where('tanggal_laporan', '<=', $periodeAkhir)->orderBy('tanggal_laporan');
         }], 'Report.Participant', 'Kantah', 'Kanwil');
         $pdf = PDF::loadView('layouts.pdf_laporan', ['alldata' => $alldata, 'awal' => $periodeAwal, 'akhir' => $periodeAkhir]);
         $pdf->setPaper('A4', 'landscape');
